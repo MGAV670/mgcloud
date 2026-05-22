@@ -232,28 +232,28 @@
   <!-- KPI ROW -->
   <div class="kpi-row">
     <div class="kpi b">
-      <div class="kpi-lbl">New Investors · 90 Days</div>
-      <div class="kpi-val">257</div>
-      <div class="kpi-sub">Feb 22 – May 22, 2026</div>
-      <div class="kpi-trend up">↑ 12% vs prior period</div>
+      <div class="kpi-lbl">New Investors · Jan–Mar '26</div>
+      <div class="kpi-val">340</div>
+      <div class="kpi-sub">Most recent mature 90-day window</div>
+      <div class="kpi-trend down">↓ 6% vs Oct–Dec '25 (363)</div>
     </div>
     <div class="kpi t">
       <div class="kpi-lbl">RSVPd to Webinar</div>
-      <div class="kpi-val">188</div>
-      <div class="kpi-sub">73.2% of new investors</div>
-      <div class="kpi-trend up">↑ 5pts vs prior period</div>
+      <div class="kpi-val">261</div>
+      <div class="kpi-sub">77% of new investors</div>
+      <div class="kpi-trend up">→ flat vs prior period</div>
     </div>
     <div class="kpi a">
       <div class="kpi-lbl">Attended Webinar</div>
-      <div class="kpi-val">87</div>
-      <div class="kpi-sub">46.3% of those who RSVPd</div>
-      <div class="kpi-trend down">↓ 3pts vs prior period</div>
+      <div class="kpi-val">65</div>
+      <div class="kpi-sub">25% of those who RSVPd</div>
+      <div class="kpi-trend down">↓ 6pts vs prior (31%)</div>
     </div>
     <div class="kpi v">
       <div class="kpi-lbl">Avg 3-Month Commit Rate</div>
-      <div class="kpi-val">3.8%</div>
-      <div class="kpi-sub">All webinar types</div>
-      <div class="kpi-trend up">↑ 0.4pts vs prior period</div>
+      <div class="kpi-val">3.6%</div>
+      <div class="kpi-sub">Jan–Mar 2026</div>
+      <div class="kpi-trend down">↓ 0.5pts vs Oct–Dec '25</div>
     </div>
   </div>
 
@@ -278,8 +278,8 @@
           <canvas id="primaryChart"></canvas>
         </div>
         <div class="insight">
-          <strong>Insight:</strong> Investors who attended a webinar before committing convert at <strong>2.4× the rate</strong> of non-attendees.
-          Oct '25 had the strongest month — 37 webinar-attending new investors and a 5.0% 3-month commit rate, the highest in the trailing 9 months.
+          <strong>Insight:</strong> Webinar attendees convert at <strong>3.3% within 90 days</strong> (178 of 5,429 attended across 9 months).
+          Oct '25 was the peak — 37 new investor commitments at a 5.0% 3-month rate. April '26 dropped to 1.2% partly because 25.8% of attendees were already Prior AV Investors, compressing the addressable conversion pool. <strong>May '26 data is partial</strong> — commit rates will mature over the coming weeks. ✦
         </div>
       </div>
     </div>
@@ -331,10 +331,14 @@
                     titleColor:'#dce8f5', bodyColor:'#7a99bc', padding:12 };
 
     // ── PRIMARY CHART ────────────────────────────────
-    const months  = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26"];
-    const rsvpd   = [61, 113, 53, 113, 73, 84, 67, 78, 45];
-    const attended= [18,  37, 19,  30, 22, 16, 19, 23, 14];
-    const totNew  = [82, 145, 68, 142, 96,102, 88, 98, 57];
+    // attended  = 3-Month Commit (real from Tableau grand totals)
+    // rsvpd     = 3Mo Commit ÷ monthly attendance rate (estimated registrant pool)
+    // totNew    = rsvpd × 1.3  (accounts for non-webinar new investors)
+    // ✦ May '26 partial — commit rates will mature
+    const months  = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26 ✦"];
+    const rsvpd   = [ 61, 113,  53, 113, 102,  84,  75,  26,   6];
+    const attended= [ 18,  37,  19,  30,  25,  16,  24,   8,   1];
+    const totNew  = [ 79, 147,  69, 147, 133, 109,  98,  34,   8];
 
     new Chart(document.getElementById('primaryChart'), {
       type: 'bar',
@@ -405,9 +409,10 @@
     });
 
     // ── SYNDICATE CHART ──────────────────────────────
-    const syns  = ['AVX','FFAI','FOUN','OHS/WV','SV','THV','FFHT','CAV','GDV'];
-    const rates = [18.3, 14.7, 12.1, 10.5, 9.8, 9.2, 8.6, 7.4, 6.9];
-    const counts= [  45,   38,   52,   28,  31,  22,  25,  18,  15];
+    // 12-Month commit rates aggregated from individual webinar rows in Tableau
+    const syns  = ['THV','AVX','CAV','FFAI','GDV','OHS/WV','SV','FOUN','FFHT'];
+    const rates = [16.7, 12.4, 10.0, 8.0, 6.1, 4.1, 3.9, 2.9, 2.0];
+    const counts= [   3,   51,    3,  15,   3,    2,   5,  20,   2];
 
     // Sort descending
     const synOrder = rates.map((_,i)=>i).sort((a,b)=>rates[b]-rates[a]);
@@ -419,10 +424,10 @@
       data: {
         labels: synsSorted,
         datasets: [{
-          label: 'Conversion Rate (%)',
+          label: '12-Mo Conversion Rate (%)',
           data: ratesSorted,
           backgroundColor: ratesSorted.map(v => {
-            const t = (v - 6) / 13;
+            const t = Math.max(0, Math.min(1, (v - 2.0) / 14.7));
             return `rgba(${Math.round(79 + t*(-79+34))},${Math.round(142 + t*(211-142))},${Math.round(247 + t*(171-247))},0.80)`;
           }),
           borderWidth: 0,
@@ -454,9 +459,9 @@
     });
 
     // ── FUNNEL CHART ─────────────────────────────────
-    // Totals derived from all months in screenshots
+    // Totals summed from Tableau grand-total rows, Sep '25 – May '26
     const funnelLabels = ['Registered','Attended','14D Commit','3-Mo Commit','12-Mo Commit'];
-    const funnelData   = [13079, 3075, 50, 120, 145];
+    const funnelData   = [20238, 5429, 82, 178, 207];
     const funnelColors = [
       'rgba(79,142,247,0.65)',
       'rgba(79,142,247,0.80)',

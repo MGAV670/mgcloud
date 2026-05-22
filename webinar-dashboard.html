@@ -212,6 +212,95 @@
       margin-top: 8px;
     }
 
+    /* ── MONTH TABS ───────────────────────────────── */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4px;
+      scrollbar-width: none;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 11px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: var(--label); }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+    .table-scroll { overflow-x: auto; }
+    .webinar-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.73rem;
+    }
+    .webinar-table th {
+      text-align: left;
+      color: var(--label);
+      font-weight: 600;
+      font-size: 0.63rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+    }
+    .webinar-table th.num,
+    .webinar-table td.num { text-align: right; }
+    .webinar-table tbody tr:hover { background: var(--surface2); }
+    .webinar-table tbody tr:last-child td { border-bottom: none; }
+    .webinar-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(30,45,64,0.6);
+      color: var(--label);
+      vertical-align: middle;
+    }
+    .webinar-table td.subj {
+      color: var(--text);
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .webinar-table td.dt { color: var(--muted); white-space: nowrap; font-size:0.68rem; }
+    .webinar-table td.fund-tag {
+      font-size: 0.66rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .webinar-table tr.total-row td {
+      font-weight: 600;
+      color: var(--text);
+      border-top: 1px solid var(--border);
+      border-bottom: none;
+      background: var(--surface2);
+    }
+    .pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 600;
+      font-size: 0.67rem;
+    }
+    .pill-0  { color: var(--muted); }
+    .pill-lo { background: rgba(34,211,171,0.08); color: #22d3ab; }
+    .pill-md { background: rgba(34,211,171,0.18); color: #1af5ca; }
+    .pill-hi { background: rgba(245,158,11,0.18);  color: #f59e0b; }
+
     @media (max-width: 900px) {
       .kpi-row { grid-template-columns: repeat(2,1fr); }
       .two-col  { grid-template-columns: 1fr; }
@@ -314,6 +403,31 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- MONTHLY DETAIL TABS -->
+    <div>
+      <div class="section-lbl">Webinar Detail · By Month</div>
+      <div class="card" style="padding:0; overflow:hidden;">
+        <div class="tab-bar" id="tabBar"></div>
+        <div class="table-scroll" style="max-height:480px; overflow-y:auto;">
+          <table class="webinar-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Webinar</th>
+                <th>Fund</th>
+                <th class="num">RSVPs</th>
+                <th class="num">Attended</th>
+                <th class="num">Attend %</th>
+                <th class="num">3Mo Commits</th>
+                <th class="num">Conv Rate</th>
+              </tr>
+            </thead>
+            <tbody id="wbody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -548,6 +662,284 @@
         }
       }
     });
+  // ── MONTHLY DETAIL TABS ──────────────────────────
+  // r=rsvps, a=attended, c=3Mo commits, rt=3Mo rate%
+  const WD = {
+    "Sep '25": [
+      {dt:"9/23",s:"Everything to Know About the AV Syndicate",f:"AV Syndicate",r:251,a:78,c:5,rt:6.4},
+      {dt:"9/17",s:"5 Ways AI is Going to Change How You Invest",f:"Null",r:271,a:85,c:3,rt:3.5},
+      {dt:"9/9", s:"Foundation Fund Introduction",f:"FOUN",r:122,a:28,c:4,rt:14.3},
+      {dt:"9/18",s:"Inside America's Next Tech Boom",f:"FFUS",r:64,a:19,c:2,rt:10.5},
+      {dt:"9/10",s:"Investing in Tomorrow's Cybersecurity Leaders",f:"VSCY",r:105,a:19,c:1,rt:5.3},
+      {dt:"9/18",s:"VC Playbook: How Time Arbitrage Creates Alpha",f:"SV",r:32,a:10,c:1,rt:10.0},
+      {dt:"9/16",s:"SpaceTech Investing",f:"Null",r:23,a:11,c:1,rt:9.1},
+      {dt:"9/16",s:"Building the Future: How Our Strategy Works",f:"FFAF",r:67,a:20,c:1,rt:5.0},
+      {dt:"9/9", s:"Lakeshore Ventures Performance Update",f:"LKV",r:34,a:10,c:1,rt:10.0},
+      {dt:"9/30",s:"Nassau Street Ventures Investor Update",f:"NSV",r:31,a:21,c:0,rt:0},
+      {dt:"9/30",s:"Spike Ventures Investor Update",f:"SV",r:31,a:12,c:0,rt:0},
+      {dt:"9/29",s:"Castor Ventures Portfolio Update",f:"CV",r:100,a:32,c:0,rt:0},
+      {dt:"9/25",s:"6 Ways AI is Going to Change Your Financial Future",f:"Work Tech",r:81,a:24,c:0,rt:0},
+      {dt:"9/23",s:"Welcome to the AI & Robotics Fund",f:"FFAI",r:22,a:11,c:0,rt:0},
+      {dt:"9/23",s:"Westwood Ventures Performance Update",f:"WWV",r:40,a:7,c:0,rt:0},
+      {dt:"9/22",s:"Breaking into VC: How to Invest Like a Pro",f:"RGV",r:14,a:3,c:0,rt:0},
+      {dt:"9/18",s:"Strawberry Creek Ventures Syndicate Update",f:"SCV",r:42,a:8,c:0,rt:0},
+      {dt:"9/17",s:"Congress Avenue Ventures Fund Update",f:"CAV",r:37,a:6,c:0,rt:0},
+      {dt:"9/16",s:"CIO Select Last Call",f:"FFCI",r:27,a:10,c:0,rt:0},
+      {dt:"9/16",s:"Triphammer Presents: Venture Capital",f:"THV",r:32,a:11,c:0,rt:0},
+      {dt:"9/16",s:"Masterclass Live! How We Evaluate Deals",f:"OHS/WV",r:76,a:24,c:0,rt:0},
+      {dt:"9/16",s:"Deep Tech Fund Launch",f:"FFDT",r:79,a:17,c:0,rt:0},
+      {dt:"9/11",s:"Chestnut Street Presents: Venture Capital",f:"CSV",r:47,a:15,c:0,rt:0},
+      {dt:"9/2", s:"Purple Arch Ventures Performance Update",f:"PAV",r:61,a:14,c:0,rt:0},
+    ],
+    "Oct '25": [
+      {dt:"10/23",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:676,a:257,c:4,rt:1.6},
+      {dt:"10/7", s:"Portfolio Preview: Last Call Webinar",f:"PAV,LKV",r:197,a:59,c:9,rt:15.3},
+      {dt:"10/22",s:"AV Welcome Webinar",f:"AVX",r:118,a:45,c:4,rt:8.9},
+      {dt:"10/21",s:"Five Ways AI is Going to Change Your Wealth",f:"FFHT",r:136,a:50,c:1,rt:2.0},
+      {dt:"10/16",s:"The Quantum Frontier: A Look Into Tomorrow",f:"Quantum S.",r:175,a:47,c:2,rt:4.3},
+      {dt:"10/9", s:"AI First Fund Last Call",f:"FFAF",r:89,a:21,c:3,rt:14.3},
+      {dt:"10/15",s:"Seed Fund Launch",f:"FFSE",r:88,a:17,c:2,rt:11.8},
+      {dt:"10/23",s:"Introduction to Blue Ivy Ventures",f:"BIV",r:38,a:12,c:2,rt:16.7},
+      {dt:"10/16",s:"Introduction to Spike Ventures",f:"SV",r:49,a:16,c:2,rt:12.5},
+      {dt:"10/20",s:"US Strategic Tech Last Call",f:"FFUS",r:30,a:8,c:1,rt:12.5},
+      {dt:"10/15",s:"How to Invest in Triphammer Ventures",f:"THV",r:19,a:7,c:1,rt:14.3},
+      {dt:"10/14",s:"Strawberry Creek Ventures Portfolio Update",f:"SCV",r:52,a:13,c:1,rt:7.7},
+      {dt:"10/9", s:"Green D Ventures Portfolio Update",f:"GDV",r:34,a:17,c:1,rt:5.9},
+      {dt:"10/2", s:"How to Invest in Chestnut Street Ventures",f:"CSV",r:20,a:6,c:1,rt:16.7},
+      {dt:"10/28",s:"Introduction to Two Lakes Ventures",f:"TWO",r:8,a:7,c:1,rt:14.3},
+      {dt:"10/29",s:"5 Reasons We Are Investing in Israel",f:"Israel Synd.",r:81,a:29,c:0,rt:0},
+      {dt:"10/30",s:"Healthtech Fund Investor Update",f:"FFHT",r:16,a:8,c:0,rt:0},
+      {dt:"10/22",s:"Inside America's Next Tech Boom",f:"FFUS",r:31,a:8,c:0,rt:0},
+      {dt:"10/21",s:"Introduction to Nassau Street Ventures",f:"NSV",r:23,a:7,c:0,rt:0},
+      {dt:"10/21",s:"How to Invest in 116 Street and Waterman",f:"OHS/WV",r:25,a:5,c:0,rt:0},
+      {dt:"10/16",s:"Deep Tech Syndicate",f:"FFDT",r:60,a:11,c:0,rt:0},
+      {dt:"10/14",s:"Energy & Strategic Minerals: The Opportunity",f:"Energy & S.",r:87,a:33,c:0,rt:0},
+      {dt:"10/9", s:"Two Lakes Ventures Investor Update",f:"TWO",r:6,a:4,c:0,rt:0},
+      {dt:"10/9", s:"Investing in Tomorrow's Cyber Leaders",f:"FFDT(Cyber)",r:59,a:12,c:0,rt:0},
+      {dt:"10/8", s:"Masterclass: The Explosive AI Chip Race",f:"FFDT",r:35,a:9,c:0,rt:0},
+      {dt:"10/8", s:"An Introduction to PrePublic Equity",f:"PEP",r:22,a:9,c:0,rt:0},
+      {dt:"10/7", s:"How to Invest in Congress Avenue Ventures",f:"CAV",r:18,a:5,c:0,rt:0},
+      {dt:"10/6", s:"Emmet Street and Fowler Street Update",f:"EMV/FST",r:15,a:1,c:0,rt:0},
+      {dt:"10/21",s:"Final Call: How to Invest in Ring Ventures",f:"RGV",r:6,a:1,c:0,rt:0},
+      {dt:"10/30",s:"The Fence Ventures Onboarding",f:"FNC",r:2,a:0,c:0,rt:0},
+    ],
+    "Nov '25": [
+      {dt:"11/19",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:549,a:229,c:3,rt:1.3},
+      {dt:"11/20",s:"AV Welcome Webinar",f:"AVX",r:105,a:41,c:8,rt:19.5},
+      {dt:"11/20",s:"VC University - Building a Smart Portfolio",f:"Null",r:154,a:43,c:1,rt:2.3},
+      {dt:"11/11",s:"How the AI & Robotics Fund Evaluates Companies",f:"FFAI",r:144,a:56,c:4,rt:7.1},
+      {dt:"11/6", s:"Alumni Ventures Space Syndicate Investing",f:"FFUS",r:53,a:18,c:1,rt:5.6},
+      {dt:"11/11",s:"Strawberry Creek Ventures Masterclass",f:"SCV",r:62,a:21,c:1,rt:4.8},
+      {dt:"11/18",s:"Congress Avenue Ventures 101: How To Invest",f:"CAV",r:22,a:5,c:1,rt:20.0},
+      {dt:"11/4", s:"Green D Ventures Masterclass Launch",f:"GDV",r:37,a:17,c:0,rt:0},
+      {dt:"11/4", s:"Energy & Strategic Minerals: The Future",f:"Energy & S.",r:41,a:20,c:0,rt:0},
+      {dt:"11/20",s:"Masterclass Live! How Triphammer Evaluates Deals",f:"THV",r:19,a:5,c:0,rt:0},
+      {dt:"11/18",s:"Inside 116 Street & Waterman Ventures",f:"OHS/WV",r:21,a:6,c:0,rt:0},
+      {dt:"11/13",s:"Masterclass Live! How Chestnut Street Evaluates",f:"Null",r:24,a:7,c:0,rt:0},
+      {dt:"11/13",s:"5 Reasons We Are Investing in Israel",f:"Israel Synd.",r:48,a:7,c:0,rt:0},
+      {dt:"11/13",s:"Spike Ventures: How We Evaluate Deals",f:"SV",r:44,a:11,c:0,rt:0},
+      {dt:"11/13",s:"Blockchain & Fintech Investor Overview",f:"FFBL",r:6,a:2,c:0,rt:0},
+      {dt:"11/12",s:"Owning the Arteries of Commerce: Logistics",f:"Logistics S.",r:29,a:11,c:0,rt:0},
+      {dt:"11/12",s:"Castor Ventures News from the Portfolio",f:"CV",r:28,a:10,c:0,rt:0},
+      {dt:"11/6", s:"Deep Tech Fund Final Call",f:"FFDT",r:34,a:5,c:0,rt:0},
+      {dt:"11/5", s:"The Quantum Frontier: A Look Into Tomorrow",f:"Quantum S.",r:27,a:8,c:0,rt:0},
+    ],
+    "Dec '25": [
+      {dt:"12/11",s:"Inside Stanford's Elite Venture Ecosystem",f:"SV",r:1624,a:386,c:6,rt:1.6},
+      {dt:"12/18",s:"AV Welcome Webinar",f:"AVX",r:93,a:33,c:7,rt:21.2},
+      {dt:"12/18",s:"The Quantum Decade Begins: How to Invest",f:"FFDT",r:184,a:56,c:0,rt:0},
+      {dt:"12/16",s:"Ten Venture Red Flags That Mean Disaster",f:"FOUN",r:102,a:36,c:2,rt:5.6},
+      {dt:"12/16",s:"AI & Robotics Fund: Portfolio Update",f:"FFAI",r:81,a:31,c:2,rt:6.5},
+      {dt:"12/30",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:137,a:25,c:0,rt:0},
+      {dt:"12/4", s:"VC University - Building a Smart Portfolio",f:"FOUN",r:75,a:34,c:1,rt:2.9},
+      {dt:"12/9", s:"116 Street and Waterman Ventures Last Call",f:"OHS/WV",r:64,a:19,c:2,rt:10.5},
+      {dt:"12/18",s:"Masterclass: Evaluating VC Deals",f:"BIV,NSV,THV",r:88,a:33,c:2,rt:6.1},
+      {dt:"12/4", s:"Green D Ventures Final Call",f:"GDV",r:35,a:15,c:2,rt:13.3},
+      {dt:"12/17",s:"Owning the Arteries of Commerce",f:"Transportation",r:74,a:21,c:0,rt:0},
+      {dt:"12/17",s:"Congress Avenue Ventures Syndicate",f:"CAV",r:16,a:3,c:1,rt:33.3},
+      {dt:"12/16",s:"Introduction to the Healthtech Fund",f:"FFHT",r:34,a:15,c:1,rt:6.7},
+      {dt:"12/9", s:"Emmet Street and Fowler Street Last Call",f:"EMV/FST",r:18,a:7,c:1,rt:14.3},
+      {dt:"12/9", s:"The Future Software Stack: From AI to Edge",f:"AI Infrastr.",r:79,a:15,c:0,rt:0},
+      {dt:"12/4", s:"Strawberry Creek Ventures Final Call",f:"SCV",r:55,a:12,c:1,rt:8.3},
+      {dt:"12/2", s:"Foundation Fund Last Call",f:"FOUN",r:39,a:9,c:1,rt:11.1},
+      {dt:"12/2", s:"Triphammer Ventures Last Call",f:"THV",r:17,a:4,c:1,rt:25.0},
+      {dt:"12/4", s:"Alumni Ventures Space Syndicate Investing",f:"Space Synd.",r:28,a:10,c:0,rt:0},
+      {dt:"12/2", s:"Seed Fund Last Call",f:"FFSE",r:33,a:4,c:0,rt:0},
+      {dt:"12/2", s:"Castor Ventures Last Call",f:"CV",r:33,a:7,c:0,rt:0},
+      {dt:"12/10",s:"The Disappearing Analyst: How AI Changes Research",f:"Cybersecur.",r:45,a:11,c:0,rt:0},
+      {dt:"12/9", s:"Breaking into VC: How to Invest in CAV",f:"CAV",r:13,a:3,c:0,rt:0},
+      {dt:"12/4", s:"Introducing the Chestnut Street Syndicate",f:"CSV",r:19,a:2,c:0,rt:0},
+      {dt:"12/23",s:"5 Ways AI is Going to Change How You Invest",f:"FFHT",r:21,a:6,c:0,rt:0},
+      {dt:"12/19",s:"Diamond Club Year-End Update",f:"Diamond C.",r:11,a:7,c:0,rt:0},
+      {dt:"12/18",s:"Introducing the Fence Syndicate",f:"FNC",r:5,a:2,c:0,rt:0},
+      {dt:"12/18",s:"Triphammer Ventures Last Call (12/18)",f:"THV",r:14,a:2,c:0,rt:0},
+    ],
+    "Jan '26": [
+      {dt:"1/22",s:"AV Welcome Webinar",f:"AVX",r:103,a:46,c:6,rt:13.0},
+      {dt:"1/22",s:"Alumni Ventures Equity Fundraiser",f:"AVX",r:255,a:88,c:4,rt:4.5},
+      {dt:"1/21",s:"The AV Venture 100: The Big Reveal",f:"FOUN",r:508,a:101,c:3,rt:3.0},
+      {dt:"1/7", s:"An Introduction to the AI & Robotics Fund",f:"FFAI",r:122,a:35,c:3,rt:8.6},
+      {dt:"1/29",s:"Blockchain, Digital Assets & Markets",f:"FFBL",r:52,a:18,c:2,rt:11.1},
+      {dt:"1/22",s:"The New Arsenal: How Venture Capital Wins",f:"FFUS",r:99,a:19,c:1,rt:5.3},
+      {dt:"1/29",s:"Why Daily Life is the Next Trillion Dollar Opportunity",f:"GenZ & AI",r:157,a:37,c:1,rt:2.7},
+      {dt:"1/27",s:"The Quantum Decade Begins: How Alums Win",f:"FFDT",r:91,a:30,c:1,rt:3.3},
+      {dt:"1/13",s:"The Future Software Stack: From AI to Edge",f:"AI Infrastr.",r:117,a:23,c:1,rt:4.3},
+      {dt:"1/13",s:"Your Guide to Investing in Congress Avenue Ventures",f:"CAV",r:15,a:3,c:1,rt:33.3},
+      {dt:"1/6", s:"Ten Venture Red Flags That Mean Disaster",f:"FOUN",r:88,a:34,c:1,rt:2.9},
+      {dt:"1/15",s:"Spike Ventures: How We Evaluate Deals",f:"SV",r:175,a:31,c:1,rt:3.2},
+      {dt:"1/8", s:"Inside Stanford's Elite Venture Ecosystem",f:"SV",r:335,a:45,c:0,rt:0},
+      {dt:"1/8", s:"Chestnut Street Ventures Masterclass",f:"CSV",r:67,a:33,c:0,rt:0},
+      {dt:"1/7", s:"The Disappearing Analyst: How AI is Changing",f:"Cyber Synd.",r:54,a:11,c:0,rt:0},
+      {dt:"1/21",s:"Why We Invested in Function Health",f:"FFHT",r:71,a:8,c:0,rt:0},
+      {dt:"1/20",s:"The Humans First Venture Framework",f:"Humans Fi.",r:54,a:21,c:0,rt:0},
+      {dt:"1/15",s:"Introduction to The Fence Ventures",f:"FNC",r:20,a:1,c:0,rt:0},
+    ],
+    "Feb '26": [
+      {dt:"2/12",s:"The Crimson Circle: Why Invest in Yard Ventures",f:"YV",r:1127,a:123,c:4,rt:3.3},
+      {dt:"2/19",s:"AV Welcome Webinar",f:"AVX",r:128,a:37,c:6,rt:16.2},
+      {dt:"2/26",s:"AV Venture 100 Spotlight: AI Breakthroughs",f:"FFAI",r:217,a:50,c:3,rt:6.0},
+      {dt:"2/24",s:"Groq's BIG $20B NVIDIA Deal",f:"FOUN",r:285,a:61,c:2,rt:3.3},
+      {dt:"2/18",s:"Beyond the Hype Cycle: Why th...",f:"FFAI",r:118,a:47,c:1,rt:2.1},
+      {dt:"2/18",s:"The 60/40 Portfolio Is BS: What Really Works",f:"BIV",r:171,a:49,c:0,rt:0},
+      {dt:"2/24",s:"Why We Invested in Lila Sciences",f:"FFHT",r:32,a:7,c:0,rt:0},
+      {dt:"2/24",s:"An Introduction to AV's Foundation Fund",f:"FOUN",r:74,a:13,c:0,rt:0},
+      {dt:"2/19",s:"Quantum Trends 2026: How Alumni Win",f:"Quantum S.",r:85,a:17,c:0,rt:0},
+      {dt:"2/19",s:"Masterclass - The Art of Building Wealth",f:"FNC",r:15,a:3,c:0,rt:0},
+      {dt:"2/12",s:"Bascom Ventures Investor Update",f:"BV",r:57,a:25,c:0,rt:0},
+      {dt:"2/12",s:"Chestnut Street Ventures Last Call",f:"CSV",r:24,a:5,c:0,rt:0},
+      {dt:"2/12",s:"Opportunity Knocks: Final Call to Spike Ventures",f:"SV",r:40,a:3,c:0,rt:0},
+      {dt:"2/11",s:"Investing in Israel: The Silicon Valley of the Middle East",f:"Israel Synd.",r:23,a:9,c:0,rt:0},
+      {dt:"2/10",s:"Congress Avenue Ventures Final Call",f:"CAV",r:26,a:5,c:0,rt:0},
+      {dt:"2/10",s:"Why Daily Life is the Next Trillion Dollar Opportunity",f:"GenZ & AI",r:57,a:15,c:0,rt:0},
+      {dt:"2/5", s:"The New Arsenal: How Venture Capital Wins",f:"FFUS",r:58,a:12,c:0,rt:0},
+      {dt:"2/3", s:"The Humans First Venture Framework",f:"Humans Fi.",r:82,a:19,c:0,rt:0},
+    ],
+    "Mar '26": [
+      {dt:"3/31",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:468,a:175,c:3,rt:1.7},
+      {dt:"3/19",s:"The Engineer's Edge: Why Invest in CV",f:"CV",r:671,a:196,c:4,rt:2.0},
+      {dt:"3/24",s:"The AV 100 Series: 12 Startups Redefining Tech",f:"FFHT",r:294,a:112,c:1,rt:0.9},
+      {dt:"3/11",s:"AI & Robotics Fund Last Call",f:"FFAI",r:86,a:18,c:4,rt:22.2},
+      {dt:"3/10",s:"Why Smart Money is Backing Female Founders",f:"FFWF",r:122,a:40,c:1,rt:2.5},
+      {dt:"3/19",s:"AV Welcome Webinar",f:"AVX",r:133,a:42,c:3,rt:7.1},
+      {dt:"3/31",s:"Yard Ventures Fund Introduction",f:"YV",r:105,a:25,c:2,rt:8.0},
+      {dt:"3/26",s:"Powering the Final Frontier: Future of Space",f:"Null",r:117,a:35,c:1,rt:2.9},
+      {dt:"3/24",s:"The Race to Criticality",f:"FFUS",r:34,a:12,c:1,rt:8.3},
+      {dt:"3/18",s:"NVIDIA Strikes Again: Behind the Numbers",f:"FOUN",r:35,a:10,c:1,rt:10.0},
+      {dt:"3/12",s:"The 60/40 Portfolio Is BS: What Really Works",f:"BIV",r:24,a:7,c:1,rt:14.3},
+      {dt:"3/10",s:"Blockchain, Digital Assets & Markets",f:"FFBL",r:51,a:19,c:1,rt:5.3},
+      {dt:"3/5", s:"The Crimson Circle: Why Invest in Yard Ventures",f:"YV",r:71,a:13,c:1,rt:7.7},
+      {dt:"3/3", s:"Yard Ventures Investor Update",f:"YV",r:79,a:38,c:0,rt:0},
+      {dt:"3/19",s:"Bascom Ventures Fund Introduction",f:"BV",r:30,a:5,c:0,rt:0},
+      {dt:"3/19",s:"The Fence Ventures Last Call",f:"FNC",r:9,a:0,c:0,rt:0},
+    ],
+    "Apr '26": [
+      {dt:"4/23",s:"The Cal Effect: Why Investors Stick with SCV",f:"SCV",r:417,a:104,c:0,rt:0},
+      {dt:"4/30",s:"Founder Roundtable - The Rise of AI Founders",f:"FFSE",r:273,a:84,c:0,rt:0},
+      {dt:"4/23",s:"AV Welcome Webinar",f:"AVX",r:285,a:77,c:4,rt:5.2},
+      {dt:"4/16",s:"What a SpaceX IPO Means for Portfolio Returns",f:"FFUS",r:217,a:75,c:0,rt:0},
+      {dt:"4/9", s:"Purple Arch Ventures Investor Update",f:"PAV",r:169,a:76,c:0,rt:0},
+      {dt:"4/28",s:"Inside a Modern Venture Portfolio",f:"FOUN",r:56,a:17,c:2,rt:11.8},
+      {dt:"4/28",s:"Masterclass Live! How We Evaluate Companies",f:"FFWF",r:56,a:12,c:1,rt:8.3},
+      {dt:"4/9", s:"Blue Ivy Ventures Final Call",f:"BIV",r:60,a:14,c:1,rt:7.1},
+      {dt:"4/29",s:"VC 101: Venture Capital Fundamentals",f:"AVX",r:60,a:24,c:0,rt:0},
+      {dt:"4/21",s:"Inside the AV 100: 10 Breakout Startups",f:"FFSE",r:79,a:27,c:0,rt:0},
+      {dt:"4/16",s:"HealthTech Fund 5 Is Closing",f:"FFHT",r:41,a:10,c:0,rt:0},
+      {dt:"4/15",s:"Bascom Ventures Masterclass",f:"Bascom",r:23,a:5,c:0,rt:0},
+      {dt:"4/14",s:"Foundation Fund Portfolio Spotlight",f:"FOUN",r:84,a:18,c:0,rt:0},
+      {dt:"4/14",s:"Rewiring the Battlefield: AI and National Security",f:"FFUS",r:70,a:26,c:0,rt:0},
+      {dt:"4/9", s:"The Engineer's Edge: Why Invest in CV",f:"CV",r:48,a:17,c:0,rt:0},
+      {dt:"4/22",s:"Ring Ventures Investor Update",f:"RGV",r:37,a:20,c:0,rt:0},
+      {dt:"4/8", s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:71,a:31,c:0,rt:0},
+      {dt:"4/8", s:"Arbor Street Ventures Investor Update",f:"ARV",r:17,a:10,c:0,rt:0},
+      {dt:"4/8", s:"Two Lakes Ventures Final Call",f:"TWO",r:16,a:5,c:0,rt:0},
+      {dt:"4/7", s:"Nassau Street 8 Final Call",f:"NSV",r:21,a:3,c:0,rt:0},
+      {dt:"4/7", s:"Why Smart Money is Backing Female Founders",f:"FFWF",r:21,a:7,c:0,rt:0},
+      {dt:"4/7", s:"Lakeshore Ventures Investor Update",f:"LKV",r:25,a:13,c:0,rt:0},
+      {dt:"4/2", s:"Women's Fund Introduction",f:"FFWF",r:84,a:4,c:0,rt:0},
+    ],
+    "May '26 ✦": [
+      {dt:"5/21",s:"Startups, Capital, and the Future of Work",f:"FOUN",r:639,a:0,c:0,rt:0},
+      {dt:"5/21",s:"AV Welcome Webinar",f:"AVX",r:275,a:0,c:0,rt:0},
+      {dt:"5/14",s:"AI at Work Without You: The Race to Automate",f:"FFAF",r:318,a:99,c:0,rt:0},
+      {dt:"5/11",s:"Startups, Capital, and the Future of Work (AVX)",f:"AVX",r:177,a:48,c:0,rt:0},
+      {dt:"5/12",s:"Investing in What's Next: The Insider's Playbook",f:"VSSC",r:200,a:48,c:0,rt:0},
+      {dt:"5/6", s:"Founder Roundtable - The Rise of AI Founders",f:"FFSE",r:122,a:47,c:0,rt:0},
+      {dt:"5/5", s:"The Next Financial System Is Being Built Now",f:"FFBL",r:98,a:35,c:0,rt:0},
+      {dt:"5/7", s:"Purple Arch Ventures Introduction",f:"PAV",r:30,a:9,c:1,rt:11.1},
+      {dt:"5/5", s:"Ask Me Anything: AV, AI Disruption & More",f:"AVX",r:36,a:20,c:0,rt:0},
+      {dt:"5/13",s:"The Cal Effect: Why Investors Stick with SCV",f:"SCV",r:44,a:11,c:0,rt:0},
+      {dt:"5/26",s:"Yard Ventures Masterclass Live",f:"YV",r:96,a:0,c:0,rt:0},
+      {dt:"5/28",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:28,a:0,c:0,rt:0},
+      {dt:"5/27",s:"VC 201: Venture Capital Insights",f:"FOUN",r:27,a:0,c:0,rt:0},
+      {dt:"5/26",s:"Ventures To Know: Energy & Mining",f:"VSMM",r:19,a:0,c:0,rt:0},
+      {dt:"5/18",s:"Blockchain Digital Assets & Markets Last Call",f:"FFBL",r:23,a:5,c:0,rt:0},
+      {dt:"5/7", s:"VC Playbook: How Time Arbitrage Creates Alpha",f:"SV",r:6,a:2,c:0,rt:0},
+      {dt:"5/7", s:"Inside a Modern Venture Portfolio",f:"BIV",r:16,a:5,c:0,rt:0},
+      {dt:"5/6", s:"VC 101: Venture Capital Fundamentals",f:"FOUN",r:13,a:4,c:0,rt:0},
+      {dt:"5/6", s:"Lakeshore Ventures Introduction",f:"LKV",r:24,a:6,c:0,rt:0},
+      {dt:"5/5", s:"Arbor Street Ventures Introduction",f:"ARV",r:6,a:1,c:0,rt:0},
+      {dt:"5/28",s:"Women's Fund Company Update",f:"FFWF",r:16,a:0,c:0,rt:0},
+    ],
+  };
+
+  const TAB_KEYS = Object.keys(WD);
+  let activeTab = TAB_KEYS[0];
+
+  function ratePill(rt) {
+    if (!rt) return `<span class="pill pill-0">—</span>`;
+    const cls = rt >= 15 ? 'pill-hi' : rt >= 5 ? 'pill-md' : 'pill-lo';
+    return `<span class="pill ${cls}">${rt.toFixed(1)}%</span>`;
+  }
+
+  function renderTable(key) {
+    const rows = WD[key];
+    const body = document.getElementById('wbody');
+    // Sort: commits desc, then rsvps desc
+    const sorted = [...rows].sort((a,b) => (b.c - a.c) || (b.r - a.r));
+    // totals
+    const totR = rows.reduce((s,x)=>s+x.r,0);
+    const totA = rows.reduce((s,x)=>s+x.a,0);
+    const totC = rows.reduce((s,x)=>s+x.c,0);
+    const totRt = totA ? +((totC/totA)*100).toFixed(1) : 0;
+
+    body.innerHTML = sorted.map(w => {
+      const ar = w.a && w.r ? ((w.a/w.r)*100).toFixed(1) : '—';
+      return `<tr>
+        <td class="dt">${w.dt}</td>
+        <td class="subj" title="${w.s}">${w.s}</td>
+        <td class="fund-tag">${w.f}</td>
+        <td class="num">${w.r.toLocaleString()}</td>
+        <td class="num">${w.a ? w.a.toLocaleString() : '—'}</td>
+        <td class="num">${ar}${ar!=='—'?'%':''}</td>
+        <td class="num">${w.c || '—'}</td>
+        <td class="num">${ratePill(w.rt)}</td>
+      </tr>`;
+    }).join('') + `<tr class="total-row">
+      <td colspan="3">Month Total · ${rows.length} webinars</td>
+      <td class="num">${totR.toLocaleString()}</td>
+      <td class="num">${totA.toLocaleString()}</td>
+      <td class="num">${totA&&totR?((totA/totR)*100).toFixed(1)+'%':'—'}</td>
+      <td class="num">${totC}</td>
+      <td class="num">${ratePill(totRt)}</td>
+    </tr>`;
+  }
+
+  function initTabs() {
+    const bar = document.getElementById('tabBar');
+    bar.innerHTML = TAB_KEYS.map((k,i) =>
+      `<button class="tab-btn${i===0?' active':''}" data-key="${k}">${k}</button>`
+    ).join('');
+    bar.addEventListener('click', e => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTable(btn.dataset.key);
+    });
+    renderTable(TAB_KEYS[0]);
+  }
+
+  initTabs();
   </script>
 </body>
 </html>

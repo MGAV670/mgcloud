@@ -212,6 +212,28 @@
       margin-top: 8px;
     }
 
+    /* ── RSVP DEFINITION BANNER ──────────────────── */
+    .rsvp-def {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(79,142,247,0.07);
+      border: 1px solid rgba(79,142,247,0.22);
+      border-left: 3px solid var(--blue);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      font-size: 0.73rem;
+      color: var(--label);
+      line-height: 1.5;
+    }
+    .rsvp-def .icon {
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .rsvp-def strong { color: var(--blue); font-weight: 600; }
+
     /* ── MONTH TABS ───────────────────────────────── */
     .tab-bar {
       display: flex;
@@ -327,9 +349,9 @@
       <div class="kpi-trend up">↑ 214% vs Q4 '25 (408)</div>
     </div>
     <div class="kpi t">
-      <div class="kpi-lbl">Avg Monthly RSVPs</div>
+      <div class="kpi-lbl">Avg Monthly RSVPs · Unique</div>
       <div class="kpi-val">2,216</div>
-      <div class="kpi-sub">Sep '25 – May '26 avg</div>
+      <div class="kpi-sub">Non-customer · non-repeat · per month</div>
       <div class="kpi-trend up">→ stable pipeline</div>
     </div>
     <div class="kpi a">
@@ -355,19 +377,25 @@
         <div class="card-hd">
           <div>
             <div class="card-title">Monthly RSVPs vs. Webinar-Generated Syndicate Members</div>
-            <div class="card-sub">Month over month · Dual axis — bars = RSVPs (left), line = new members (right)</div>
+            <div class="card-sub">Month over month · bars = current RSVPs · gray dashed = prior year RSVPs · teal line = new members (right axis)</div>
           </div>
           <div class="legend">
-            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPs</div>
-            <div class="leg"><div class="leg-sq" style="background:#22d3ab; border-radius:50%"></div>Webinar-Generated Members</div>
-            <div class="leg"><div class="leg-sq" style="background:rgba(245,158,11,0.7)"></div>Conversion Rate %</div>
+            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPs (current yr)</div>
+            <div class="leg"><div class="leg-sq" style="background:rgba(148,163,184,0.55); outline:1px dashed rgba(148,163,184,0.7); outline-offset:1px"></div>Prior Year RSVPs</div>
+            <div class="leg"><div class="leg-sq" style="background:#22d3ab; border-radius:50%"></div>Webinar Members</div>
+            <div class="leg"><div class="leg-sq" style="background:rgba(245,158,11,0.7)"></div>Conv Rate %</div>
           </div>
+        </div>
+        <div class="rsvp-def">
+          <span class="icon">⚡</span>
+          <span>RSVPs represent <strong>unique, non-customer, non-repeat registrants per month</strong> — each individual is counted once regardless of how many webinars they signed up for that month, and existing AV investors are excluded.</span>
         </div>
         <div class="chart-wrap" style="height:300px">
           <canvas id="primaryChart"></canvas>
         </div>
         <div class="insight">
-          <strong>Insight:</strong> RSVPs stayed flat at ~2,200/month while webinar-generated members grew <strong>9.6× from Sep '25 (42) to Mar '26 (483)</strong> — conversion rate jumped from 2.4% to 21.3% over 7 months. Q1 '26 produced 3.1× more members than Q4 '25 on only 4% more RSVPs. <strong>May '26 data is partial ✦</strong> — member count will increase as the month completes.
+          <strong>Insight:</strong> RSVPs stayed flat at ~2,200/month (unique non-customer registrants) while webinar-generated members grew <strong>9.6× from Sep '25 (42) to Mar '26 (483)</strong> — conversion rate jumped from 2.4% to 21.3%.
+          Year-over-year: Jan–Mar 2025 averaged <strong>2,786 RSVPs/month</strong> vs 2,373 in Jan–Mar 2026 — <em>20% fewer RSVPs</em>, yet <strong>3.1× more members</strong>. The pipeline quality and conversion engine improved dramatically. <strong>May '26 data is partial ✦</strong>.
         </div>
       </div>
     </div>
@@ -447,9 +475,10 @@
     // Source: spreadsheet data (RSVPs & Webinar-Generated Syndicate Complete Members)
     // ✦ May '26 partial — month in progress
     const months  = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26 ✦"];
-    const rsvpd   = [1729, 2268, 1592, 3003, 2363, 2493, 2263, 2118, 2112];
-    const members = [  42,  133,   89,  186,  348,  451,  483,  391,  303];
-    const convRate= members.map((m,i) => +((m/rsvpd[i])*100).toFixed(1));
+    const rsvpd    = [1729, 2268, 1592, 3003, 2363, 2493, 2263, 2118, 2112];
+    const rsvpd_py = [1315, 1801, 1993, 1601, 2976, 3060, 2323, 1985, null]; // same months prior year
+    const members  = [  42,  133,   89,  186,  348,  451,  483,  391,  303];
+    const convRate = members.map((m,i) => +((m/rsvpd[i])*100).toFixed(1));
 
     new Chart(document.getElementById('primaryChart'), {
       type: 'bar',
@@ -485,6 +514,25 @@
             order: 1,
           },
           {
+            label: 'Prior Year RSVPs',
+            data: rsvpd_py,
+            type: 'line',
+            borderColor:          'rgba(148,163,184,0.55)',
+            backgroundColor:      'transparent',
+            pointBackgroundColor: 'rgba(148,163,184,0.65)',
+            pointBorderColor:     '#0c1117',
+            pointBorderWidth: 1.5,
+            pointRadius: 3.5,
+            pointHoverRadius: 5,
+            borderWidth: 1.5,
+            borderDash: [5, 4],
+            tension: 0.4,
+            fill: false,
+            yAxisID: 'yLeft',
+            order: 4,
+            spanGaps: false,
+          },
+          {
             label: 'Conversion Rate %',
             data: convRate,
             type: 'line',
@@ -515,10 +563,21 @@
             callbacks: {
               label(ctx) {
                 if (ctx.dataset.label === 'RSVPs')
-                  return `  RSVPs:      ${ctx.raw.toLocaleString()}`;
+                  return `  RSVPs (cur):  ${ctx.raw.toLocaleString()}`;
+                if (ctx.dataset.label === 'Prior Year RSVPs')
+                  return ctx.raw != null ? `  RSVPs (py):   ${ctx.raw.toLocaleString()}` : null;
                 if (ctx.dataset.label === 'Webinar-Generated Members')
-                  return `  Members:    ${ctx.raw}`;
-                return `  Conv Rate:  ${ctx.raw}%`;
+                  return `  Members:      ${ctx.raw}`;
+                return `  Conv Rate:    ${ctx.raw}%`;
+              },
+              afterBody(items) {
+                const i = items[0].dataIndex;
+                const py = rsvpd_py[i];
+                if (py == null) return [];
+                const diff = rsvpd[i] - py;
+                const pct  = ((diff / py) * 100).toFixed(1);
+                const arrow = diff >= 0 ? '↑' : '↓';
+                return ['', `  YoY RSVPs:  ${arrow} ${Math.abs(pct)}%  (${diff>=0?'+':''}${diff.toLocaleString()})`];
               }
             }
           }

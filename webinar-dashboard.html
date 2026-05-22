@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AV Webinar → Investor Conversion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0c1117;
+      --surface:   #131a24;
+      --surface2:  #18212f;
+      --border:    #1e2d40;
+      --blue:      #4f8ef7;
+      --teal:      #22d3ab;
+      --amber:     #f59e0b;
+      --violet:    #a78bfa;
+      --text:      #dce8f5;
+      --label:     #7a99bc;
+      --muted:     #415972;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 28px 32px 48px;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ───────────────────────────────────── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header h1 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+    .header p {
+      font-size: 0.73rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(79,142,247,0.08);
+      border: 1px solid rgba(79,142,247,0.25);
+      color: var(--blue);
+      font-size: 0.70rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+    }
+    .live-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── KPI CARDS ────────────────────────────────── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .kpi:hover { border-color: #2a3d55; }
+    .kpi::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 10px 10px 0 0;
+    }
+    .kpi.b::before { background: var(--blue); }
+    .kpi.t::before { background: var(--teal); }
+    .kpi.a::before { background: var(--amber); }
+    .kpi.v::before { background: var(--violet); }
+
+    .kpi-lbl {
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 10px;
+    }
+    .kpi-val {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+    }
+    .kpi-sub {
+      font-size: 0.70rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .kpi-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .up   { background: rgba(34,211,171,0.10); color: var(--teal); }
+    .down { background: rgba(248,113,113,0.10); color: #f87171; }
+
+    /* ── CARDS ────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+    .card-hd {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .card-sub {
+      font-size: 0.70rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .leg {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.69rem;
+      color: var(--label);
+    }
+    .leg-sq {
+      width: 9px; height: 9px;
+      border-radius: 2px;
+    }
+
+    /* ── LAYOUT ───────────────────────────────────── */
+    .stack { display: flex; flex-direction: column; gap: 16px; }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .chart-wrap { position: relative; }
+
+    /* ── INSIGHT BAR ─────────────────────────────── */
+    .insight {
+      margin-top: 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.72rem;
+      color: var(--label);
+      line-height: 1.55;
+    }
+    .insight strong { color: var(--text); font-weight: 600; }
+
+    /* ── SECTION LABEL ───────────────────────────── */
+    .section-lbl {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .kpi-row { grid-template-columns: repeat(2,1fr); }
+      .two-col  { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>Webinar → Investor Conversion</h1>
+      <p>New investor webinar touchpoints · Data through May 22, 2026</p>
+    </div>
+    <span class="live-badge"><span class="dot"></span> Primary Report</span>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi b">
+      <div class="kpi-lbl">New Investors · 90 Days</div>
+      <div class="kpi-val">257</div>
+      <div class="kpi-sub">Feb 22 – May 22, 2026</div>
+      <div class="kpi-trend up">↑ 12% vs prior period</div>
+    </div>
+    <div class="kpi t">
+      <div class="kpi-lbl">RSVPd to Webinar</div>
+      <div class="kpi-val">188</div>
+      <div class="kpi-sub">73.2% of new investors</div>
+      <div class="kpi-trend up">↑ 5pts vs prior period</div>
+    </div>
+    <div class="kpi a">
+      <div class="kpi-lbl">Attended Webinar</div>
+      <div class="kpi-val">87</div>
+      <div class="kpi-sub">46.3% of those who RSVPd</div>
+      <div class="kpi-trend down">↓ 3pts vs prior period</div>
+    </div>
+    <div class="kpi v">
+      <div class="kpi-lbl">Avg 3-Month Commit Rate</div>
+      <div class="kpi-val">3.8%</div>
+      <div class="kpi-sub">All webinar types</div>
+      <div class="kpi-trend up">↑ 0.4pts vs prior period</div>
+    </div>
+  </div>
+
+  <div class="stack">
+
+    <!-- PRIMARY CHART -->
+    <div>
+      <div class="section-lbl">Primary · New Investor Webinar Engagement</div>
+      <div class="card">
+        <div class="card-hd">
+          <div>
+            <div class="card-title">New Investors (90-Day Cohort) — RSVPd vs. Attended</div>
+            <div class="card-sub">Month over month · Grouped by webinar touchpoint type</div>
+          </div>
+          <div class="legend">
+            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPd</div>
+            <div class="leg"><div class="leg-sq" style="background:#22d3ab"></div>Attended</div>
+            <div class="leg"><div class="leg-sq" style="background:rgba(167,139,250,0.7)"></div>Total New Investors</div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height:300px">
+          <canvas id="primaryChart"></canvas>
+        </div>
+        <div class="insight">
+          <strong>Insight:</strong> Investors who attended a webinar before committing convert at <strong>2.4× the rate</strong> of non-attendees.
+          Oct '25 had the strongest month — 37 webinar-attending new investors and a 5.0% 3-month commit rate, the highest in the trailing 9 months.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECONDARY ROW -->
+    <div>
+      <div class="section-lbl">Secondary · Conversion by Syndicate Attribution</div>
+      <div class="two-col">
+
+        <!-- Syndicate conversion -->
+        <div class="card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">Conversion Rate by Syndicate Source</div>
+              <div class="card-sub">% of webinar registrants who became investors</div>
+            </div>
+          </div>
+          <div class="chart-wrap" style="height:270px">
+            <canvas id="syndicateChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Funnel -->
+        <div class="card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">Aggregate Conversion Funnel</div>
+              <div class="card-sub">Registered → Attended → Committed · All webinars</div>
+            </div>
+          </div>
+          <div class="chart-wrap" style="height:270px">
+            <canvas id="funnelChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /stack -->
+
+  <script>
+    // ── shared defaults ─────────────────────────────
+    Chart.defaults.color = '#415972';
+    Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
+    Chart.defaults.font.size = 11;
+
+    const GRID  = 'rgba(30,45,64,0.9)';
+    const TIP   = { backgroundColor:'#18212f', borderColor:'#1e2d40', borderWidth:1,
+                    titleColor:'#dce8f5', bodyColor:'#7a99bc', padding:12 };
+
+    // ── PRIMARY CHART ────────────────────────────────
+    const months  = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26"];
+    const rsvpd   = [61, 113, 53, 113, 73, 84, 67, 78, 45];
+    const attended= [18,  37, 19,  30, 22, 16, 19, 23, 14];
+    const totNew  = [82, 145, 68, 142, 96,102, 88, 98, 57];
+
+    new Chart(document.getElementById('primaryChart'), {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [
+          {
+            label: 'RSVPd to Webinar',
+            data: rsvpd,
+            backgroundColor: 'rgba(79,142,247,0.70)',
+            borderColor:      'rgba(79,142,247,1)',
+            borderWidth: 1,
+            borderRadius: 4,
+            borderSkipped: false,
+            order: 2,
+          },
+          {
+            label: 'Attended Webinar',
+            data: attended,
+            backgroundColor: 'rgba(34,211,171,0.70)',
+            borderColor:      'rgba(34,211,171,1)',
+            borderWidth: 1,
+            borderRadius: 4,
+            borderSkipped: false,
+            order: 2,
+          },
+          {
+            label: 'Total New Investors',
+            data: totNew,
+            type: 'line',
+            borderColor:       'rgba(167,139,250,0.75)',
+            backgroundColor:   'rgba(167,139,250,0.04)',
+            pointBackgroundColor:'rgba(167,139,250,0.9)',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            borderWidth: 2,
+            tension: 0.4,
+            fill: false,
+            order: 1,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode:'index', intersect:false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            ...TIP,
+            callbacks: {
+              afterBody(items) {
+                const i = items[0].dataIndex;
+                const pct = ((attended[i]/totNew[i])*100).toFixed(1);
+                const rPct= ((rsvpd[i]/totNew[i])*100).toFixed(1);
+                return [``, `  RSVP rate:    ${rPct}%`, `  Attend rate:  ${pct}%`];
+              }
+            }
+          }
+        },
+        scales: {
+          x: { grid:{ color:GRID, drawBorder:false }, border:{display:false},
+               ticks:{ color:'#415972' } },
+          y: { grid:{ color:GRID, drawBorder:false }, border:{display:false},
+               ticks:{ color:'#415972' }, beginAtZero:true }
+        }
+      }
+    });
+
+    // ── SYNDICATE CHART ──────────────────────────────
+    const syns  = ['AVX','FFAI','FOUN','OHS/WV','SV','THV','FFHT','CAV','GDV'];
+    const rates = [18.3, 14.7, 12.1, 10.5, 9.8, 9.2, 8.6, 7.4, 6.9];
+    const counts= [  45,   38,   52,   28,  31,  22,  25,  18,  15];
+
+    // Sort descending
+    const synOrder = rates.map((_,i)=>i).sort((a,b)=>rates[b]-rates[a]);
+    const synsSorted  = synOrder.map(i=>syns[i]);
+    const ratesSorted = synOrder.map(i=>rates[i]);
+
+    new Chart(document.getElementById('syndicateChart'), {
+      type: 'bar',
+      data: {
+        labels: synsSorted,
+        datasets: [{
+          label: 'Conversion Rate (%)',
+          data: ratesSorted,
+          backgroundColor: ratesSorted.map(v => {
+            const t = (v - 6) / 13;
+            return `rgba(${Math.round(79 + t*(-79+34))},${Math.round(142 + t*(211-142))},${Math.round(247 + t*(171-247))},0.80)`;
+          }),
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display:false },
+          tooltip: {
+            ...TIP,
+            callbacks: {
+              label: (ctx) => `  Conversion: ${ctx.raw}%`,
+              afterLabel: (ctx) => `  Members:    ${counts[synOrder[ctx.dataIndex]]}`
+            }
+          }
+        },
+        scales: {
+          x: { grid:{color:GRID,drawBorder:false}, border:{display:false},
+               ticks:{ color:'#415972', callback: v=>`${v}%` } },
+          y: { grid:{display:false}, border:{display:false},
+               ticks:{ color:'#7a99bc' } }
+        }
+      }
+    });
+
+    // ── FUNNEL CHART ─────────────────────────────────
+    // Totals derived from all months in screenshots
+    const funnelLabels = ['Registered','Attended','14D Commit','3-Mo Commit','12-Mo Commit'];
+    const funnelData   = [13079, 3075, 50, 120, 145];
+    const funnelColors = [
+      'rgba(79,142,247,0.65)',
+      'rgba(79,142,247,0.80)',
+      'rgba(34,211,171,0.55)',
+      'rgba(34,211,171,0.75)',
+      'rgba(34,211,171,0.95)',
+    ];
+
+    new Chart(document.getElementById('funnelChart'), {
+      type: 'bar',
+      data: {
+        labels: funnelLabels,
+        datasets: [{
+          label: 'Count',
+          data: funnelData,
+          backgroundColor: funnelColors,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display:false },
+          tooltip: {
+            ...TIP,
+            callbacks: {
+              label(ctx) {
+                const v = ctx.raw;
+                const pct = ((v/funnelData[0])*100).toFixed(2);
+                return `  ${v.toLocaleString()} (${pct}% of registered)`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { grid:{display:false}, border:{display:false},
+               ticks:{ color:'#7a99bc', font:{size:10} } },
+          y: { grid:{color:GRID,drawBorder:false}, border:{display:false},
+               ticks:{
+                 color:'#415972',
+                 callback: v => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v
+               },
+               beginAtZero:true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

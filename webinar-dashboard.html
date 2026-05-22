@@ -232,28 +232,28 @@
   <!-- KPI ROW -->
   <div class="kpi-row">
     <div class="kpi b">
-      <div class="kpi-lbl">New Investors · Jan–Mar '26</div>
-      <div class="kpi-val">340</div>
-      <div class="kpi-sub">Most recent mature 90-day window</div>
-      <div class="kpi-trend down">↓ 6% vs Oct–Dec '25 (363)</div>
+      <div class="kpi-lbl">Webinar Members · Q1 '26</div>
+      <div class="kpi-val">1,282</div>
+      <div class="kpi-sub">Jan–Mar 2026 · new syndicate members</div>
+      <div class="kpi-trend up">↑ 214% vs Q4 '25 (408)</div>
     </div>
     <div class="kpi t">
-      <div class="kpi-lbl">RSVPd to Webinar</div>
-      <div class="kpi-val">261</div>
-      <div class="kpi-sub">77% of new investors</div>
-      <div class="kpi-trend up">→ flat vs prior period</div>
+      <div class="kpi-lbl">Avg Monthly RSVPs</div>
+      <div class="kpi-val">2,216</div>
+      <div class="kpi-sub">Sep '25 – May '26 avg</div>
+      <div class="kpi-trend up">→ stable pipeline</div>
     </div>
     <div class="kpi a">
-      <div class="kpi-lbl">Attended Webinar</div>
-      <div class="kpi-val">65</div>
-      <div class="kpi-sub">25% of those who RSVPd</div>
-      <div class="kpi-trend down">↓ 6pts vs prior (31%)</div>
+      <div class="kpi-lbl">Conversion Rate · Q1 '26</div>
+      <div class="kpi-val">18.0%</div>
+      <div class="kpi-sub">Members ÷ RSVPs, Jan–Mar 2026</div>
+      <div class="kpi-trend up">↑ 12.1pts vs Q4 '25 (5.9%)</div>
     </div>
     <div class="kpi v">
-      <div class="kpi-lbl">Avg 3-Month Commit Rate</div>
-      <div class="kpi-val">3.6%</div>
-      <div class="kpi-sub">Jan–Mar 2026</div>
-      <div class="kpi-trend down">↓ 0.5pts vs Oct–Dec '25</div>
+      <div class="kpi-lbl">Peak Month</div>
+      <div class="kpi-val">21.3%</div>
+      <div class="kpi-sub">March 2026 · 483 members</div>
+      <div class="kpi-trend up">↑ from 2.4% in Sep '25</div>
     </div>
   </div>
 
@@ -265,21 +265,20 @@
       <div class="card">
         <div class="card-hd">
           <div>
-            <div class="card-title">New Investors (90-Day Cohort) — RSVPd vs. Attended</div>
-            <div class="card-sub">Month over month · Grouped by webinar touchpoint type</div>
+            <div class="card-title">Monthly RSVPs vs. Webinar-Generated Syndicate Members</div>
+            <div class="card-sub">Month over month · Dual axis — bars = RSVPs (left), line = new members (right)</div>
           </div>
           <div class="legend">
-            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPd</div>
-            <div class="leg"><div class="leg-sq" style="background:#22d3ab"></div>Attended</div>
-            <div class="leg"><div class="leg-sq" style="background:rgba(167,139,250,0.7)"></div>Total New Investors</div>
+            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPs</div>
+            <div class="leg"><div class="leg-sq" style="background:#22d3ab; border-radius:50%"></div>Webinar-Generated Members</div>
+            <div class="leg"><div class="leg-sq" style="background:rgba(245,158,11,0.7)"></div>Conversion Rate %</div>
           </div>
         </div>
         <div class="chart-wrap" style="height:300px">
           <canvas id="primaryChart"></canvas>
         </div>
         <div class="insight">
-          <strong>Insight:</strong> Webinar attendees convert at <strong>3.3% within 90 days</strong> (178 of 5,429 attended across 9 months).
-          Oct '25 was the peak — 37 new investor commitments at a 5.0% 3-month rate. April '26 dropped to 1.2% partly because 25.8% of attendees were already Prior AV Investors, compressing the addressable conversion pool. <strong>May '26 data is partial</strong> — commit rates will mature over the coming weeks. ✦
+          <strong>Insight:</strong> RSVPs stayed flat at ~2,200/month while webinar-generated members grew <strong>9.6× from Sep '25 (42) to Mar '26 (483)</strong> — conversion rate jumped from 2.4% to 21.3% over 7 months. Q1 '26 produced 3.1× more members than Q4 '25 on only 4% more RSVPs. <strong>May '26 data is partial ✦</strong> — member count will increase as the month completes.
         </div>
       </div>
     </div>
@@ -307,7 +306,7 @@
           <div class="card-hd">
             <div>
               <div class="card-title">Aggregate Conversion Funnel</div>
-              <div class="card-sub">Registered → Attended → Committed · All webinars</div>
+              <div class="card-sub">RSVPs → Attended → Committed → Syndicate Members · Sep '25–May '26</div>
             </div>
           </div>
           <div class="chart-wrap" style="height:270px">
@@ -331,14 +330,12 @@
                     titleColor:'#dce8f5', bodyColor:'#7a99bc', padding:12 };
 
     // ── PRIMARY CHART ────────────────────────────────
-    // attended  = 3-Month Commit (real from Tableau grand totals)
-    // rsvpd     = 3Mo Commit ÷ monthly attendance rate (estimated registrant pool)
-    // totNew    = rsvpd × 1.3  (accounts for non-webinar new investors)
-    // ✦ May '26 partial — commit rates will mature
+    // Source: spreadsheet data (RSVPs & Webinar-Generated Syndicate Complete Members)
+    // ✦ May '26 partial — month in progress
     const months  = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26 ✦"];
-    const rsvpd   = [ 61, 113,  53, 113, 102,  84,  75,  26,   6];
-    const attended= [ 18,  37,  19,  30,  25,  16,  24,   8,   1];
-    const totNew  = [ 79, 147,  69, 147, 133, 109,  98,  34,   8];
+    const rsvpd   = [1729, 2268, 1592, 3003, 2363, 2493, 2263, 2118, 2112];
+    const members = [  42,  133,   89,  186,  348,  451,  483,  391,  303];
+    const convRate= members.map((m,i) => +((m/rsvpd[i])*100).toFixed(1));
 
     new Chart(document.getElementById('primaryChart'), {
       type: 'bar',
@@ -346,38 +343,50 @@
         labels: months,
         datasets: [
           {
-            label: 'RSVPd to Webinar',
+            label: 'RSVPs',
             data: rsvpd,
-            backgroundColor: 'rgba(79,142,247,0.70)',
-            borderColor:      'rgba(79,142,247,1)',
+            backgroundColor: 'rgba(79,142,247,0.50)',
+            borderColor:      'rgba(79,142,247,0.85)',
             borderWidth: 1,
             borderRadius: 4,
             borderSkipped: false,
-            order: 2,
+            yAxisID: 'yLeft',
+            order: 3,
           },
           {
-            label: 'Attended Webinar',
-            data: attended,
-            backgroundColor: 'rgba(34,211,171,0.70)',
-            borderColor:      'rgba(34,211,171,1)',
-            borderWidth: 1,
-            borderRadius: 4,
-            borderSkipped: false,
-            order: 2,
-          },
-          {
-            label: 'Total New Investors',
-            data: totNew,
+            label: 'Webinar-Generated Members',
+            data: members,
             type: 'line',
-            borderColor:       'rgba(167,139,250,0.75)',
-            backgroundColor:   'rgba(167,139,250,0.04)',
-            pointBackgroundColor:'rgba(167,139,250,0.9)',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            borderWidth: 2,
+            borderColor:          'rgba(34,211,171,1)',
+            backgroundColor:      'rgba(34,211,171,0.08)',
+            pointBackgroundColor: 'rgba(34,211,171,1)',
+            pointBorderColor:     '#131a24',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            borderWidth: 2.5,
             tension: 0.4,
             fill: false,
+            yAxisID: 'yRight',
             order: 1,
+          },
+          {
+            label: 'Conversion Rate %',
+            data: convRate,
+            type: 'line',
+            borderColor:          'rgba(245,158,11,0.85)',
+            backgroundColor:      'transparent',
+            pointBackgroundColor: 'rgba(245,158,11,0.9)',
+            pointBorderColor:     '#131a24',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            borderWidth: 1.5,
+            borderDash: [4,3],
+            tension: 0.4,
+            fill: false,
+            yAxisID: 'yRate',
+            order: 2,
           }
         ]
       },
@@ -390,20 +399,48 @@
           tooltip: {
             ...TIP,
             callbacks: {
-              afterBody(items) {
-                const i = items[0].dataIndex;
-                const pct = ((attended[i]/totNew[i])*100).toFixed(1);
-                const rPct= ((rsvpd[i]/totNew[i])*100).toFixed(1);
-                return [``, `  RSVP rate:    ${rPct}%`, `  Attend rate:  ${pct}%`];
+              label(ctx) {
+                if (ctx.dataset.label === 'RSVPs')
+                  return `  RSVPs:      ${ctx.raw.toLocaleString()}`;
+                if (ctx.dataset.label === 'Webinar-Generated Members')
+                  return `  Members:    ${ctx.raw}`;
+                return `  Conv Rate:  ${ctx.raw}%`;
               }
             }
           }
         },
         scales: {
-          x: { grid:{ color:GRID, drawBorder:false }, border:{display:false},
-               ticks:{ color:'#415972' } },
-          y: { grid:{ color:GRID, drawBorder:false }, border:{display:false},
-               ticks:{ color:'#415972' }, beginAtZero:true }
+          x: {
+            grid:{ color:GRID, drawBorder:false },
+            border:{ display:false },
+            ticks:{ color:'#415972' }
+          },
+          yLeft: {
+            type: 'linear', position: 'left',
+            grid:{ color:GRID, drawBorder:false },
+            border:{ display:false },
+            beginAtZero: true,
+            ticks:{
+              color:'#4f8ef7',
+              callback: v => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v
+            },
+            title:{ display:true, text:'RSVPs', color:'#4f8ef7', font:{size:10,weight:'500'} }
+          },
+          yRight: {
+            type: 'linear', position: 'right',
+            grid:{ drawOnChartArea:false },
+            border:{ display:false },
+            beginAtZero: true,
+            ticks:{ color:'#22d3ab' },
+            title:{ display:true, text:'Members', color:'#22d3ab', font:{size:10,weight:'500'} }
+          },
+          yRate: {
+            type: 'linear', position: 'right',
+            grid:{ drawOnChartArea:false },
+            border:{ display:false },
+            beginAtZero: true,
+            display: false,
+          }
         }
       }
     });
@@ -459,9 +496,9 @@
     });
 
     // ── FUNNEL CHART ─────────────────────────────────
-    // Totals summed from Tableau grand-total rows, Sep '25 – May '26
-    const funnelLabels = ['Registered','Attended','14D Commit','3-Mo Commit','12-Mo Commit'];
-    const funnelData   = [20238, 5429, 82, 178, 207];
+    // RSVPs & Members from spreadsheet; Attended from Tableau grand totals
+    const funnelLabels = ['RSVPs','Attended','14D Commit','3-Mo Commit','Members (all-time)'];
+    const funnelData   = [19941, 5429, 82, 178, 2426];
     const funnelColors = [
       'rgba(79,142,247,0.65)',
       'rgba(79,142,247,0.80)',

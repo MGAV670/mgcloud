@@ -377,11 +377,10 @@
         <div class="card-hd">
           <div>
             <div class="card-title">Monthly RSVPs vs. Webinar-Generated Syndicate Members</div>
-            <div class="card-sub">Month over month · bars = current RSVPs · gray dashed = prior year RSVPs · teal line = new members (right axis)</div>
+            <div class="card-sub">Month over month · bars = RSVPs (left axis) · teal line = new members (right axis) · dashed amber = conversion rate</div>
           </div>
           <div class="legend">
-            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPs (current yr)</div>
-            <div class="leg"><div class="leg-sq" style="background:rgba(148,163,184,0.55); outline:1px dashed rgba(148,163,184,0.7); outline-offset:1px"></div>Prior Year RSVPs</div>
+            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPs</div>
             <div class="leg"><div class="leg-sq" style="background:#22d3ab; border-radius:50%"></div>Webinar Members</div>
             <div class="leg"><div class="leg-sq" style="background:rgba(245,158,11,0.7)"></div>Conv Rate %</div>
           </div>
@@ -394,8 +393,7 @@
           <canvas id="primaryChart"></canvas>
         </div>
         <div class="insight">
-          <strong>Insight:</strong> RSVPs stayed flat at ~2,200/month (unique non-customer registrants) while webinar-generated members grew <strong>9.6× from Sep '25 (42) to Mar '26 (483)</strong> — conversion rate jumped from 2.4% to 21.3%.
-          Year-over-year: Jan–Mar 2025 averaged <strong>2,786 RSVPs/month</strong> vs 2,373 in Jan–Mar 2026 — <em>20% fewer RSVPs</em>, yet <strong>3.1× more members</strong>. The pipeline quality and conversion engine improved dramatically. <strong>May '26 data is partial ✦</strong>.
+          <strong>Insight:</strong> RSVPs held steady at ~2,200/month (unique non-customer registrants) while webinar-generated members grew <strong>9.6× from Sep '25 (42) to Mar '26 (483)</strong> — conversion rate climbed from 2.4% to 21.3% over 7 months. Q1 '26 produced 3.1× more members than Q4 '25 on roughly the same RSVP volume. <strong>May '26 data is partial ✦</strong>.
         </div>
       </div>
     </div>
@@ -449,8 +447,8 @@
                 <th class="num">RSVPs</th>
                 <th class="num">Attended</th>
                 <th class="num">Attend %</th>
-                <th class="num">3Mo Commits</th>
-                <th class="num">Conv Rate</th>
+                <th class="num">Commits Thus Far</th>
+                <th class="num">Rate Thus Far</th>
               </tr>
             </thead>
             <tbody id="wbody"></tbody>
@@ -476,7 +474,6 @@
     // ✦ May '26 partial — month in progress
     const months  = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26 ✦"];
     const rsvpd    = [1729, 2268, 1592, 3003, 2363, 2493, 2263, 2118, 2112];
-    const rsvpd_py = [1315, 1801, 1993, 1601, 2976, 3060, 2323, 1985, null]; // same months prior year
     const members  = [  42,  133,   89,  186,  348,  451,  483,  391,  303];
     const convRate = members.map((m,i) => +((m/rsvpd[i])*100).toFixed(1));
 
@@ -514,25 +511,6 @@
             order: 1,
           },
           {
-            label: 'Prior Year RSVPs',
-            data: rsvpd_py,
-            type: 'line',
-            borderColor:          'rgba(148,163,184,0.55)',
-            backgroundColor:      'transparent',
-            pointBackgroundColor: 'rgba(148,163,184,0.65)',
-            pointBorderColor:     '#0c1117',
-            pointBorderWidth: 1.5,
-            pointRadius: 3.5,
-            pointHoverRadius: 5,
-            borderWidth: 1.5,
-            borderDash: [5, 4],
-            tension: 0.4,
-            fill: false,
-            yAxisID: 'yLeft',
-            order: 4,
-            spanGaps: false,
-          },
-          {
             label: 'Conversion Rate %',
             data: convRate,
             type: 'line',
@@ -563,21 +541,10 @@
             callbacks: {
               label(ctx) {
                 if (ctx.dataset.label === 'RSVPs')
-                  return `  RSVPs (cur):  ${ctx.raw.toLocaleString()}`;
-                if (ctx.dataset.label === 'Prior Year RSVPs')
-                  return ctx.raw != null ? `  RSVPs (py):   ${ctx.raw.toLocaleString()}` : null;
+                  return `  RSVPs:    ${ctx.raw.toLocaleString()}`;
                 if (ctx.dataset.label === 'Webinar-Generated Members')
-                  return `  Members:      ${ctx.raw}`;
-                return `  Conv Rate:    ${ctx.raw}%`;
-              },
-              afterBody(items) {
-                const i = items[0].dataIndex;
-                const py = rsvpd_py[i];
-                if (py == null) return [];
-                const diff = rsvpd[i] - py;
-                const pct  = ((diff / py) * 100).toFixed(1);
-                const arrow = diff >= 0 ? '↑' : '↓';
-                return ['', `  YoY RSVPs:  ${arrow} ${Math.abs(pct)}%  (${diff>=0?'+':''}${diff.toLocaleString()})`];
+                  return `  Members:  ${ctx.raw}`;
+                return `  Conv Rate: ${ctx.raw}%`;
               }
             }
           }
@@ -725,48 +692,48 @@
   // r=rsvps, a=attended, c=3Mo commits, rt=3Mo rate%
   const WD = {
     "Sep '25": [
-      {dt:"9/23",s:"Everything to Know About the AV Syndicate",f:"AV Syndicate",r:251,a:78,c:5,rt:6.4},
-      {dt:"9/17",s:"5 Ways AI is Going to Change How You Invest",f:"Null",r:271,a:85,c:3,rt:3.5},
+      {dt:"9/23",s:"Everything to Know About the AV Syndicate",f:"AV Syndicate",r:251,a:78,c:9,rt:11.5},
+      {dt:"9/17",s:"5 Ways AI is Going to Change How You Invest",f:"Null",r:271,a:85,c:5,rt:5.9},
       {dt:"9/9", s:"Foundation Fund Introduction",f:"FOUN",r:122,a:28,c:4,rt:14.3},
       {dt:"9/18",s:"Inside America's Next Tech Boom",f:"FFUS",r:64,a:19,c:2,rt:10.5},
       {dt:"9/10",s:"Investing in Tomorrow's Cybersecurity Leaders",f:"VSCY",r:105,a:19,c:1,rt:5.3},
       {dt:"9/18",s:"VC Playbook: How Time Arbitrage Creates Alpha",f:"SV",r:32,a:10,c:1,rt:10.0},
       {dt:"9/16",s:"SpaceTech Investing",f:"Null",r:23,a:11,c:1,rt:9.1},
-      {dt:"9/16",s:"Building the Future: How Our Strategy Works",f:"FFAF",r:67,a:20,c:1,rt:5.0},
+      {dt:"9/16",s:"Building the Future: How Our Strategy Works",f:"FFAF",r:67,a:20,c:2,rt:10.0},
       {dt:"9/9", s:"Lakeshore Ventures Performance Update",f:"LKV",r:34,a:10,c:1,rt:10.0},
       {dt:"9/30",s:"Nassau Street Ventures Investor Update",f:"NSV",r:31,a:21,c:0,rt:0},
       {dt:"9/30",s:"Spike Ventures Investor Update",f:"SV",r:31,a:12,c:0,rt:0},
       {dt:"9/29",s:"Castor Ventures Portfolio Update",f:"CV",r:100,a:32,c:0,rt:0},
-      {dt:"9/25",s:"6 Ways AI is Going to Change Your Financial Future",f:"Work Tech",r:81,a:24,c:0,rt:0},
-      {dt:"9/23",s:"Welcome to the AI & Robotics Fund",f:"FFAI",r:22,a:11,c:0,rt:0},
+      {dt:"9/25",s:"6 Ways AI is Going to Change Your Financial Future",f:"Work Tech",r:81,a:24,c:1,rt:4.2},
+      {dt:"9/23",s:"Welcome to the AI & Robotics Fund",f:"FFAI",r:22,a:11,c:1,rt:9.1},
       {dt:"9/23",s:"Westwood Ventures Performance Update",f:"WWV",r:40,a:7,c:0,rt:0},
       {dt:"9/22",s:"Breaking into VC: How to Invest Like a Pro",f:"RGV",r:14,a:3,c:0,rt:0},
       {dt:"9/18",s:"Strawberry Creek Ventures Syndicate Update",f:"SCV",r:42,a:8,c:0,rt:0},
       {dt:"9/17",s:"Congress Avenue Ventures Fund Update",f:"CAV",r:37,a:6,c:0,rt:0},
-      {dt:"9/16",s:"CIO Select Last Call",f:"FFCI",r:27,a:10,c:0,rt:0},
+      {dt:"9/16",s:"CIO Select Last Call",f:"FFCI",r:27,a:10,c:1,rt:10.0},
       {dt:"9/16",s:"Triphammer Presents: Venture Capital",f:"THV",r:32,a:11,c:0,rt:0},
       {dt:"9/16",s:"Masterclass Live! How We Evaluate Deals",f:"OHS/WV",r:76,a:24,c:0,rt:0},
       {dt:"9/16",s:"Deep Tech Fund Launch",f:"FFDT",r:79,a:17,c:0,rt:0},
       {dt:"9/11",s:"Chestnut Street Presents: Venture Capital",f:"CSV",r:47,a:15,c:0,rt:0},
-      {dt:"9/2", s:"Purple Arch Ventures Performance Update",f:"PAV",r:61,a:14,c:0,rt:0},
+      {dt:"9/2", s:"Purple Arch Ventures Performance Update",f:"PAV",r:61,a:14,c:1,rt:7.1},
     ],
     "Oct '25": [
-      {dt:"10/23",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:676,a:257,c:4,rt:1.6},
+      {dt:"10/23",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:676,a:257,c:5,rt:1.9},
       {dt:"10/7", s:"Portfolio Preview: Last Call Webinar",f:"PAV,LKV",r:197,a:59,c:9,rt:15.3},
-      {dt:"10/22",s:"AV Welcome Webinar",f:"AVX",r:118,a:45,c:4,rt:8.9},
+      {dt:"10/22",s:"AV Welcome Webinar",f:"AVX",r:118,a:45,c:6,rt:13.3},
       {dt:"10/21",s:"Five Ways AI is Going to Change Your Wealth",f:"FFHT",r:136,a:50,c:1,rt:2.0},
-      {dt:"10/16",s:"The Quantum Frontier: A Look Into Tomorrow",f:"Quantum S.",r:175,a:47,c:2,rt:4.3},
+      {dt:"10/16",s:"The Quantum Frontier: A Look Into Tomorrow",f:"Quantum S.",r:175,a:47,c:3,rt:6.4},
       {dt:"10/9", s:"AI First Fund Last Call",f:"FFAF",r:89,a:21,c:3,rt:14.3},
-      {dt:"10/15",s:"Seed Fund Launch",f:"FFSE",r:88,a:17,c:2,rt:11.8},
+      {dt:"10/15",s:"Seed Fund Launch",f:"FFSE",r:88,a:17,c:3,rt:17.6},
       {dt:"10/23",s:"Introduction to Blue Ivy Ventures",f:"BIV",r:38,a:12,c:2,rt:16.7},
       {dt:"10/16",s:"Introduction to Spike Ventures",f:"SV",r:49,a:16,c:2,rt:12.5},
       {dt:"10/20",s:"US Strategic Tech Last Call",f:"FFUS",r:30,a:8,c:1,rt:12.5},
-      {dt:"10/15",s:"How to Invest in Triphammer Ventures",f:"THV",r:19,a:7,c:1,rt:14.3},
+      {dt:"10/15",s:"How to Invest in Triphammer Ventures",f:"THV",r:19,a:7,c:2,rt:28.6},
       {dt:"10/14",s:"Strawberry Creek Ventures Portfolio Update",f:"SCV",r:52,a:13,c:1,rt:7.7},
       {dt:"10/9", s:"Green D Ventures Portfolio Update",f:"GDV",r:34,a:17,c:1,rt:5.9},
       {dt:"10/2", s:"How to Invest in Chestnut Street Ventures",f:"CSV",r:20,a:6,c:1,rt:16.7},
       {dt:"10/28",s:"Introduction to Two Lakes Ventures",f:"TWO",r:8,a:7,c:1,rt:14.3},
-      {dt:"10/29",s:"5 Reasons We Are Investing in Israel",f:"Israel Synd.",r:81,a:29,c:0,rt:0},
+      {dt:"10/29",s:"5 Reasons We Are Investing in Israel",f:"Israel Synd.",r:81,a:29,c:2,rt:6.9},
       {dt:"10/30",s:"Healthtech Fund Investor Update",f:"FFHT",r:16,a:8,c:0,rt:0},
       {dt:"10/22",s:"Inside America's Next Tech Boom",f:"FFUS",r:31,a:8,c:0,rt:0},
       {dt:"10/21",s:"Introduction to Nassau Street Ventures",f:"NSV",r:23,a:7,c:0,rt:0},
@@ -776,21 +743,21 @@
       {dt:"10/9", s:"Two Lakes Ventures Investor Update",f:"TWO",r:6,a:4,c:0,rt:0},
       {dt:"10/9", s:"Investing in Tomorrow's Cyber Leaders",f:"FFDT(Cyber)",r:59,a:12,c:0,rt:0},
       {dt:"10/8", s:"Masterclass: The Explosive AI Chip Race",f:"FFDT",r:35,a:9,c:0,rt:0},
-      {dt:"10/8", s:"An Introduction to PrePublic Equity",f:"PEP",r:22,a:9,c:0,rt:0},
+      {dt:"10/8", s:"An Introduction to PrePublic Equity",f:"PEP",r:22,a:9,c:1,rt:11.1},
       {dt:"10/7", s:"How to Invest in Congress Avenue Ventures",f:"CAV",r:18,a:5,c:0,rt:0},
       {dt:"10/6", s:"Emmet Street and Fowler Street Update",f:"EMV/FST",r:15,a:1,c:0,rt:0},
       {dt:"10/21",s:"Final Call: How to Invest in Ring Ventures",f:"RGV",r:6,a:1,c:0,rt:0},
       {dt:"10/30",s:"The Fence Ventures Onboarding",f:"FNC",r:2,a:0,c:0,rt:0},
     ],
     "Nov '25": [
-      {dt:"11/19",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:549,a:229,c:3,rt:1.3},
-      {dt:"11/20",s:"AV Welcome Webinar",f:"AVX",r:105,a:41,c:8,rt:19.5},
+      {dt:"11/19",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:549,a:229,c:5,rt:2.2},
+      {dt:"11/20",s:"AV Welcome Webinar",f:"AVX",r:105,a:41,c:9,rt:22.0},
       {dt:"11/20",s:"VC University - Building a Smart Portfolio",f:"Null",r:154,a:43,c:1,rt:2.3},
-      {dt:"11/11",s:"How the AI & Robotics Fund Evaluates Companies",f:"FFAI",r:144,a:56,c:4,rt:7.1},
-      {dt:"11/6", s:"Alumni Ventures Space Syndicate Investing",f:"FFUS",r:53,a:18,c:1,rt:5.6},
+      {dt:"11/11",s:"How the AI & Robotics Fund Evaluates Companies",f:"FFAI",r:144,a:56,c:5,rt:8.9},
+      {dt:"11/6", s:"Alumni Ventures Space Syndicate Investing",f:"FFUS",r:53,a:18,c:2,rt:11.1},
       {dt:"11/11",s:"Strawberry Creek Ventures Masterclass",f:"SCV",r:62,a:21,c:1,rt:4.8},
       {dt:"11/18",s:"Congress Avenue Ventures 101: How To Invest",f:"CAV",r:22,a:5,c:1,rt:20.0},
-      {dt:"11/4", s:"Green D Ventures Masterclass Launch",f:"GDV",r:37,a:17,c:0,rt:0},
+      {dt:"11/4", s:"Green D Ventures Masterclass Launch",f:"GDV",r:37,a:17,c:1,rt:5.9},
       {dt:"11/4", s:"Energy & Strategic Minerals: The Future",f:"Energy & S.",r:41,a:20,c:0,rt:0},
       {dt:"11/20",s:"Masterclass Live! How Triphammer Evaluates Deals",f:"THV",r:19,a:5,c:0,rt:0},
       {dt:"11/18",s:"Inside 116 Street & Waterman Ventures",f:"OHS/WV",r:21,a:6,c:0,rt:0},
@@ -804,12 +771,12 @@
       {dt:"11/5", s:"The Quantum Frontier: A Look Into Tomorrow",f:"Quantum S.",r:27,a:8,c:0,rt:0},
     ],
     "Dec '25": [
-      {dt:"12/11",s:"Inside Stanford's Elite Venture Ecosystem",f:"SV",r:1624,a:386,c:6,rt:1.6},
-      {dt:"12/18",s:"AV Welcome Webinar",f:"AVX",r:93,a:33,c:7,rt:21.2},
+      {dt:"12/11",s:"Inside Stanford's Elite Venture Ecosystem",f:"SV",r:1624,a:386,c:9,rt:2.3},
+      {dt:"12/18",s:"AV Welcome Webinar",f:"AVX",r:93,a:33,c:8,rt:24.2},
       {dt:"12/18",s:"The Quantum Decade Begins: How to Invest",f:"FFDT",r:184,a:56,c:0,rt:0},
       {dt:"12/16",s:"Ten Venture Red Flags That Mean Disaster",f:"FOUN",r:102,a:36,c:2,rt:5.6},
       {dt:"12/16",s:"AI & Robotics Fund: Portfolio Update",f:"FFAI",r:81,a:31,c:2,rt:6.5},
-      {dt:"12/30",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:137,a:25,c:0,rt:0},
+      {dt:"12/30",s:"Masterclass Live! The Art of Evaluating Startups",f:"FOUN",r:137,a:25,c:1,rt:4.0},
       {dt:"12/4", s:"VC University - Building a Smart Portfolio",f:"FOUN",r:75,a:34,c:1,rt:2.9},
       {dt:"12/9", s:"116 Street and Waterman Ventures Last Call",f:"OHS/WV",r:64,a:19,c:2,rt:10.5},
       {dt:"12/18",s:"Masterclass: Evaluating VC Deals",f:"BIV,NSV,THV",r:88,a:33,c:2,rt:6.1},
@@ -836,21 +803,21 @@
     "Jan '26": [
       {dt:"1/22",s:"AV Welcome Webinar",f:"AVX",r:103,a:46,c:6,rt:13.0},
       {dt:"1/22",s:"Alumni Ventures Equity Fundraiser",f:"AVX",r:255,a:88,c:4,rt:4.5},
-      {dt:"1/21",s:"The AV Venture 100: The Big Reveal",f:"FOUN",r:508,a:101,c:3,rt:3.0},
+      {dt:"1/21",s:"The AV Venture 100: The Big Reveal",f:"FOUN",r:508,a:101,c:4,rt:4.0},
       {dt:"1/7", s:"An Introduction to the AI & Robotics Fund",f:"FFAI",r:122,a:35,c:3,rt:8.6},
       {dt:"1/29",s:"Blockchain, Digital Assets & Markets",f:"FFBL",r:52,a:18,c:2,rt:11.1},
       {dt:"1/22",s:"The New Arsenal: How Venture Capital Wins",f:"FFUS",r:99,a:19,c:1,rt:5.3},
       {dt:"1/29",s:"Why Daily Life is the Next Trillion Dollar Opportunity",f:"GenZ & AI",r:157,a:37,c:1,rt:2.7},
-      {dt:"1/27",s:"The Quantum Decade Begins: How Alums Win",f:"FFDT",r:91,a:30,c:1,rt:3.3},
+      {dt:"1/27",s:"The Quantum Decade Begins: How Alums Win",f:"FFDT",r:91,a:30,c:2,rt:6.7},
       {dt:"1/13",s:"The Future Software Stack: From AI to Edge",f:"AI Infrastr.",r:117,a:23,c:1,rt:4.3},
       {dt:"1/13",s:"Your Guide to Investing in Congress Avenue Ventures",f:"CAV",r:15,a:3,c:1,rt:33.3},
-      {dt:"1/6", s:"Ten Venture Red Flags That Mean Disaster",f:"FOUN",r:88,a:34,c:1,rt:2.9},
+      {dt:"1/6", s:"Ten Venture Red Flags That Mean Disaster",f:"FOUN",r:88,a:34,c:2,rt:5.9},
       {dt:"1/15",s:"Spike Ventures: How We Evaluate Deals",f:"SV",r:175,a:31,c:1,rt:3.2},
       {dt:"1/8", s:"Inside Stanford's Elite Venture Ecosystem",f:"SV",r:335,a:45,c:0,rt:0},
       {dt:"1/8", s:"Chestnut Street Ventures Masterclass",f:"CSV",r:67,a:33,c:0,rt:0},
       {dt:"1/7", s:"The Disappearing Analyst: How AI is Changing",f:"Cyber Synd.",r:54,a:11,c:0,rt:0},
       {dt:"1/21",s:"Why We Invested in Function Health",f:"FFHT",r:71,a:8,c:0,rt:0},
-      {dt:"1/20",s:"The Humans First Venture Framework",f:"Humans Fi.",r:54,a:21,c:0,rt:0},
+      {dt:"1/20",s:"The Humans First Venture Framework",f:"Humans Fi.",r:54,a:21,c:1,rt:4.8},
       {dt:"1/15",s:"Introduction to The Fence Ventures",f:"FNC",r:20,a:1,c:0,rt:0},
     ],
     "Feb '26": [
@@ -985,7 +952,8 @@
 
   function initTabs() {
     const bar = document.getElementById('tabBar');
-    bar.innerHTML = TAB_KEYS.map((k,i) =>
+    const displayKeys = [...TAB_KEYS].reverse(); // most recent first (left)
+    bar.innerHTML = displayKeys.map((k,i) =>
       `<button class="tab-btn${i===0?' active':''}" data-key="${k}">${k}</button>`
     ).join('');
     bar.addEventListener('click', e => {
@@ -995,7 +963,7 @@
       btn.classList.add('active');
       renderTable(btn.dataset.key);
     });
-    renderTable(TAB_KEYS[0]);
+    renderTable(displayKeys[0]); // default to most recent
   }
 
   initTabs();

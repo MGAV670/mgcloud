@@ -343,27 +343,27 @@
   <!-- KPI ROW -->
   <div class="kpi-row">
     <div class="kpi b">
-      <div class="kpi-lbl">Webinar Members · Q1 '26</div>
-      <div class="kpi-val">1,282</div>
-      <div class="kpi-sub">Jan–Mar 2026 · new syndicate members</div>
-      <div class="kpi-trend up">↑ 214% vs Q4 '25 (408)</div>
+      <div class="kpi-lbl">Syndicate Completes · All Periods</div>
+      <div class="kpi-val">2,426</div>
+      <div class="kpi-sub">Sep '25–May '26 · new webinar-generated investors</div>
+      <div class="kpi-trend up">↑ 483 peak in Mar '26</div>
     </div>
     <div class="kpi t">
-      <div class="kpi-lbl">Avg Monthly RSVPs · Unique</div>
-      <div class="kpi-val">2,216</div>
-      <div class="kpi-sub">Non-customer · non-repeat · per month</div>
-      <div class="kpi-trend up">→ stable pipeline</div>
+      <div class="kpi-lbl">Total RSVPs · Full Period</div>
+      <div class="kpi-val">19,941</div>
+      <div class="kpi-sub">Sep '25–May '26 · unique non-customer non-repeat</div>
+      <div class="kpi-trend up">→ 9 months tracked</div>
     </div>
     <div class="kpi a">
-      <div class="kpi-lbl">Conversion Rate · Q1 '26</div>
+      <div class="kpi-lbl">Investor Conversion · Q1 '26</div>
       <div class="kpi-val">18.0%</div>
-      <div class="kpi-sub">Members ÷ RSVPs, Jan–Mar 2026</div>
+      <div class="kpi-sub">New Investors ÷ Webinar RSVPs · Jan–Mar 2026</div>
       <div class="kpi-trend up">↑ 12.1pts vs Q4 '25 (5.9%)</div>
     </div>
     <div class="kpi v">
-      <div class="kpi-lbl">Peak Month</div>
+      <div class="kpi-lbl">Peak Investor Conversion</div>
       <div class="kpi-val">21.3%</div>
-      <div class="kpi-sub">March 2026 · 483 members</div>
+      <div class="kpi-sub">March 2026 · 483 new investors</div>
       <div class="kpi-trend up">↑ from 2.4% in Sep '25</div>
     </div>
   </div>
@@ -477,6 +477,23 @@
     const members  = [  42,  133,   89,  186,  348,  451,  483,  391,  303];
     const convRate = members.map((m,i) => +((m/rsvpd[i])*100).toFixed(1));
 
+    const memberBarLabels = {
+      id: 'memberBarLabels',
+      afterDatasetsDraw(chart) {
+        const {ctx} = chart;
+        const barMeta = chart.getDatasetMeta(0);
+        barMeta.data.forEach((bar, i) => {
+          ctx.save();
+          ctx.font = '600 10px Inter, sans-serif';
+          ctx.fillStyle = '#22d3ab';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText(members[i], bar.x, bar.y - 3);
+          ctx.restore();
+        });
+      }
+    };
+
     new Chart(document.getElementById('primaryChart'), {
       type: 'bar',
       data: {
@@ -530,6 +547,7 @@
           }
         ]
       },
+      plugins: [memberBarLabels],
       options: {
         responsive: true,
         maintainAspectRatio: false,

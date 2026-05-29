@@ -355,16 +355,16 @@
       <div class="kpi-trend up">→ 9 months tracked</div>
     </div>
     <div class="kpi a">
-      <div class="kpi-lbl">Investor Conversion · Q1 '26</div>
-      <div class="kpi-val">18.0%</div>
-      <div class="kpi-sub">New Investors ÷ Webinar RSVPs · Jan–Mar 2026</div>
-      <div class="kpi-trend up">↑ 12.1pts vs Q4 '25 (5.9%)</div>
+      <div id="kpi3-lbl" class="kpi-lbl">Commit Rate · Full Period</div>
+      <div id="kpi3-val" class="kpi-val">—</div>
+      <div id="kpi3-sub" class="kpi-sub">Total Commits ÷ Total RSVPs · Sep '25–May '26</div>
+      <div id="kpi3-trend" class="kpi-trend up"></div>
     </div>
     <div class="kpi v">
-      <div class="kpi-lbl">Peak Investor Conversion</div>
-      <div class="kpi-val">21.3%</div>
-      <div class="kpi-sub">March 2026 · 483 new investors</div>
-      <div class="kpi-trend up">↑ from 2.4% in Sep '25</div>
+      <div id="kpi4-lbl" class="kpi-lbl">Peak Commit Rate</div>
+      <div id="kpi4-val" class="kpi-val">—</div>
+      <div id="kpi4-sub" class="kpi-sub"></div>
+      <div id="kpi4-trend" class="kpi-trend up"></div>
     </div>
   </div>
 
@@ -928,6 +928,27 @@
 
   const TAB_KEYS = Object.keys(WD);
   let activeTab = TAB_KEYS[0];
+
+  // ── COMMIT RATE KPIs (computed from WD data) ─────────
+  const monthKeyOrder = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26 ✦"];
+  let totalCommits = 0;
+  let peakRate = 0, peakMonth = '', peakMonthCommits = 0;
+  monthKeyOrder.forEach((k, i) => {
+    const rows = WD[k] || [];
+    const mc = rows.reduce((s,w) => s+w.c, 0);
+    const mr = rsvpd[i];
+    totalCommits += mc;
+    const rate = mr ? (mc/mr)*100 : 0;
+    if (rate > peakRate) { peakRate = rate; peakMonth = k; peakMonthCommits = mc; }
+  });
+  const totalRSVPs = rsvpd.reduce((s,v)=>s+v,0);
+  const overallRate = ((totalCommits/totalRSVPs)*100).toFixed(1);
+
+  document.getElementById('kpi3-val').textContent   = overallRate + '%';
+  document.getElementById('kpi3-trend').textContent  = `${totalCommits.toLocaleString()} commits ÷ ${totalRSVPs.toLocaleString()} RSVPs`;
+  document.getElementById('kpi4-val').textContent   = peakRate.toFixed(1) + '%';
+  document.getElementById('kpi4-sub').textContent   = `${peakMonth} · ${peakMonthCommits} commits`;
+  document.getElementById('kpi4-trend').textContent  = `↑ best single-month commit rate`;
 
   function ratePill(rt) {
     if (!rt) return `<span class="pill pill-0">—</span>`;

@@ -558,18 +558,37 @@
 
     // ── FUNNEL CHART ─────────────────────────────────
     // RSVPs & Members from spreadsheet; Attended from Tableau grand totals
-    const funnelLabels = ['RSVPs','Attended','14D Commit','3-Mo Commit','Members (all-time)'];
-    const funnelData   = [19941, 5429, 82, 178, 2426];
+    const funnelLabels = ['RSVPs','Attended','Members (all-time)','3-Mo Commit','14D Commit'];
+    const funnelData   = [19941, 5429, 2426, 178, 82];
     const funnelColors = [
+      'rgba(45,110,240,0.55)',
       'rgba(45,110,240,0.40)',
-      'rgba(45,110,240,0.60)',
-      'rgba(10,171,133,0.45)',
-      'rgba(10,171,133,0.65)',
-      'rgba(10,171,133,0.90)',
+      'rgba(10,171,133,0.80)',
+      'rgba(10,171,133,0.55)',
+      'rgba(10,171,133,0.35)',
     ];
+
+    const funnelLabelPlugin = {
+      id: 'funnelLabelPlugin',
+      afterDatasetsDraw(chart) {
+        const {ctx} = chart;
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          const pct = ((funnelData[i]/funnelData[0])*100).toFixed(1);
+          const label = `${funnelData[i].toLocaleString()}  ·  ${pct}% of RSVPs`;
+          ctx.save();
+          ctx.font = '500 11px Inter, sans-serif';
+          ctx.fillStyle = '#4d6480';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(label, bar.x + 8, bar.y);
+          ctx.restore();
+        });
+      }
+    };
 
     new Chart(document.getElementById('funnelChart'), {
       type: 'bar',
+      plugins: [funnelLabelPlugin],
       data: {
         labels: funnelLabels,
         datasets: [{
@@ -582,8 +601,10 @@
         }]
       },
       options: {
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        layout: { padding: { right: 220 } },
         plugins: {
           legend: { display:false },
           tooltip: {
@@ -591,21 +612,28 @@
             callbacks: {
               label(ctx) {
                 const v = ctx.raw;
-                const pct = ((v/funnelData[0])*100).toFixed(2);
-                return `  ${v.toLocaleString()} (${pct}% of registered)`;
+                const pct = ((v/funnelData[0])*100).toFixed(1);
+                return `  ${v.toLocaleString()} (${pct}% of RSVPs)`;
               }
             }
           }
         },
         scales: {
-          x: { grid:{display:false}, border:{display:false},
-               ticks:{ color:'#8fa5bc', font:{size:10} } },
-          y: { grid:{color:GRID,drawBorder:false}, border:{display:false},
-               ticks:{
-                 color:'#8fa5bc',
-                 callback: v => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v
-               },
-               beginAtZero:true }
+          x: {
+            type: 'logarithmic',
+            grid:{ color:GRID, drawBorder:false },
+            border:{ display:false },
+            ticks:{
+              color:'#8fa5bc',
+              font:{ size:10 },
+              callback: v => [100,1000,10000].includes(v) ? v.toLocaleString() : null
+            }
+          },
+          y: {
+            grid:{ display:false },
+            border:{ display:false },
+            ticks:{ color:'#4d6480', font:{ size:11 } }
+          }
         }
       }
     });

@@ -11,17 +11,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0c1117;
-      --surface:   #131a24;
-      --surface2:  #18212f;
-      --border:    #1e2d40;
-      --blue:      #4f8ef7;
-      --teal:      #22d3ab;
-      --amber:     #f59e0b;
-      --violet:    #a78bfa;
-      --text:      #dce8f5;
-      --label:     #7a99bc;
-      --muted:     #415972;
+      --bg:        #f1f4f8;
+      --surface:   #ffffff;
+      --surface2:  #f4f7fb;
+      --border:    #dce4ef;
+      --blue:      #2d6ef0;
+      --teal:      #0aab85;
+      --amber:     #d97706;
+      --violet:    #7c5ce0;
+      --text:      #0d1825;
+      --label:     #4d6480;
+      --muted:     #8fa5bc;
     }
 
     body {
@@ -91,7 +91,7 @@
       overflow: hidden;
       transition: border-color 0.2s;
     }
-    .kpi:hover { border-color: #2a3d55; }
+    .kpi:hover { border-color: #b8ccdf; }
     .kpi::before {
       content: '';
       position: absolute;
@@ -355,15 +355,15 @@
       <div class="kpi-trend up">→ 9 months tracked</div>
     </div>
     <div class="kpi a">
-      <div id="kpi3-lbl" class="kpi-lbl">Commit Rate · Full Period</div>
+      <div class="kpi-lbl">Total Attendees · Full Period</div>
       <div id="kpi3-val" class="kpi-val">—</div>
-      <div id="kpi3-sub" class="kpi-sub">Total Commits ÷ Total RSVPs · Sep '25–May '26</div>
+      <div class="kpi-sub">Sep '25–May '26 · sum of webinar attendances</div>
       <div id="kpi3-trend" class="kpi-trend up"></div>
     </div>
     <div class="kpi v">
-      <div id="kpi4-lbl" class="kpi-lbl">Peak Commit Rate</div>
+      <div class="kpi-lbl">Total Webinars Hosted</div>
       <div id="kpi4-val" class="kpi-val">—</div>
-      <div id="kpi4-sub" class="kpi-sub"></div>
+      <div class="kpi-sub">Sep '25–May '26 · across all funds &amp; syndicates</div>
       <div id="kpi4-trend" class="kpi-trend up"></div>
     </div>
   </div>
@@ -377,12 +377,11 @@
         <div class="card-hd">
           <div>
             <div class="card-title">Monthly RSVPs vs. Webinar-Generated Syndicate Members</div>
-            <div class="card-sub">Month over month · bars = RSVPs (left axis) · teal line = new members (right axis) · dashed amber = conversion rate</div>
+            <div class="card-sub">Month over month · bars = RSVPs (left axis) · teal line = new syndicate members (right axis)</div>
           </div>
           <div class="legend">
-            <div class="leg"><div class="leg-sq" style="background:#4f8ef7"></div>RSVPs</div>
-            <div class="leg"><div class="leg-sq" style="background:#22d3ab; border-radius:50%"></div>Webinar Members</div>
-            <div class="leg"><div class="leg-sq" style="background:rgba(245,158,11,0.7)"></div>Conv Rate %</div>
+            <div class="leg"><div class="leg-sq" style="background:#2d6ef0"></div>RSVPs</div>
+            <div class="leg"><div class="leg-sq" style="background:#0aab85; border-radius:50%"></div>Webinar Members</div>
           </div>
         </div>
         <div class="rsvp-def">
@@ -398,37 +397,19 @@
       </div>
     </div>
 
-    <!-- SECONDARY ROW -->
+    <!-- FUNNEL -->
     <div>
-      <div class="section-lbl">Secondary · Conversion by Syndicate Attribution</div>
-      <div class="two-col">
-
-        <!-- Syndicate conversion -->
-        <div class="card">
-          <div class="card-hd">
-            <div>
-              <div class="card-title">Conversion Rate by Syndicate Source</div>
-              <div class="card-sub">% of webinar registrants who became investors</div>
-            </div>
-          </div>
-          <div class="chart-wrap" style="height:270px">
-            <canvas id="syndicateChart"></canvas>
+      <div class="section-lbl">Aggregate Conversion Funnel</div>
+      <div class="card">
+        <div class="card-hd">
+          <div>
+            <div class="card-title">Webinar Conversion Funnel · Sep '25–May '26</div>
+            <div class="card-sub">RSVPs → Attended → Committed → Syndicate Members · all-time</div>
           </div>
         </div>
-
-        <!-- Funnel -->
-        <div class="card">
-          <div class="card-hd">
-            <div>
-              <div class="card-title">Aggregate Conversion Funnel</div>
-              <div class="card-sub">RSVPs → Attended → Committed → Syndicate Members · Sep '25–May '26</div>
-            </div>
-          </div>
-          <div class="chart-wrap" style="height:270px">
-            <canvas id="funnelChart"></canvas>
-          </div>
+        <div class="chart-wrap" style="height:240px">
+          <canvas id="funnelChart"></canvas>
         </div>
-
       </div>
     </div>
 
@@ -461,13 +442,13 @@
 
   <script>
     // ── shared defaults ─────────────────────────────
-    Chart.defaults.color = '#415972';
+    Chart.defaults.color = '#8fa5bc';
     Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
     Chart.defaults.font.size = 11;
 
-    const GRID  = 'rgba(30,45,64,0.9)';
-    const TIP   = { backgroundColor:'#18212f', borderColor:'#1e2d40', borderWidth:1,
-                    titleColor:'#dce8f5', bodyColor:'#7a99bc', padding:12 };
+    const GRID  = 'rgba(200,215,232,0.8)';
+    const TIP   = { backgroundColor:'#ffffff', borderColor:'#dce4ef', borderWidth:1,
+                    titleColor:'#0d1825', bodyColor:'#4d6480', padding:12 };
 
     // ── PRIMARY CHART ────────────────────────────────
     // Source: spreadsheet data (RSVPs & Webinar-Generated Syndicate Complete Members)
@@ -475,7 +456,6 @@
     const months  = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26 ✦"];
     const rsvpd    = [1729, 2268, 1592, 3003, 2363, 2493, 2263, 2118, 2112];
     const members  = [  42,  133,   89,  186,  348,  451,  483,  391,  303];
-    const convRate = members.map((m,i) => +((m/rsvpd[i])*100).toFixed(1));
 
     const memberBarLabels = {
       id: 'memberBarLabels',
@@ -485,7 +465,7 @@
         barMeta.data.forEach((bar, i) => {
           ctx.save();
           ctx.font = '600 10px Inter, sans-serif';
-          ctx.fillStyle = '#22d3ab';
+          ctx.fillStyle = '#0aab85';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'bottom';
           ctx.fillText(rsvpd[i].toLocaleString(), bar.x, bar.y - 3);
@@ -502,22 +482,22 @@
           {
             label: 'RSVPs',
             data: rsvpd,
-            backgroundColor: 'rgba(79,142,247,0.50)',
-            borderColor:      'rgba(79,142,247,0.85)',
+            backgroundColor: 'rgba(45,110,240,0.18)',
+            borderColor:      'rgba(45,110,240,0.70)',
             borderWidth: 1,
             borderRadius: 4,
             borderSkipped: false,
             yAxisID: 'yLeft',
-            order: 3,
+            order: 2,
           },
           {
             label: 'Webinar-Generated Members',
             data: members,
             type: 'line',
-            borderColor:          'rgba(34,211,171,1)',
-            backgroundColor:      'rgba(34,211,171,0.08)',
-            pointBackgroundColor: 'rgba(34,211,171,1)',
-            pointBorderColor:     '#131a24',
+            borderColor:          'rgba(10,171,133,1)',
+            backgroundColor:      'rgba(10,171,133,0.06)',
+            pointBackgroundColor: 'rgba(10,171,133,1)',
+            pointBorderColor:     '#ffffff',
             pointBorderWidth: 2,
             pointRadius: 5,
             pointHoverRadius: 7,
@@ -526,24 +506,6 @@
             fill: false,
             yAxisID: 'yRight',
             order: 1,
-          },
-          {
-            label: 'Conversion Rate %',
-            data: convRate,
-            type: 'line',
-            borderColor:          'rgba(245,158,11,0.85)',
-            backgroundColor:      'transparent',
-            pointBackgroundColor: 'rgba(245,158,11,0.9)',
-            pointBorderColor:     '#131a24',
-            pointBorderWidth: 2,
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            borderWidth: 1.5,
-            borderDash: [4,3],
-            tension: 0.4,
-            fill: false,
-            yAxisID: 'yRate',
-            order: 2,
           }
         ]
       },
@@ -559,10 +521,8 @@
             callbacks: {
               label(ctx) {
                 if (ctx.dataset.label === 'RSVPs')
-                  return `  RSVPs:    ${ctx.raw.toLocaleString()}`;
-                if (ctx.dataset.label === 'Webinar-Generated Members')
-                  return `  Members:  ${ctx.raw}`;
-                return `  Conv Rate: ${ctx.raw}%`;
+                  return `  RSVPs:   ${ctx.raw.toLocaleString()}`;
+                return `  Members: ${ctx.raw}`;
               }
             }
           }
@@ -571,7 +531,7 @@
           x: {
             grid:{ color:GRID, drawBorder:false },
             border:{ display:false },
-            ticks:{ color:'#415972' }
+            ticks:{ color:'#8fa5bc' }
           },
           yLeft: {
             type: 'linear', position: 'left',
@@ -579,76 +539,19 @@
             border:{ display:false },
             beginAtZero: true,
             ticks:{
-              color:'#4f8ef7',
+              color:'#2d6ef0',
               callback: v => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v
             },
-            title:{ display:true, text:'RSVPs', color:'#4f8ef7', font:{size:10,weight:'500'} }
+            title:{ display:true, text:'RSVPs', color:'#2d6ef0', font:{size:10,weight:'500'} }
           },
           yRight: {
             type: 'linear', position: 'right',
             grid:{ drawOnChartArea:false },
             border:{ display:false },
             beginAtZero: true,
-            ticks:{ color:'#22d3ab' },
-            title:{ display:true, text:'Members', color:'#22d3ab', font:{size:10,weight:'500'} }
-          },
-          yRate: {
-            type: 'linear', position: 'right',
-            grid:{ drawOnChartArea:false },
-            border:{ display:false },
-            beginAtZero: true,
-            display: false,
+            ticks:{ color:'#0aab85' },
+            title:{ display:true, text:'Members', color:'#0aab85', font:{size:10,weight:'500'} }
           }
-        }
-      }
-    });
-
-    // ── SYNDICATE CHART ──────────────────────────────
-    // 12-Month commit rates aggregated from individual webinar rows in Tableau
-    const syns  = ['THV','AVX','CAV','FFAI','GDV','OHS/WV','SV','FOUN','FFHT'];
-    const rates = [16.7, 12.4, 10.0, 8.0, 6.1, 4.1, 3.9, 2.9, 2.0];
-    const counts= [   3,   51,    3,  15,   3,    2,   5,  20,   2];
-
-    // Sort descending
-    const synOrder = rates.map((_,i)=>i).sort((a,b)=>rates[b]-rates[a]);
-    const synsSorted  = synOrder.map(i=>syns[i]);
-    const ratesSorted = synOrder.map(i=>rates[i]);
-
-    new Chart(document.getElementById('syndicateChart'), {
-      type: 'bar',
-      data: {
-        labels: synsSorted,
-        datasets: [{
-          label: '12-Mo Conversion Rate (%)',
-          data: ratesSorted,
-          backgroundColor: ratesSorted.map(v => {
-            const t = Math.max(0, Math.min(1, (v - 2.0) / 14.7));
-            return `rgba(${Math.round(79 + t*(-79+34))},${Math.round(142 + t*(211-142))},${Math.round(247 + t*(171-247))},0.80)`;
-          }),
-          borderWidth: 0,
-          borderRadius: 4,
-          borderSkipped: false,
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display:false },
-          tooltip: {
-            ...TIP,
-            callbacks: {
-              label: (ctx) => `  Conversion: ${ctx.raw}%`,
-              afterLabel: (ctx) => `  Members:    ${counts[synOrder[ctx.dataIndex]]}`
-            }
-          }
-        },
-        scales: {
-          x: { grid:{color:GRID,drawBorder:false}, border:{display:false},
-               ticks:{ color:'#415972', callback: v=>`${v}%` } },
-          y: { grid:{display:false}, border:{display:false},
-               ticks:{ color:'#7a99bc' } }
         }
       }
     });
@@ -658,11 +561,11 @@
     const funnelLabels = ['RSVPs','Attended','14D Commit','3-Mo Commit','Members (all-time)'];
     const funnelData   = [19941, 5429, 82, 178, 2426];
     const funnelColors = [
-      'rgba(79,142,247,0.65)',
-      'rgba(79,142,247,0.80)',
-      'rgba(34,211,171,0.55)',
-      'rgba(34,211,171,0.75)',
-      'rgba(34,211,171,0.95)',
+      'rgba(45,110,240,0.40)',
+      'rgba(45,110,240,0.60)',
+      'rgba(10,171,133,0.45)',
+      'rgba(10,171,133,0.65)',
+      'rgba(10,171,133,0.90)',
     ];
 
     new Chart(document.getElementById('funnelChart'), {
@@ -696,10 +599,10 @@
         },
         scales: {
           x: { grid:{display:false}, border:{display:false},
-               ticks:{ color:'#7a99bc', font:{size:10} } },
+               ticks:{ color:'#8fa5bc', font:{size:10} } },
           y: { grid:{color:GRID,drawBorder:false}, border:{display:false},
                ticks:{
-                 color:'#415972',
+                 color:'#8fa5bc',
                  callback: v => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v
                },
                beginAtZero:true }
@@ -929,26 +832,15 @@
   const TAB_KEYS = Object.keys(WD);
   let activeTab = TAB_KEYS[0];
 
-  // ── COMMIT RATE KPIs (computed from WD data) ─────────
-  const monthKeyOrder = ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26","May '26 ✦"];
-  let totalCommits = 0;
-  let peakRate = 0, peakMonth = '', peakMonthCommits = 0;
-  monthKeyOrder.forEach((k, i) => {
-    const rows = WD[k] || [];
-    const mc = rows.reduce((s,w) => s+w.c, 0);
-    const mr = rsvpd[i];
-    totalCommits += mc;
-    const rate = mr ? (mc/mr)*100 : 0;
-    if (rate > peakRate) { peakRate = rate; peakMonth = k; peakMonthCommits = mc; }
-  });
-  const totalRSVPs = rsvpd.reduce((s,v)=>s+v,0);
-  const overallRate = ((totalCommits/totalRSVPs)*100).toFixed(1);
+  // ── RAW COUNT KPIs (computed from WD data) ───────────
+  const allRows = Object.values(WD).flat();
+  const totalAttended = allRows.reduce((s,w) => s+w.a, 0);
+  const totalWebinars = allRows.length;
 
-  document.getElementById('kpi3-val').textContent   = overallRate + '%';
-  document.getElementById('kpi3-trend').textContent  = `${totalCommits.toLocaleString()} commits ÷ ${totalRSVPs.toLocaleString()} RSVPs`;
-  document.getElementById('kpi4-val').textContent   = peakRate.toFixed(1) + '%';
-  document.getElementById('kpi4-sub').textContent   = `${peakMonth} · ${peakMonthCommits} commits`;
-  document.getElementById('kpi4-trend').textContent  = `↑ best single-month commit rate`;
+  document.getElementById('kpi3-val').textContent   = totalAttended.toLocaleString();
+  document.getElementById('kpi3-trend').textContent  = `→ ${(totalAttended/totalWebinars).toFixed(0)} avg attendees per webinar`;
+  document.getElementById('kpi4-val').textContent   = totalWebinars.toLocaleString();
+  document.getElementById('kpi4-trend').textContent  = `→ ${(totalWebinars/9).toFixed(1)} avg per month`;
 
   function ratePill(rt) {
     if (!rt) return `<span class="pill pill-0">—</span>`;

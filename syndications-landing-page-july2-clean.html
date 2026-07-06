@@ -18,6 +18,25 @@
   .cta-btn:hover        { background: #4A2870 !important; box-shadow: 0 6px 24px rgba(91,53,137,0.55) !important; }
   .modal-cta:hover      { background: #104866 !important; }
 
+  /* ── Tag system ── */
+  .deal-tag { font-size: 10px; white-space: nowrap; display: inline-block; line-height: 1.3; letter-spacing: 0.01em; }
+  /* Lead Investor — green pill */
+  .tag-lead-inv  { background: #1A5C38; color: #A8E0BF; border-radius: 20px; font-weight: 600; padding: 5px 12px; }
+  /* School — squared credential badge */
+  .tag-harvard   { background: #A31F34; color: #FFE8EC; border-radius: 6px; font-weight: 700; padding: 5px 10px; }
+  .tag-stanford  { background: #8C1515; color: #FFE8E8; border-radius: 6px; font-weight: 700; padding: 5px 10px; }
+  .tag-berkeley  { background: #003282; color: #CCE0FF; border-radius: 6px; font-weight: 700; padding: 5px 10px; }
+  /* Career pedigree — dark slate badge */
+  .tag-career    { background: #1C2E3F; color: #C8D8E4; border-radius: 6px; font-weight: 600; padding: 5px 10px; }
+  /* Exit size — amber badge */
+  .tag-exit      { background: #6A3D00; color: #FFD88A; border-radius: 6px; font-weight: 700; padding: 5px 10px; }
+  /* Recognition — gold outline pill */
+  .tag-recog     { background: transparent; color: #7A5500; border: 1px solid #C8A23E; border-radius: 20px; font-weight: 600; padding: 4px 11px; }
+  /* Traction — sharp orange chip */
+  .tag-traction  { background: #D4720A; color: #FFFFFF; border-radius: 2px; font-weight: 800; padding: 5px 10px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  /* AV Return — gold stamp */
+  .tag-av-return { background: #C8A23E; color: #1A0E00; border-radius: 3px; font-weight: 800; padding: 5px 10px; letter-spacing: 0.05em; text-transform: uppercase; font-size: 9px; }
+
   @media (max-width: 700px) {
     .deal-card-grid     { grid-template-columns: 1fr; }
     .card-left          { border-right: none !important; border-bottom: 1px solid #C8E8E7; }
@@ -57,11 +76,11 @@
     <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
       <div style="background: #DDE9EF; padding: 28px 24px 24px;">
         <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Riven Systems</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Pre-Seed</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Critical Minerals</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Initial</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,50,130,0.35); color: #003282; border-radius: 2px; background: rgba(0,50,130,0.07);">Berkeley Founder</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px;">
+          <span class="deal-tag tag-lead-inv">Domain Expert Lead</span>
+          <span class="deal-tag tag-berkeley">Berkeley Founder</span>
+          <span class="deal-tag tag-career">PhD Founder</span>
+          <span class="deal-tag tag-recog">✦ Patent Holder</span>
         </div>
       </div>
       <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
@@ -134,11 +153,11 @@
     <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
       <div style="background: #DDE9EF; padding: 28px 24px 24px;">
         <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Avarra</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Series A</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Enterprise AI</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Initial</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(163,31,52,0.35); color: #A31F34; border-radius: 2px; background: rgba(163,31,52,0.07);">Harvard Founder</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px;">
+          <span class="deal-tag tag-recog">✦ Midas List</span>
+          <span class="deal-tag tag-exit">$10B+ Prior Exit</span>
+          <span class="deal-tag tag-traction">150%+ NRR</span>
+          <span class="deal-tag tag-harvard">Harvard Founder</span>
         </div>
       </div>
       <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
@@ -211,11 +230,11 @@
     <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
       <div style="background: #DDE9EF; padding: 28px 24px 24px;">
         <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">MagicX</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Series A</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">AI &amp; Infra</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(0,51,73,0.25); color: #104866; border-radius: 2px; background: rgba(255,255,255,0.5);">Follow-On</span>
-          <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border: 1px solid rgba(140,21,21,0.35); color: #8C1515; border-radius: 2px; background: rgba(140,21,21,0.07);">Stanford Founder</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px;">
+          <span class="deal-tag tag-av-return">Investing Again (2x)</span>
+          <span class="deal-tag tag-lead-inv">Top 20 VC Lead</span>
+          <span class="deal-tag tag-stanford">Stanford Founder</span>
+          <span class="deal-tag tag-recog">✦ Patent Holder</span>
         </div>
       </div>
       <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">

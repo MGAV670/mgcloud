@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AV Community Size — Daily Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f1f4f8;
+      --surface:   #ffffff;
+      --surface2:  #f4f7fb;
+      --border:    #dce4ef;
+      --blue:      #2d6ef0;
+      --teal:      #0aab85;
+      --amber:     #d97706;
+      --red:       #dc2657;
+      --violet:    #7c5ce0;
+      --text:      #0d1825;
+      --label:     #4d6480;
+      --muted:     #8fa5bc;
+      --navy:      #16324f;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 28px 32px 48px;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ───────────────────────────────────── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 26px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header h1 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+    .header p {
+      font-size: 0.73rem;
+      color: var(--muted);
+      margin-top: 4px;
+      max-width: 640px;
+      line-height: 1.5;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(79,142,247,0.08);
+      border: 1px solid rgba(79,142,247,0.25);
+      color: var(--blue);
+      font-size: 0.70rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .live-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── KPI CARDS ────────────────────────────────── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .kpi:hover { border-color: #b8ccdf; }
+    .kpi::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 10px 10px 0 0;
+    }
+    .kpi.b::before { background: var(--blue); }
+    .kpi.t::before { background: var(--teal); }
+    .kpi.a::before { background: var(--amber); }
+    .kpi.r::before { background: var(--red); }
+    .kpi.v::before { background: var(--violet); }
+
+    .kpi-lbl {
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 10px;
+    }
+    .kpi-val {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+    }
+    .kpi-sub {
+      font-size: 0.70rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .kpi-sub .up   { color: var(--teal); font-weight: 600; }
+    .kpi-sub .down { color: var(--red);  font-weight: 600; }
+
+    /* ── PANELS ───────────────────────────────────── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px 20px;
+    }
+    .panel h2 {
+      font-size: 0.80rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .panel .sub {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .chart-wrap { position: relative; height: 260px; }
+
+    /* ── TABLE ────────────────────────────────────── */
+    .table-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .table-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 20px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-head h2 { font-size: 0.80rem; font-weight: 600; }
+    .table-head .sub { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+    .legend { display: flex; gap: 16px; font-size: 0.68rem; color: var(--label); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .swatch { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+    .sw-live  { background: var(--blue); }
+    .sw-month { background: var(--muted); }
+
+    .scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+    thead th {
+      background: var(--navy);
+      color: #fff;
+      font-weight: 600;
+      text-align: right;
+      padding: 12px 18px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+    thead th:first-child { text-align: left; }
+    tbody td {
+      padding: 11px 18px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+    tbody td:first-child { text-align: left; font-weight: 500; }
+    tbody tr:nth-child(even) { background: var(--surface2); }
+    tbody tr.live-row { background: rgba(45,110,240,0.06); }
+    tbody tr.live-row td:first-child { color: var(--blue); font-weight: 600; }
+    tbody tr:hover { background: #eaf1fb; }
+    .tag {
+      display: inline-block;
+      font-size: 0.60rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .tag-live  { background: rgba(45,110,240,0.12); color: var(--blue); }
+    .tag-base  { background: rgba(143,165,188,0.18); color: var(--label); }
+    .pct-cell { font-weight: 600; }
+
+    /* ── METHOD NOTE ──────────────────────────────── */
+    .note {
+      margin-top: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 0.72rem;
+      color: var(--label);
+      line-height: 1.65;
+    }
+    .note h3 { font-size: 0.74rem; color: var(--text); margin-bottom: 8px; letter-spacing: 0.02em; }
+    .note code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: 0.68rem; color: var(--navy); }
+    .note ul { margin: 6px 0 0 18px; }
+    .note li { margin-bottom: 4px; }
+    .note a { color: var(--blue); text-decoration: none; }
+    .note a:hover { text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>Community Size — Daily Tracker</h1>
+      <p>HubSpot contact database segmented into Engaged, Unengaged, and Unsubscribed. Live daily snapshot pulled via the HubSpot connector; monthly rows carried over from the existing tracker for trend context.</p>
+    </div>
+    <div class="live-badge"><span class="dot"></span>LIVE · <span id="asof-badge"></span></div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <!-- CHARTS -->
+  <div class="grid-2">
+    <div class="panel">
+      <h2>Composition Over Time</h2>
+      <div class="sub">Engaged / Unengaged / Unsubscribed as share of total database</div>
+      <div class="chart-wrap"><canvas id="compChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <h2>% Engaged Trend</h2>
+      <div class="sub">Engaged contacts as a share of the total database</div>
+      <div class="chart-wrap"><canvas id="pctChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-panel">
+    <div class="table-head">
+      <div>
+        <h2>Community Size Grid</h2>
+        <div class="sub">Most recent first · daily live rows + monthly history</div>
+      </div>
+      <div class="legend">
+        <span><span class="swatch sw-live"></span>Live daily pull</span>
+        <span><span class="swatch sw-month"></span>Monthly snapshot</span>
+      </div>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Engaged</th>
+            <th>Unengaged</th>
+            <th>Unsubscribed</th>
+            <th>Total</th>
+            <th>% Engaged</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="note">
+    <h3>Definitions &amp; methodology</h3>
+    <ul>
+      <li><strong>Total</strong> — all contacts in the HubSpot database (<a href="https://app.hubspot.com/contacts/3925488/objects/0-1/views/all/list" target="_blank">all contacts view</a>).</li>
+      <li><strong>Unsubscribed</strong> — members of the <a href="https://app.hubspot.com/contacts/3925488/objectLists/18753/filters" target="_blank">Unsubscribed list (ID 18753)</a>.</li>
+      <li><strong>Unengaged</strong> — members of the <a href="https://app.hubspot.com/contacts/3925488/objectLists/50265/filters" target="_blank">Unengaged list (ID 50265)</a>, defined as: has <em>not</em> opened 16 emails in a row if they ever previously opened a marketing email, <em>or</em> has not opened 11 emails in a row if they never opened one. <strong>Contacts who are both unsubscribed and unengaged are counted only as Unsubscribed</strong> (deduplicated out of Unengaged).</li>
+      <li><strong>Engaged</strong> — the remainder: <code>Total − Unsubscribed − Unengaged(net)</code>.</li>
+    </ul>
+    <p style="margin-top:10px">Latest pull (<span id="method-date"></span>): total <code>1,130,688</code>, unsubscribed list <code>365,767</code>, unengaged list <code>521,212</code>, overlap counted as unsubscribed <code>55,561</code> → unengaged net <code>465,651</code>, engaged <code>299,270</code>. HubSpot lists are point-in-time, so historical daily backfill isn't available from the connector — the grid grows one live row per day going forward.</p>
+  </div>
+
+  <script>
+    // ── DATA ──────────────────────────────────────────────────────────
+    // type: 'daily'   = live snapshot pulled from HubSpot on that date
+    //       'monthly' = month snapshot carried over from the existing tracker
+    // Numbers are already deduped: unengaged excludes anyone also unsubscribed.
+    const DATA = [
+      { date: '2026-07-07', label: 'Jul 07, 2026', type: 'daily',   engaged: 299270, unengaged: 465651, unsubscribed: 365767, total: 1130688 },
+      { date: '2026-06-25', label: 'Jun 2026 (thru 6/25)', type: 'monthly', engaged: 297584, unengaged: 464283, unsubscribed: 364788, total: 1126655 },
+      { date: '2026-05-01', label: 'May 2026', type: 'monthly', engaged: 288832, unengaged: 464991, unsubscribed: 362751, total: 1116574 },
+      { date: '2026-04-01', label: 'Apr 2026', type: 'monthly', engaged: 297624, unengaged: 448819, unsubscribed: 360488, total: 1106931 },
+      { date: '2026-03-01', label: 'Mar 2026', type: 'monthly', engaged: 301924, unengaged: 435409, unsubscribed: 357667, total: 1095000 },
+      { date: '2026-02-01', label: 'Feb 2026', type: 'monthly', engaged: 312490, unengaged: 417355, unsubscribed: 354865, total: 1084710 },
+      { date: '2026-01-01', label: 'Jan 2026', type: 'monthly', engaged: 325495, unengaged: 399232, unsubscribed: 352708, total: 1077435 },
+      { date: '2025-12-01', label: 'Dec 2025', type: 'monthly', engaged: 322435, unengaged: 398159, unsubscribed: 349518, total: 1070112 },
+      { date: '2023-10-01', label: 'Oct 2023 (baseline)', type: 'monthly', engaged: 258118, unengaged: 374790, unsubscribed: 257301, total: 890209 },
+    ];
+
+    const fmt = n => n.toLocaleString('en-US');
+    const pct = r => Math.floor((r.engaged / r.total) * 100);
+    const latest = DATA[0];
+    const prev = DATA[1];
+
+    document.getElementById('asof-badge').textContent = latest.label;
+    document.getElementById('method-date').textContent = latest.label;
+
+    // ── KPI CARDS ─────────────────────────────────────────────────────
+    const delta = (cur, pr) => {
+      const d = cur - pr;
+      const sign = d >= 0 ? '+' : '−';
+      const cls = d >= 0 ? 'up' : 'down';
+      return `<span class="${cls}">${sign}${fmt(Math.abs(d))}</span> vs prior`;
+    };
+    const kpis = [
+      { cls: 'v', lbl: 'Total Database', val: latest.total, sub: delta(latest.total, prev.total) },
+      { cls: 'b', lbl: 'Engaged', val: latest.engaged, sub: delta(latest.engaged, prev.engaged) },
+      { cls: 'a', lbl: 'Unengaged', val: latest.unengaged, sub: delta(latest.unengaged, prev.unengaged) },
+      { cls: 'r', lbl: 'Unsubscribed', val: latest.unsubscribed, sub: delta(latest.unsubscribed, prev.unsubscribed) },
+      { cls: 't', lbl: '% Engaged', val: pct(latest) + '%', sub: (pct(latest) - pct(prev) >= 0 ? '+' : '−') + Math.abs(pct(latest) - pct(prev)) + ' pt vs prior', raw: true },
+    ];
+    document.getElementById('kpiRow').innerHTML = kpis.map(k => `
+      <div class="kpi ${k.cls}">
+        <div class="kpi-lbl">${k.lbl}</div>
+        <div class="kpi-val">${k.raw ? k.val : fmt(k.val)}</div>
+        <div class="kpi-sub">${k.sub}</div>
+      </div>`).join('');
+
+    // ── TABLE ─────────────────────────────────────────────────────────
+    document.getElementById('tableBody').innerHTML = DATA.map(r => `
+      <tr class="${r.type === 'daily' ? 'live-row' : ''}">
+        <td>${r.label}<span class="tag ${r.type === 'daily' ? 'tag-live' : 'tag-base'}">${r.type === 'daily' ? 'live' : r.label.includes('baseline') ? 'base' : 'mo'}</span></td>
+        <td>${fmt(r.engaged)}</td>
+        <td>${fmt(r.unengaged)}</td>
+        <td>${fmt(r.unsubscribed)}</td>
+        <td>${fmt(r.total)}</td>
+        <td class="pct-cell">${pct(r)}%</td>
+      </tr>`).join('');
+
+    // ── CHARTS ────────────────────────────────────────────────────────
+    const chrono = [...DATA].reverse();
+    const labels = chrono.map(r => r.label.replace(/ \(.*\)/, ''));
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.font.size = 11;
+    Chart.defaults.color = '#4d6480';
+
+    new Chart(document.getElementById('compChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Engaged', data: chrono.map(r => r.engaged), borderColor: '#2d6ef0', backgroundColor: 'rgba(45,110,240,0.10)', fill: true, tension: 0.3, borderWidth: 2, pointRadius: 2 },
+          { label: 'Unengaged', data: chrono.map(r => r.unengaged), borderColor: '#d97706', backgroundColor: 'rgba(217,119,6,0.08)', fill: true, tension: 0.3, borderWidth: 2, pointRadius: 2 },
+          { label: 'Unsubscribed', data: chrono.map(r => r.unsubscribed), borderColor: '#dc2657', backgroundColor: 'rgba(220,38,87,0.06)', fill: true, tension: 0.3, borderWidth: 2, pointRadius: 2 },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, usePointStyle: true, padding: 16 } },
+          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toLocaleString()}` } }
+        },
+        scales: {
+          y: { grid: { color: '#eef2f7' }, ticks: { callback: v => (v/1000) + 'k' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('pctChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: '% Engaged', data: chrono.map(r => pct(r)), borderColor: '#0aab85', backgroundColor: 'rgba(10,171,133,0.12)', fill: true, tension: 0.3, borderWidth: 2.5, pointRadius: 3, pointBackgroundColor: '#0aab85' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: c => `${c.parsed.y}% engaged` } }
+        },
+        scales: {
+          y: { grid: { color: '#eef2f7' }, ticks: { callback: v => v + '%' }, suggestedMin: 20, suggestedMax: 35 },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

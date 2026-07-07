@@ -166,6 +166,8 @@
     .funnel-row .fr-num { text-align: right; font-size: 0.76rem; font-variant-numeric: tabular-nums; color: var(--text); }
     .funnel-row .fr-num b { font-weight: 700; }
     .funnel-row .fr-num span { color: var(--muted); font-size: 0.68rem; margin-left: 4px; }
+    .funnel-row.funnel-unsub { margin-top: 6px; padding-top: 12px; border-top: 1px dashed var(--border); }
+    .funnel-row.funnel-unsub .fr-lbl { color: var(--muted); }
     .funnel-note { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.70rem; color: var(--label); line-height: 1.55; }
 
     /* ── GROWTH & CHURN ───────────────────────────── */
@@ -307,7 +309,7 @@
   <div class="grid-2">
     <div class="panel">
       <h2>Engagement Recency — Sunset Funnel</h2>
-      <div class="sub">Whole database bucketed by last marketing-email open. The glide path into Unengaged.</div>
+      <div class="sub">Still-subscribed (mailable) contacts bucketed by last open. Unsubscribed broken out separately.</div>
       <div id="funnelBars" class="funnel"></div>
       <div class="funnel-note" id="funnelNote"></div>
     </div>
@@ -377,7 +379,7 @@
     </ul>
     <h3 style="margin-top:14px">Engagement recency (sunset funnel)</h3>
     <ul>
-      <li>Whole database bucketed by <code>hs_email_last_open_date</code>: <strong>Active</strong> (≤30d), <strong>Cooling</strong> (31–90d), <strong>Lapsing</strong> (91–180d), <strong>Dormant</strong> (&gt;180d), <strong>Never</strong> (no open date). Recency snapshot is pulled intraday, so its total may differ slightly from the morning engaged/unengaged pull as contacts are added during the day.</li>
+      <li><strong>Still-subscribed (mailable)</strong> contacts bucketed by <code>hs_email_last_open_date</code>: <strong>Active</strong> (≤30d), <strong>Cooling</strong> (31–90d), <strong>Lapsing</strong> (91–180d), <strong>Dormant</strong> (&gt;180d), <strong>Never</strong> (no open date). Each tier excludes the Unsubscribed list (18753), which is shown as its own segment — so tier %s are of the ~765k mailable base, not the full DB. This is why Dormant is ~308k here rather than ~618k: roughly 310k of the long-inactive contacts are unsubscribed, not dormant-but-mailable. Recency snapshot is pulled intraday, so its total may differ slightly from the morning pull.</li>
       <li><strong>Caveat:</strong> opens are inflated by Apple Mail Privacy Protection (2021+), so Active is an upper bound on true recent engagement, not an exact measure.</li>
     </ul>
     <h3 style="margin-top:14px">Growth &amp; churn</h3>
@@ -394,8 +396,9 @@
     //       'monthly' = month snapshot carried over from the existing tracker
     // Numbers are already deduped: unengaged excludes anyone also unsubscribed.
     const DATA = [
+      // recency tiers (rActive..rNever) are SUBSCRIBED-only (exclude the unsubscribed list); unsubscribed is shown as its own funnel segment
       { date: '2026-07-07', label: 'Jul 07, 2026', type: 'daily',   engaged: 299270, unengaged: 465651, unsubscribed: 365767, total: 1130688, at10: 2288, at15: 5988,
-        rActive: 146767, rCooling: 72958, rLapsing: 82160, rDormant: 618038, rNever: 210942, new30d: 11673, new7d: 2877 },
+        rActive: 145277, rCooling: 69309, rLapsing: 76203, rDormant: 308113, rNever: 166134, new30d: 11673, new7d: 2877 },
       { date: '2026-06-25', label: 'Jun 2026 (thru 6/25)', type: 'monthly', engaged: 297584, unengaged: 464283, unsubscribed: 364788, total: 1126655 },
       { date: '2026-05-01', label: 'May 2026', type: 'monthly', engaged: 288832, unengaged: 464991, unsubscribed: 362751, total: 1116574 },
       { date: '2026-04-01', label: 'Apr 2026', type: 'monthly', engaged: 297624, unengaged: 448819, unsubscribed: 360488, total: 1106931 },
@@ -460,22 +463,29 @@
       { key: 'rDormant', lbl: 'Dormant',  note: '> 180 days',   color: '#dc2657' },
       { key: 'rNever',   lbl: 'Never',    note: 'no open ever', color: '#7c5ce0' },
     ];
-    const recSum = tiers.reduce((s, t) => s + (latest[t.key] || 0), 0);
-    const maxTier = Math.max(...tiers.map(t => latest[t.key] || 0));
-    document.getElementById('funnelBars').innerHTML = tiers.map(t => {
+    const mailable = tiers.reduce((s, t) => s + (latest[t.key] || 0), 0);
+    const barMax = Math.max(...tiers.map(t => latest[t.key] || 0), latest.unsubscribed || 0);
+    let funnelHTML = tiers.map(t => {
       const v = latest[t.key] || 0;
-      const shareOfMax = maxTier ? (v / maxTier * 100) : 0;
-      const shareOfDb = recSum ? (v / recSum * 100) : 0;
+      const shareOfMax = barMax ? (v / barMax * 100) : 0;
+      const shareMail = mailable ? (v / mailable * 100) : 0;
       return `<div class="funnel-row">
         <div class="fr-lbl">${t.lbl}<small>${t.note}</small></div>
         <div class="fr-track"><div class="fr-fill" style="width:${shareOfMax}%;background:${t.color}"></div></div>
-        <div class="fr-num"><b>${fmt(v)}</b><span>${shareOfDb.toFixed(1)}%</span></div>
+        <div class="fr-num"><b>${fmt(v)}</b><span>${shareMail.toFixed(1)}%</span></div>
       </div>`;
     }).join('');
-    const activeShare = recSum ? (latest.rActive / recSum * 100) : 0;
-    const dormNever = recSum ? ((latest.rDormant + latest.rNever) / recSum * 100) : 0;
+    const unsubShareDb = latest.total ? (latest.unsubscribed / latest.total * 100) : 0;
+    funnelHTML += `<div class="funnel-row funnel-unsub">
+        <div class="fr-lbl">Unsubscribed<small>opted out · not mailable</small></div>
+        <div class="fr-track"><div class="fr-fill" style="width:${barMax ? (latest.unsubscribed / barMax * 100) : 0}%;background:#8fa5bc"></div></div>
+        <div class="fr-num"><b>${fmt(latest.unsubscribed)}</b><span>${unsubShareDb.toFixed(1)}% of DB</span></div>
+      </div>`;
+    document.getElementById('funnelBars').innerHTML = funnelHTML;
+    const activeShare = mailable ? (latest.rActive / mailable * 100) : 0;
+    const dormNever = mailable ? ((latest.rDormant + latest.rNever) / mailable * 100) : 0;
     document.getElementById('funnelNote').innerHTML =
-      `Only <strong>${activeShare.toFixed(0)}%</strong> of the database opened a marketing email in the last 30 days, while <strong>${dormNever.toFixed(0)}%</strong> are dormant or have never opened. Opens are inflated by Apple Mail Privacy Protection, so treat Active as a soft ceiling on true recent engagement.`;
+      `Tiers cover the <strong>${fmt(mailable)}</strong> still-subscribed (mailable) contacts; Unsubscribed is shown separately. <strong>${activeShare.toFixed(0)}%</strong> of the mailable base opened in the last 30 days; <strong>${dormNever.toFixed(0)}%</strong> are dormant or never-opened. Roughly <strong>310k</strong> contacts previously lumped into Dormant are in fact unsubscribed. Opens are inflated by Apple Mail Privacy Protection, so treat Active as a soft ceiling.`;
 
     // ── GROWTH & CHURN ────────────────────────────────────────────────
     const netChange = latest.total - prev.total;

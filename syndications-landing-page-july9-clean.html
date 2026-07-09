@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Active Syndications — Week of July 9, 2026 · Alumni Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.35; transform: scale(0.75); }
+  }
+  .pulse-dot { animation: pulse 1.8s ease-in-out infinite; }
+
+  .deal-card-grid { display: grid; grid-template-columns: 248px 1fr; }
+
+  .deal-card-grid:hover { box-shadow: 0 4px 24px rgba(0,51,73,0.10); }
+  .cta-btn:hover        { background: #4A2870 !important; box-shadow: 0 6px 24px rgba(91,53,137,0.55) !important; }
+  .modal-cta:hover      { background: #104866 !important; }
+
+  .final-look-card:hover { box-shadow: 0 2px 16px rgba(0,51,73,0.12); transform: translateY(-1px); }
+  .final-look-card { transition: box-shadow 0.18s ease, transform 0.18s ease; }
+  .final-look-link:hover { color: #5B3589 !important; }
+
+  /* ── Deal tags — per AV Deal Tag System v1.0 (tiered pills) ── */
+  .tag { display:inline-flex; align-items:center; gap:4px; font-family:'Inter',sans-serif; font-size:10.5px; font-weight:600; letter-spacing:0.01em; line-height:1.35; padding:4px 11px; border-radius:100px; white-space:nowrap; box-sizing:border-box; }
+  a.tag { text-decoration:none; cursor:pointer; }
+  .tag-lead        { background:#127C57; color:#ffffff; border:1px solid #127C57; }      /* Lead Investor (Signal) */
+  a.tag-lead:hover { background:#0D6144; border-color:#0D6144; }
+  .tag-traction    { background:#127C57; color:#ffffff; border:1px solid #127C57; }      /* Traction — headline metric */
+  .tag-traction-o  { background:transparent; color:#127C57; border:1px solid #127C57; }  /* Traction — supporting */
+  .tag-stanford    { background:#8C1515; color:#ffffff; border:1px solid #8C1515; }      /* Founder Pedigree — school (cardinal) */
+  .tag-berkeley    { background:#003262; color:#ffffff; border:1px solid #003262; }      /* Founder Pedigree — Berkeley */
+  .tag-ex          { background:transparent; color:#003349; border:1px solid #7E96A6; }  /* Founder Pedigree — ex-employer */
+  .tag-slate       { background:#3C5080; color:#ffffff; border:1px solid #3C5080; }      /* Founder Pedigree — Serial / PhD */
+  .tag-exit        { background:#B0851E; color:#ffffff; border:1px solid #B0851E; }      /* Founder Pedigree — prior exit */
+  .tag-recognition { background:#FBF4DE; color:#82731D; border:1px solid #E2D08A; }      /* Recognition (✦) */
+  .tag-context     { background:transparent; color:#3F5A86; border:1px solid #A9BDD6; font-style:italic; } /* Stage / Sector */
+
+  @media (max-width: 700px) {
+    .deal-card-grid     { grid-template-columns: 1fr; }
+    .card-left          { border-right: none !important; border-bottom: 1px solid #C8E8E7; }
+    .stats-grid         { grid-template-columns: 1fr 1fr !important; gap: 12px !important; border-top: none !important; padding-top: 0 !important; }
+    .stat-col           { border-right: none !important; padding: 0 !important; }
+    .page-header-inner  { flex-direction: column !important; align-items: flex-start !important; }
+    .page-meta          { text-align: left !important; }
+    .meta-note          { justify-content: flex-start !important; }
+    .masthead           { padding: 0 20px !important; }
+    .page-header-inner,
+    .deal-stack-inner,
+    .page-footer-inner  { padding-left: 20px !important; padding-right: 20px !important; }
+    .page-footer-inner  { flex-direction: column !important; gap: 8px !important; text-align: center !important; }
+    .final-look-grid    { grid-template-columns: 1fr !important; }
+  }
+</style>
+</head>
+<body style="font-family: 'Inter', sans-serif; background: #ffffff; color: #404040; min-height: 100vh; -webkit-font-smoothing: antialiased; margin: 0; padding: 0;">
+
+<!-- ── Page header ── -->
+<div class="page-header-inner" style="max-width: 980px; margin: 0 auto; padding: 44px 40px 32px; border-bottom: 2px solid #003349; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;">
+  <div>
+    <div style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #82731D; margin-bottom: 10px;">Active Syndications</div>
+    <h1 style="font-family: 'Archivo', sans-serif; font-size: 38px; font-weight: 700; color: #003349; line-height: 1.08; letter-spacing: -0.02em; margin: 0;">This Week's <span style="color: #7B569B;">Open Deals</span></h1>
+  </div>
+  <div class="page-meta" style="text-align: right; flex-shrink: 0;">
+    <div style="font-size: 13.5px; color: #404040; margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Deals launched:</strong> Thursday July 9</div>
+    <div style="font-size: 13.5px; color: #404040;"><strong style="font-weight: 600; color: #003349;">Reservation deadline:</strong> Thursday July 16</div>
+  </div>
+</div>
+
+<!-- ── Deal stack ── -->
+<div class="deal-stack-inner" style="max-width: 980px; margin: 0 auto; padding: 32px 40px 64px; display: flex; flex-direction: column; gap: 16px;">
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 1 — Tera AI  (ranked #1)
+       DEAL ROOM URL: replace https://app.av.vc/fund/syntera below (opens in new tab)
+  ═══════════════════════════════════════════════════════════════ -->
+  <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
+
+    <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
+      <div style="background: #DDE9EF; padding: 28px 24px 24px;">
+        <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Tera AI</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+          <span class="tag tag-lead">Top 10 Investor, CB Insights</span>
+          <span class="tag tag-ex">Ex-Google</span>
+          <span class="tag tag-slate">PhD Founder</span>
+          <span class="tag tag-traction">3x Revenue Growth</span>
+        </div>
+      </div>
+      <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+            <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #CFB72E; display: inline-block; flex-shrink: 0;"></span>
+            Reservation Deadline
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #003349; line-height: 1.3;">Thu July 16 · 12:00pm ET</div>
+        </div>
+        <a class="cta-btn" href="https://app.av.vc/fund/syntera" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 56px 16px; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; text-decoration: none; cursor: pointer; border-radius: 2px; box-shadow: 0 4px 20px rgba(91,53,137,0.35); box-sizing: border-box;">
+          <span style="font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em; display: flex; align-items: center; gap: 9px;">Full Deal Room <span style="font-size: 22px; line-height: 1;">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column;">
+      <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #EBECE8;"><strong style="font-weight: 600; color: #003349;">Elevator Pitch:</strong> A Caltech-trained team out of Google X and DeepMind has built a military-grade AI "world model" that lets any vehicle navigate using only an ordinary camera when GPS is jammed — already earning real revenue on a Firestorm production contract, down-selected by the DoD, and building with Anduril, at an $80M pre-money entry.</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; line-height: 1.5;">
+        <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; min-width: 62px; padding-top: 2px; flex-shrink: 0;">Founder</span>
+        <span style="color: #404040;"><strong style="font-weight: 600;">Tony Zhang</strong>, CEO — Caltech AI PhD advised by Pietro Perona (widely called the "godfather of vision AI"); Machine Learning Lead at Google X building geospatial foundation models; worked with DeepMind on the model later released as AlphaEarth. The 11-person team includes an inventor of the diffusion model behind modern image and video generation, with a bench drawn from DeepMind, MIT, Caltech, and Shield AI. Advisors include Perona, Caltech's Yisong Yue, and GPS pioneer Charlie Trimble.</span>
+      </div>
+
+      <div style="background: #E3F3F3; border-left: 3px solid #1B9390; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #096E6B; margin-bottom: 3px;">AV's Access</div>
+        <div style="font-size: 12.5px; line-height: 1.55; color: #404040;">Ring Ventures led diligence and secured AV's allocation alongside lead investor Tamarack Global — a defense and deep-tech specialist ($200M+ AUM) anchoring the round with up to $15M, led by Founder &amp; Managing Partner John McCormick (board member at Figure AI and Fuse Energy). Existing backers Felicis and Inovia are expected to return, with strategic interest from In-Q-Tel (the CIA's venture arm) and Japanese and Korean OEMs. AV has worked alongside Tamarack before, including Venus Aerospace and Impulse Space.</div>
+      </div>
+
+      <div style="background: #FDFBEF; border: 1px solid #EDE8C0; border-left: 3px solid #CFB72E; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #82731D; margin-bottom: 7px;">Why Invest in Tera AI</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">An exceptional technical team solving a deceptively hard problem:</strong> GPS-denied navigation from a camera feed alone demands mastery of computer vision, real-time 3D reconstruction, and edge optimization. Tera's founder trained under the architect of modern vision AI and built geospatial models at DeepMind; the team includes a diffusion-model inventor and researchers from DeepMind, MIT, Caltech, and Shield AI.</li>
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Government pull and proven demand:</strong> Firestorm is on a multi-year production contract licensing Tera's model at $500/unit — real revenue with real delivery schedules — and the DoD has down-selected Tera (one of ~50) for an Air Force effort while it builds with Anduril. The DoD is moving to embed Tera-like capability directly into procurement requirements.</li>
+          <li><strong style="font-weight: 600; color: #003349;">A defensible data and architecture moat:</strong> Exclusive data partnerships with top OEMs across air, ground, and on-road create a unique multi-domain training corpus that competitors cannot easily assemble, reinforced by two filed patents. The product is software-only and passive — a camera emits no signal to target — which is exactly what the DoD is prioritizing.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FDF6EF; border: 1px solid #EDD5B8; border-left: 3px solid #C4803A; padding: 9px 12px; margin-bottom: 16px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 5px;">Key Issues</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Bookings are early and concentrated:</strong> ~$6M ARR and a path to ~$12M by year-end rest on a small number of relationships plus federal awards that are notoriously slow and non-linear. Only two customers are in production today; the growth story depends on converting the pipeline.</li>
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">A well-funded competitive field:</strong> Defense autonomy is hot — Scout AI recently raised a $100M Series A, the neo-primes are investing heavily, and a software-only product can attract fast-followers. Tera's moats are real but will need sustained execution to harden.</li>
+          <li><strong style="font-weight: 600;">Federal GTM build-out is unproven:</strong> The plan hinges on standing up a Washington federal go-to-market team and roughly tripling engineering (15 → 40) over 18 months, alongside ITAR/CMMC readiness that is still in progress.</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #EBECE8; margin-top: auto; padding-top: 14px;">
+        <div class="stat-col" style="padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Round</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$20M Series A</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px; padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Valuation</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$100M post-money</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Key Investors</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">Tamarack Global, Felicis</div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 2 — Assort Health  (ranked #2)
+       DEAL ROOM URL: replace https://app.av.vc/fund/synashe below (opens in new tab)
+  ═══════════════════════════════════════════════════════════════ -->
+  <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
+
+    <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
+      <div style="background: #DDE9EF; padding: 28px 24px 24px;">
+        <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Assort Health</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+          <span class="tag tag-lead">Top 10 Investor, CB Insights</span>
+          <span class="tag tag-traction">5x Revenue Growth</span>
+          <span class="tag tag-stanford">Stanford Founder</span>
+        </div>
+      </div>
+      <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+            <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #CFB72E; display: inline-block; flex-shrink: 0;"></span>
+            Reservation Deadline
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #003349; line-height: 1.3;">Thu July 16 · 12:00pm ET</div>
+        </div>
+        <a class="cta-btn" href="https://app.av.vc/fund/synashe" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 56px 16px; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; text-decoration: none; cursor: pointer; border-radius: 2px; box-shadow: 0 4px 20px rgba(91,53,137,0.35); box-sizing: border-box;">
+          <span style="font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em; display: flex; align-items: center; gap: 9px;">Full Deal Room <span style="font-size: 22px; line-height: 1;">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column;">
+      <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #EBECE8;"><strong style="font-weight: 600; color: #003349;">Elevator Pitch:</strong> Assort Health builds AI agents for the healthcare "front door" — automating scheduling, referrals, intake, and follow-up directly inside providers' existing EHR systems. It has scaled to ~$27M in contracted ARR across 144 customers and 10,000 providers with 98% post-pilot retention, and is now raising a $100M+ Series C led by Menlo Ventures at a $1.2B valuation.</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; line-height: 1.5;">
+        <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; min-width: 62px; padding-top: 2px; flex-shrink: 0;">Founders</span>
+        <span style="color: #404040;"><strong style="font-weight: 600;">Jon Wang</strong>, Co-CEO — Stanford M.S./B.S. in Medical Informatics, former MD candidate at UCSF, ex-Chief of Staff to the CEO at Elemy, and a prior YC-backed founder; <strong style="font-weight: 600;">Jeff Liu</strong>, Co-CEO — Duke Computer Science &amp; Economics, previously led product engineering at Athelas. Advisors include Paul Ricci (founding CEO of Nuance) and Roy Rosin (Chief Innovation Officer, Penn Medicine).</span>
+      </div>
+
+      <div style="background: #E3F3F3; border-left: 3px solid #1B9390; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #096E6B; margin-bottom: 3px;">AV's Access</div>
+        <div style="font-size: 12.5px; line-height: 1.55; color: #404040;">Purple Arch Ventures and Spike Ventures led diligence and secured AV's co-investor allocation alongside new lead Menlo Ventures ($6.8B AUM), which is committing $65M — upsized from $40M, and more than half the round — through partners John Paul Sanday and Matt Murphy. Existing investors Lightspeed (which led the Series B) and Felicis are returning on a super pro rata basis with $8M and $20M, respectively.</div>
+      </div>
+
+      <div style="background: #FDFBEF; border: 1px solid #EDE8C0; border-left: 3px solid #CFB72E; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #82731D; margin-bottom: 7px;">Why Invest in Assort Health</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Proven, at-scale traction, not a promise:</strong> Contracted ARR has grown from ~$2M to ~$27M in 15 months (8x revenue growth since Q4 2024), with ~$9M already implemented, a 97%+ pilot-to-paid conversion rate, and 98% logo retention. Management is targeting ~$60M CARR by year-end 2026 and ~$140M by year-end 2027.</li>
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">A workflow-intelligence data moat that compounds:</strong> 125M+ patient interactions across 22 specialties and 84+ EHR integrations create a proprietary dataset that grows more valuable — and harder to replicate — with every deployment, turning patient access into a data business as much as a software one.</li>
+          <li><strong style="font-weight: 600; color: #003349;">A high-conviction healthcare-AI syndicate:</strong> Menlo — a healthcare-AI specialist with a published "State of AI in Healthcare" thesis — is anchoring at $65M, while the investors closest to the business (Lightspeed and Felicis) increase exposure super pro rata. Assort was named to CB Insights' 2026 AI 100 and Forbes' Next Billion-Dollar Startups 2025.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FDF6EF; border: 1px solid #EDD5B8; border-left: 3px solid #C4803A; padding: 9px 12px; margin-bottom: 16px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 5px;">Key Issues</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">High burn creates execution dependency:</strong> The company burns $4M–$6M per month, with OpEx scaling from ~$1.3M in 2025 to $18M+ in 2026. The path to $140M ARR requires efficient conversion of contracted ARR into implemented ARR — any slippage makes the entry price harder to justify.</li>
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Mid-market strength, enterprise question:</strong> The strongest proof points are mid-market practices with short procurement cycles. Cracking large health systems — the bulk of administrative spend — is materially slower and not yet proven.</li>
+          <li><strong style="font-weight: 600;">A rich entry price in a converging market:</strong> $1.2B post-money is a mid-40s multiple on current CARR, and EHR incumbents like Epic and athenahealth, plus well-funded rivals like Qventus, are targeting the same workflows.</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #EBECE8; margin-top: auto; padding-top: 14px;">
+        <div class="stat-col" style="padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Round</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$100M+ Series C</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px; padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Valuation</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$1.2B post-money</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Key Investors</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">Menlo Ventures, Lightspeed</div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 3 — Lightfield  (ranked #3)
+       DEAL ROOM URL: replace https://app.av.vc/fund/synlifi below (opens in new tab)
+  ═══════════════════════════════════════════════════════════════ -->
+  <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
+
+    <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
+      <div style="background: #DDE9EF; padding: 28px 24px 24px;">
+        <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Lightfield</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+          <span class="tag tag-traction">200%+ NRR</span>
+          <span class="tag tag-traction">5x Revenue Growth</span>
+          <span class="tag tag-ex">Ex-Facebook</span>
+        </div>
+      </div>
+      <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+            <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #CFB72E; display: inline-block; flex-shrink: 0;"></span>
+            Reservation Deadline
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #003349; line-height: 1.3;">Thu July 16 · 12:00pm ET</div>
+        </div>
+        <a class="cta-btn" href="https://app.av.vc/fund/synlifi" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 56px 16px; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; text-decoration: none; cursor: pointer; border-radius: 2px; box-shadow: 0 4px 20px rgba(91,53,137,0.35); box-sizing: border-box;">
+          <span style="font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em; display: flex; align-items: center; gap: 9px;">Full Deal Room <span style="font-size: 22px; line-height: 1;">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column;">
+      <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #EBECE8;"><strong style="font-weight: 600; color: #003349;">Elevator Pitch:</strong> Lightfield is building the AI-native CRM — a living system of record that records calls, reads email, and updates accounts automatically, then runs the go-to-market work teams currently spread across 8+ tools. Built by the team behind Tome (25M+ users) around the two lessons that stalled it, ARR has grown ~15x in six months to ~$1.5M at 251% net dollar retention, and Tome's own backers followed them into the new company.</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; line-height: 1.5;">
+        <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; min-width: 62px; padding-top: 2px; flex-shrink: 0;">Founders</span>
+        <span style="color: #404040;"><strong style="font-weight: 600;">Keith Peiris</strong>, CEO — co-founder/CEO of Tome (25M+ users, ~$81M raised); earlier grew Instagram Direct 10x to 500M MAU and led product at Facebook, credited on 25+ patents. Technical co-founders come from Facebook AI Research (Cornell PhD), the Pinterest Developer Platform, and Stanford search &amp; retrieval; President <strong style="font-weight: 600;">Henri Liriani</strong> co-founded Tome and ran Messenger's billion-user core. GTM leaders are pulled from Gong, MuleSoft, and Salesforce.</span>
+      </div>
+
+      <div style="background: #E3F3F3; border-left: 3px solid #1B9390; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #096E6B; margin-bottom: 3px;">AV's Access</div>
+        <div style="font-size: 12.5px; line-height: 1.55; color: #404040;">Purple Arch Ventures led diligence and secured AV's allocation alongside new lead Maverick Ventures, which is writing $15M of the up-to-$30M round and taking a board seat for Ryan Isono — who led n8n at Series A, since valued at $5.2B. Tome's largest backers, Lightspeed (board seat, Lisa Han) and Greylock, are continuing behind the new thesis rather than starting from zero.</div>
+      </div>
+
+      <div style="background: #FDFBEF; border: 1px solid #EDE8C0; border-left: 3px solid #CFB72E; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #82731D; margin-bottom: 7px;">Why Invest in Lightfield</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Built on the lessons of Tome, backed by Tome's investors:</strong> Tome raised $80M+ and scaled past 25M users, but stalled on the two things that mattered most — customer context and repeat usage. Lightfield is built directly around those failures, and Lightspeed and Greylock, who watched the first company up close, followed into the recap, with Lightspeed taking a board seat.</li>
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Exceptional early traction and efficiency:</strong> ARR climbed from ~$95K in November 2025 to ~$1.5M in May 2026 (~75% month-over-month) at a reported 251% net dollar retention, with 70%+ of signups organic, CAC payback compressed from 28 months to under 8, and 60 HubSpot and 15 Salesforce migrations already won.</li>
+          <li><strong style="font-weight: 600; color: #003349;">A wedge into the stickiest seat in software:</strong> The CRM system of record turns over for fewer than 1% of businesses a year. Winning AI-native companies' first CRM is the same greenfield path HubSpot used to build a category, and captured customer context deepens the source of truth — raising switching costs with every interaction.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FDF6EF; border: 1px solid #EDD5B8; border-left: 3px solid #C4803A; padding: 9px 12px; margin-bottom: 16px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 5px;">Key Issues</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Adoption is broad but still shallow:</strong> Many of the "1,100+ active companies" are single-seat, and some show little recent activity, so the headline reads as top-of-funnel breadth rather than scaled penetration. The base skews to young, budget-constrained tech startups.</li>
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">A conviction price in a crowded field:</strong> The $140M post-money is ~93x current ARR and ~13x a forward number the company still has to earn, against a growing set of AI-CRM rivals — Rox, Clarify, Day.ai, Reevo, Attio, and Monaco.</li>
+          <li><strong style="font-weight: 600;">Proprietary technology vs. model reliance:</strong> The product only became viable once frontier models were good enough. How much of Lightfield is defensible IP versus orchestration on models it does not own is unproven — and pricing or capability shifts from a model provider could flow straight through.</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #EBECE8; margin-top: auto; padding-top: 14px;">
+        <div class="stat-col" style="padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Round</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$30M Series B</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px; padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Valuation</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$140M post-money</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Key Investors</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">Maverick Ventures, Lightspeed</div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+</div>
+
+<!-- ── Portfolio strategy note ── -->
+<div style="max-width: 980px; margin: 0 auto; padding: 0 40px 8px;">
+  <div style="background: #FDFAF2; border: 1px solid #E8DFA8; border-left: 4px solid #CFB72E; padding: 18px 22px; border-radius: 0 2px 2px 0;">
+    <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 8px;">A Note on Portfolio Strategy</div>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0 0 10px;"><strong style="font-weight: 600; color: #003349;">Smart venture portfolios are built deliberately over years,</strong> with enough scale and diversification to give the asset class room to work.</p>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0 0 10px;">Building a venture allocation solely through single-deal investments often requires significantly more capital and time, vs. a planned mix of funds and syndications.</p>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0;"><strong style="font-weight: 600; color: #003349;">Many investors have a Venture Plan with AV</strong> (see the <strong style="font-weight: 600; color: #003349;">"Planning" tab</strong> above), and dedicate approximately 50%–75% of their annual venture allocation to one or more AV funds, then supplement with selected syndication offerings. <strong style="font-weight: 600; color: #003349;">Submitted plans are not legally binding.</strong> Investors who submit plans unlock more personalized service.</p>
+  </div>
+</div>
+
+<!-- ── Final Look: Last Week's Deals ── -->
+<div style="background: #003349; margin-top: 56px;">
+  <div style="max-width: 980px; margin: 0 auto; padding: 44px 40px 52px;">
+
+    <!-- Section header -->
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; gap: 20px; flex-wrap: wrap;">
+      <div>
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #CFB72E; margin-bottom: 8px;">July 2 Syndications</div>
+        <h2 style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #ffffff; line-height: 1.1; letter-spacing: -0.015em; margin: 0;">One Last Look: <span style="color: #A78EC8;">Last Week's Open Deals</span></h2>
+      </div>
+      <div style="font-size: 12px; color: rgba(255,255,255,0.45); text-align: right; line-height: 1.5; flex-shrink: 0;">Deadline passed · Still available<br>on a first-come, first-served basis</div>
+    </div>
+
+    <!-- Three-column deal cards -->
+    <div class="final-look-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+
+      <!-- Riven Systems -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">Riven Systems</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Pre-Seed</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">Critical Minerals · Separation Intelligence</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">An AI-driven "Separation Intelligence" platform attacking the rare-earth processing chokepoint China controls (~90% of global capacity) — collapsing years-long chemical development into weeks and deploying modular separation nodes at customer sites, targeting ~60% lower CapEx and ~75% lower OpEx. Founders reran the same AI-lab-to-commercial playbook at Radical AI and NanoGraf; LOI-stage talks with MP Materials, USA Rare Earth, Lockheed Martin, and Ford. Led by Cerberus.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">$4M Pre-Seed · $20M post-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="REPLACE-RIVEN-URL" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Avarra -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">Avarra</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Series A</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">Enterprise AI · Sales Enablement</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">An AI avatar platform, built by four Proofpoint executives who scaled that company through a $12.5B acquisition, that cuts enterprise sales-rep ramp time 50–67% and delivers 179% net revenue retention — already trusted by Paychex, Netskope, and Masimo. Backed by Lightspeed's Arif Janmohamed, who left the firm after 18 years and made Avarra one of his new fund's first bets.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">$17M Series A · $72M post-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="https://app.av.vc/fund/synavar" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- MagicX -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">MagicX</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Series A</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">AI &amp; Infra · Intent Layer SDK</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">The intent layer every AI product runs on — a usage-based SDK that predicts what users mean before they finish typing. 500+ enterprise inbound requests (Nubank, Google, Adobe, Atlassian) and two signed customers (Nubank, ActiveCampaign) closed within the first month of outreach. An AV follow-on from the June 2025 Seed; Forerunner Ventures and AVP co-leading.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">$20M Series A · $90M post-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="https://app.av.vc/fund/synmagx" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer note -->
+    <p style="font-size: 11.5px; color: rgba(255,255,255,0.35); margin: 20px 0 0; font-style: italic; text-align: center;">These syndications are still accepting reservations on a first-come, first-served basis — allocations are limited and not guaranteed.</p>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="page-footer-inner" style="max-width: 980px; margin: 0 auto; padding: 20px 40px 48px; border-top: 1px solid #EBECE8; display: flex; justify-content: space-between; align-items: center;">
+  <span style="font-size: 11.5px; color: #9A9A96; font-style: italic;">All investments for accredited investors only. Allocations are limited and not guaranteed.</span>
+  <span style="font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; color: #003349; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.3;">Alumni Ventures</span>
+</footer>
+
+</body>
+</html>

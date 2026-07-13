@@ -374,12 +374,12 @@
     </ul>
     <h3 style="margin-top:14px">At-risk pipeline (one send from Unengaged)</h3>
     <ul>
-      <li><strong>@ 10 sends, never opened</strong> — <code>hs_email_sends_since_last_engagement = 10</code> and no <code>hs_email_first_open_date</code>. Their 11th consecutive send crosses the never-opened threshold. Latest: <code>2,288</code>.</li>
-      <li><strong>@ 15 sends, opened before</strong> — <code>hs_email_sends_since_last_engagement = 15</code> and a known <code>hs_email_first_open_date</code>. Their 16th consecutive send crosses the prior-opener threshold. Latest: <code>5,988</code>.</li>
+      <li><strong>@ 10 sends, never opened</strong> — <code>hs_email_sends_since_last_engagement = 10</code> and no <code>hs_email_first_open_date</code>. Their 11th consecutive send crosses the never-opened threshold. Latest: <code>2,265</code>.</li>
+      <li><strong>@ 15 sends, opened before</strong> — <code>hs_email_sends_since_last_engagement = 15</code> and a known <code>hs_email_first_open_date</code>. Their 16th consecutive send crosses the prior-opener threshold. Latest: <code>6,014</code>.</li>
     </ul>
     <h3 style="margin-top:14px">Engagement recency (sunset funnel)</h3>
     <ul>
-      <li><strong>Still-subscribed (mailable)</strong> contacts bucketed by <code>hs_email_last_open_date</code>: <strong>Active</strong> (≤30d), <strong>Cooling</strong> (31–90d), <strong>Lapsing</strong> (91–180d), <strong>Dormant</strong> (&gt;180d), <strong>Never</strong> (no open date). Each tier excludes the Unsubscribed list (18753), which is shown as its own segment — so tier %s are of the ~765k mailable base, not the full DB. This is why Dormant is ~308k here rather than ~618k: roughly 310k of the long-inactive contacts are unsubscribed, not dormant-but-mailable. Recency snapshot is pulled intraday, so its total may differ slightly from the morning pull.</li>
+      <li><strong>Still-subscribed (mailable)</strong> contacts bucketed by <code>hs_email_last_open_date</code>: <strong>Active</strong> (≤30d), <strong>Cooling</strong> (31–90d), <strong>Lapsing</strong> (91–180d), <strong>Dormant</strong> (&gt;180d), <strong>Never</strong> (no open date). Each tier excludes the Unsubscribed list (18753), which is shown as its own segment — so tier %s are of the ~765k mailable base, not the full DB. This is why Dormant is ~311k here rather than ~620k: roughly 310k of the long-inactive contacts are unsubscribed, not dormant-but-mailable. Recency snapshot is pulled intraday, so its total may differ slightly from the morning pull.</li>
       <li><strong>Caveat:</strong> opens are inflated by Apple Mail Privacy Protection (2021+), so Active is an upper bound on true recent engagement, not an exact measure.</li>
     </ul>
     <h3 style="margin-top:14px">Growth &amp; churn</h3>
@@ -387,7 +387,7 @@
       <li><strong>New contacts</strong> — <code>createdate</code> within the last 30 / 7 days.</li>
       <li><strong>Net DB change</strong> and <strong>Unsubscribe growth</strong> are the deltas between the two most recent snapshot rows; they sharpen into true daily rates once the daily series accumulates. <strong>Reactivations</strong> (contacts leaving Unengaged) are derived from day-over-day Unengaged deltas and populate as daily rows build up.</li>
     </ul>
-    <p style="margin-top:10px">Latest pull (<span id="method-date"></span>): total <code>1,130,688</code>, unsubscribed list <code>365,767</code>, unengaged list <code>521,212</code>, overlap counted as unsubscribed <code>55,561</code> → unengaged net <code>465,651</code>, engaged <code>299,270</code>. HubSpot lists are point-in-time, so historical daily backfill isn't available from the connector — the grid grows one live row per day going forward.</p>
+    <p style="margin-top:10px">Latest pull (<span id="method-date"></span>): total <code>1,133,112</code>, unsubscribed list <code>366,359</code>, unengaged list <code>523,653</code>, overlap counted as unsubscribed <code>55,686</code> → unengaged net <code>467,967</code>, engaged <code>298,786</code>. HubSpot lists are point-in-time, so historical daily backfill isn't available from the connector — the grid grows one live row per day going forward.</p>
   </div>
 
   <script>
@@ -397,6 +397,8 @@
     // Numbers are already deduped: unengaged excludes anyone also unsubscribed.
     const DATA = [
       // recency tiers (rActive..rNever) are SUBSCRIBED-only (exclude the unsubscribed list); unsubscribed is shown as its own funnel segment
+      { date: '2026-07-12', label: 'Jul 12, 2026', type: 'daily',   engaged: 298786, unengaged: 467967, unsubscribed: 366359, total: 1133112, at10: 2265, at15: 6014,
+        rActive: 134612, rCooling: 80297, rLapsing: 74135, rDormant: 310895, rNever: 166814, new30d: 11595, new7d: 3339 },
       { date: '2026-07-07', label: 'Jul 07, 2026', type: 'daily',   engaged: 299270, unengaged: 465651, unsubscribed: 365767, total: 1130688, at10: 2288, at15: 5988,
         rActive: 145277, rCooling: 69309, rLapsing: 76203, rDormant: 308113, rNever: 166134, new30d: 11673, new7d: 2877 },
       { date: '2026-06-25', label: 'Jun 2026 (thru 6/25)', type: 'monthly', engaged: 297584, unengaged: 464283, unsubscribed: 364788, total: 1126655 },

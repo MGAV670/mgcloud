@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Active Syndications — Week of July 16, 2026 · Alumni Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.35; transform: scale(0.75); }
+  }
+  .pulse-dot { animation: pulse 1.8s ease-in-out infinite; }
+
+  .deal-card-grid { display: grid; grid-template-columns: 248px 1fr; }
+
+  .deal-card-grid:hover { box-shadow: 0 4px 24px rgba(0,51,73,0.10); }
+  .cta-btn:hover        { background: #4A2870 !important; box-shadow: 0 6px 24px rgba(91,53,137,0.55) !important; }
+  .modal-cta:hover      { background: #104866 !important; }
+
+  .final-look-card:hover { box-shadow: 0 2px 16px rgba(0,51,73,0.12); transform: translateY(-1px); }
+  .final-look-card { transition: box-shadow 0.18s ease, transform 0.18s ease; }
+  .final-look-link:hover { color: #5B3589 !important; }
+
+  /* ── Deal tags — per AV Deal Tag System v1.0 (tiered pills) ── */
+  .tag { display:inline-flex; align-items:center; gap:4px; font-family:'Inter',sans-serif; font-size:10.5px; font-weight:600; letter-spacing:0.01em; line-height:1.35; padding:4px 11px; border-radius:100px; white-space:nowrap; box-sizing:border-box; }
+  a.tag { text-decoration:none; cursor:pointer; }
+  .tag-lead        { background:#127C57; color:#ffffff; border:1px solid #127C57; }      /* Lead Investor (Signal) */
+  a.tag-lead:hover { background:#0D6144; border-color:#0D6144; }
+  .tag-traction    { background:#127C57; color:#ffffff; border:1px solid #127C57; }      /* Traction — headline metric */
+  .tag-traction-o  { background:transparent; color:#127C57; border:1px solid #127C57; }  /* Traction — supporting */
+  .tag-stanford    { background:#8C1515; color:#ffffff; border:1px solid #8C1515; }      /* Founder Pedigree — school (cardinal) */
+  .tag-berkeley    { background:#003262; color:#ffffff; border:1px solid #003262; }      /* Founder Pedigree — Berkeley */
+  .tag-ex          { background:transparent; color:#003349; border:1px solid #7E96A6; }  /* Founder Pedigree — ex-employer */
+  .tag-slate       { background:#3C5080; color:#ffffff; border:1px solid #3C5080; }      /* Founder Pedigree — Serial / PhD */
+  .tag-exit        { background:#B0851E; color:#ffffff; border:1px solid #B0851E; }      /* Founder Pedigree — prior exit */
+  .tag-recognition { background:#FBF4DE; color:#82731D; border:1px solid #E2D08A; }      /* Recognition (✦) */
+  .tag-context     { background:transparent; color:#3F5A86; border:1px solid #A9BDD6; font-style:italic; } /* Stage / Sector */
+  .tag-avposition  { background:#5B3589; color:#ffffff; border:1px solid #5B3589; }      /* AV Position — Investing Again */
+  .tag-name        { background:#141414; color:#F3D77E; border:1px solid #141414; font-weight:700; letter-spacing:0.02em; } /* Marquee individual investor */
+
+  @media (max-width: 700px) {
+    .deal-card-grid     { grid-template-columns: 1fr; }
+    .card-left          { border-right: none !important; border-bottom: 1px solid #C8E8E7; }
+    .stats-grid         { grid-template-columns: 1fr 1fr !important; gap: 12px !important; border-top: none !important; padding-top: 0 !important; }
+    .stat-col           { border-right: none !important; padding: 0 !important; }
+    .page-header-inner  { flex-direction: column !important; align-items: flex-start !important; }
+    .page-meta          { text-align: left !important; }
+    .meta-note          { justify-content: flex-start !important; }
+    .masthead           { padding: 0 20px !important; }
+    .page-header-inner,
+    .deal-stack-inner,
+    .page-footer-inner  { padding-left: 20px !important; padding-right: 20px !important; }
+    .page-footer-inner  { flex-direction: column !important; gap: 8px !important; text-align: center !important; }
+    .final-look-grid    { grid-template-columns: 1fr !important; }
+  }
+</style>
+</head>
+<body style="font-family: 'Inter', sans-serif; background: #ffffff; color: #404040; min-height: 100vh; -webkit-font-smoothing: antialiased; margin: 0; padding: 0;">
+
+<!-- ── Page header ── -->
+<div class="page-header-inner" style="max-width: 980px; margin: 0 auto; padding: 44px 40px 32px; border-bottom: 2px solid #003349; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;">
+  <div>
+    <div style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #82731D; margin-bottom: 10px;">Active Syndications</div>
+    <h1 style="font-family: 'Archivo', sans-serif; font-size: 38px; font-weight: 700; color: #003349; line-height: 1.08; letter-spacing: -0.02em; margin: 0;">This Week's <span style="color: #7B569B;">Open Deals</span></h1>
+  </div>
+  <div class="page-meta" style="text-align: right; flex-shrink: 0;">
+    <div style="font-size: 13.5px; color: #404040; margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Deals launched:</strong> Thursday July 16</div>
+    <div style="font-size: 13.5px; color: #404040;"><strong style="font-weight: 600; color: #003349;">Reservation deadline:</strong> Thursday July 23</div>
+  </div>
+</div>
+
+<!-- ── Deal stack ── -->
+<div class="deal-stack-inner" style="max-width: 980px; margin: 0 auto; padding: 32px 40px 64px; display: flex; flex-direction: column; gap: 16px;">
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 1 — Volantis Semi  (ranked #1 — PROVISIONAL pending 3rd deal)
+       DEAL ROOM URL: replace REPLACE-VOLANTIS-URL below (opens in new tab)
+  ═══════════════════════════════════════════════════════════════ -->
+  <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
+
+    <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
+      <div style="background: #DDE9EF; padding: 28px 24px 24px;">
+        <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Volantis Semi</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+          <span class="tag tag-name">Sam Altman</span>
+          <span class="tag tag-slate">Serial Founder</span>
+          <span class="tag tag-recognition">✦ Thiel Fellow</span>
+          <span class="tag tag-recognition">✦ Patent Holder</span>
+        </div>
+      </div>
+      <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+            <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #CFB72E; display: inline-block; flex-shrink: 0;"></span>
+            Reservation Deadline
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #003349; line-height: 1.3;">Thu July 23 · 12:00pm ET</div>
+        </div>
+        <a class="cta-btn" href="REPLACE-VOLANTIS-URL" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 56px 16px; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; text-decoration: none; cursor: pointer; border-radius: 2px; box-shadow: 0 4px 20px rgba(91,53,137,0.35); box-sizing: border-box;">
+          <span style="font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em; display: flex; align-items: center; gap: 9px;">Full Deal Room <span style="font-size: 22px; line-height: 1;">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column;">
+      <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #EBECE8;"><strong style="font-weight: 600; color: #003349;">Elevator Pitch:</strong> Backed by Sam Altman, Jeff Dean, and $96M in signed purchase orders, Volantis is rearchitecting AI inference — swapping copper's electrical lanes for light-based "photonic wires" so a single accelerator can be surrounded by ~10TB of memory (roughly 35x an NVIDIA GPU) and run frontier, trillion-parameter models 30x faster, 15x cheaper, and 6x more efficiently than today's GPUs, at an $81.4M Series A led by Abstract Ventures ($250M pre-money).</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; line-height: 1.5;">
+        <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; min-width: 62px; padding-top: 2px; flex-shrink: 0;">Founder</span>
+        <span style="color: #404040;"><strong style="font-weight: 600;">Tapa Ghosh</strong>, CEO — Thiel Fellow and serial chip entrepreneur who forwent college in 2015 to found Vathys (YC W18), a 3D AI semiconductor company backed by deep-tech firm DCVC; he has taken three chips to silicon tape-out and holds four patents. He is joined by CTO Roy Meade (led Micron's High-Bandwidth Memory group and was Ayar Labs' first hire; 120+ patents), VP of Packaging Beth Keser (ex-Head of Systems &amp; Packaging at Intel), and Chief Architect Partha Kundu (ex-Broadcom, ex-Microsoft AI, ex-Oracle). The team has collectively brought 15 chip designs to tape-out.</span>
+      </div>
+
+      <div style="background: #E3F3F3; border-left: 3px solid #1B9390; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #096E6B; margin-bottom: 3px;">AV's Access</div>
+        <div style="font-size: 12.5px; line-height: 1.55; color: #404040;">AV secured an allocation in the $81.4M Series A co-led by Abstract Ventures ($1.8B AUM; early backer of xAI, SpaceX, Crusoe, and Replit, taking $15M and a board seat) and Old Tree, the firm of former Stripe executive Lachy Groom ($15M). Co-investors include VXI ($25M), Triatomic Capital, and Magnetar. The company's angel cap table reads like a who's-who of AI — Sam Altman (OpenAI), Jeff Dean (Google), Alex Wang (Meta), Naval Ravikant (AngelList), and Dylan Patel (SemiAnalysis).</div>
+      </div>
+
+      <div style="background: #FDFBEF; border: 1px solid #EDE8C0; border-left: 3px solid #CFB72E; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #82731D; margin-bottom: 7px;">Why Invest in Volantis</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">A massive value proposition:</strong> Volantis attacks the two bottlenecks throttling frontier AI — memory capacity and memory bandwidth — that have historically been a forced trade-off. Its photonic wires reach ~100x farther at ~30x the bandwidth of copper, letting one system run trillion-to-quadrillion-parameter models that conventional GPU clusters must shard across 40+ chips.</li>
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Rare pre-silicon commercial traction:</strong> The company has booked $96M in purchase orders and upfront payments — including $70M from a top-five neocloud — more than a year before its first shipment. That scale of committed demand is highly unusual for a semiconductor company at this stage.</li>
+          <li><strong style="font-weight: 600; color: #003349;">An exceptional, capital-efficient team:</strong> Leaders held senior roles at Broadcom, Intel, Micron, and Ayar Labs, and the cap table adds the CEO of OpenAI, the Chief Scientist of Google, and the Chief AI Officer of Meta. Volantis proved key building blocks on only ~$17M raised prior — a fraction of peers who spent $700M–$1.8B to reach first silicon.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FDF6EF; border: 1px solid #EDD5B8; border-left: 3px solid #C4803A; padding: 9px 12px; margin-bottom: 16px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 5px;">Key Issues</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">System integration risk:</strong> The core photonic interposer is proven, but Volantis still must integrate optics, HBM, logic, packaging, thermals, and software into a reliable data-center accelerator — the composition is where many hardware programs slip.</li>
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Performance translation:</strong> Headline figures are simulated; the company must prove they hold on real customer workloads once full-system silicon returns in 2027, with first shipment not expected until H2 2027.</li>
+          <li><strong style="font-weight: 600;">Adoption and concentration:</strong> Even strong hardware must overcome NVIDIA's entrenched software ecosystem and procurement inertia, and today's bookings rest on a small number of relationships.</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #EBECE8; margin-top: auto; padding-top: 14px;">
+        <div class="stat-col" style="padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Round</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$81.4M Series A</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px; padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Valuation</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$331M post-money</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Key Investors</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">Abstract Ventures, Old Tree</div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 2 — Schemata  (ranked #2 — PROVISIONAL pending 3rd deal)
+       DEAL ROOM URL: replace REPLACE-SCHEMATA-URL below (opens in new tab)
+  ═══════════════════════════════════════════════════════════════ -->
+  <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
+
+    <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
+      <div style="background: #DDE9EF; padding: 28px 24px 24px;">
+        <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Schemata</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+          <span class="tag tag-lead">Domain Expert Lead</span>
+          <span class="tag tag-traction">5x Revenue Growth</span>
+          <span class="tag tag-stanford">Stanford Founder</span>
+          <span class="tag tag-avposition">Investing Again (2X)</span>
+        </div>
+      </div>
+      <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+            <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #CFB72E; display: inline-block; flex-shrink: 0;"></span>
+            Reservation Deadline
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #003349; line-height: 1.3;">Thu July 23 · 12:00pm ET</div>
+        </div>
+        <a class="cta-btn" href="REPLACE-SCHEMATA-URL" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 56px 16px; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; text-decoration: none; cursor: pointer; border-radius: 2px; box-shadow: 0 4px 20px rgba(91,53,137,0.35); box-sizing: border-box;">
+          <span style="font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em; display: flex; align-items: center; gap: 9px;">Full Deal Room <span style="font-size: 22px; line-height: 1;">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column;">
+      <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #EBECE8;"><strong style="font-weight: 600; color: #003349;">Elevator Pitch:</strong> Schemata builds proprietary spatial AI that turns ordinary video and technical manuals into interactive 3D training — an AI instructor that guides users through operating, maintaining, and repairing military equipment. It has captured ~$5.2M in contracts across the Air Force, Navy, and Army (with $100M and $99M contract ceilings in reach), grown revenue ~6x to $1.7M in FY25, and is raising a $15M Series A at a $75M post-money valuation co-led by Shield Capital and Wellington Management. AV first invested at the seed and is doubling down.</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; line-height: 1.5;">
+        <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; min-width: 62px; padding-top: 2px; flex-shrink: 0;">Founders</span>
+        <span style="color: #404040;"><strong style="font-weight: 600;">James Brown</strong>, CEO — former Marine Corps Infantry &amp; Information Operations officer (top 1% of officers) who oversaw a ~$2B science-and-technology program and briefed the Secretary of the Navy; Stanford MBA and MS in Symbolic Systems, where the platform's research began. <strong style="font-weight: 600;">Huy Nguyen</strong>, CTO — Stanford Virtual Human Interaction Lab researcher and Gates Scholar (MS Computer Science). COO Quin Roberts adds federal policy experience from the U.S. House; Head of Federal Sales Miles Silverstein is a former Green Beret with an MIT Sloan MBA. Former DIU Director Michael Brown (ex-Symantec CEO) joins the board.</span>
+      </div>
+
+      <div style="background: #E3F3F3; border-left: 3px solid #1B9390; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #096E6B; margin-bottom: 3px;">AV's Access</div>
+        <div style="font-size: 12.5px; line-height: 1.55; color: #404040;">AV invested in Schemata's seed round in December 2024 and is being offered Series A allocation on the strength of that relationship. The $15M round is co-led by Shield Capital — a leading defense-tech VC (Armada, Code Metal, HawkEye 360) whose co-founders ran the Defense Innovation Unit — and Wellington Management ($1.1T AUM; ~$8B private platform behind Scale AI and Affirm), each committing $5M, or two-thirds of the round. It drew four competing term sheets and is ~2x oversubscribed, with Shield partner and former DIU Director Michael Brown taking the board seat.</div>
+      </div>
+
+      <div style="background: #FDFBEF; border: 1px solid #EDE8C0; border-left: 3px solid #CFB72E; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #82731D; margin-bottom: 7px;">Why Invest in Schemata</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">A team built for both technology and procurement:</strong> Technical founders developed the underlying spatial-AI platform at Stanford, while military and federal operators understand the end user, the procurement process, and the relationships that turn pilots into programs — a combination that has already produced contracts across three service branches.</li>
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Strong, repeatable tri-service traction:</strong> Paying work spans the Air Force, Navy, and Army; the Air Force deployment grew organically to nine installations and 130+ users, and multi-year contract vehicles ($100M Air Force ceiling, $99M Army OTA) let Schemata expand without recompeting for each new order.</li>
+          <li><strong style="font-weight: 600; color: #003349;">A large defense beachhead with improving economics:</strong> The DoW spends ~$14B a year on virtual training; Schemata runs ~92% unit gross margins, with the marginal cost of a new asset modeled to fall from ~$3K toward ~$300 as automation compounds — inside a broader opportunity the company estimates near $400B.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FDF6EF; border: 1px solid #EDD5B8; border-left: 3px solid #C4803A; padding: 9px 12px; margin-bottom: 16px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 5px;">Key Issues</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Revenue conversion and budget timing:</strong> Headline contract ceilings are not yet committed revenue; continuing resolutions, budget delays, or shifting priorities could defer it even where demand is strong.</li>
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Security and accreditation could gate adoption:</strong> Scaling into sensitive programs depends on Impact Level 4/5 accreditation; a May 2026 cybersecurity incident in a separate prototype environment (no controlled information exposed, per management) is still under forensic review.</li>
+          <li><strong style="font-weight: 600;">Entry price versus stage:</strong> $75M post-money is ~12.3x projected FY26 revenue, so execution against the $6M FY26 and $15M+ FY27 plan is needed to justify the entry.</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #EBECE8; margin-top: auto; padding-top: 14px;">
+        <div class="stat-col" style="padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Round</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$15M Series A</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px; padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Valuation</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$75M post-money</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Key Investors</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">Shield Capital, Wellington</div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 3 — PLACEHOLDER (awaiting next batch of diligence docs)
+       Duplicate a card block above and fill in once the 3rd deal arrives.
+       Then confirm final #1–#3 ordering.
+  ═══════════════════════════════════════════════════════════════ -->
+
+</div>
+
+<!-- ── Portfolio strategy note ── -->
+<div style="max-width: 980px; margin: 0 auto; padding: 0 40px 8px;">
+  <div style="background: #FDFAF2; border: 1px solid #E8DFA8; border-left: 4px solid #CFB72E; padding: 18px 22px; border-radius: 0 2px 2px 0;">
+    <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 8px;">A Note on Portfolio Strategy</div>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0 0 10px;"><strong style="font-weight: 600; color: #003349;">Smart venture portfolios are built deliberately over years,</strong> with enough scale and diversification to give the asset class room to work.</p>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0 0 10px;">Building a venture allocation solely through single-deal investments often requires significantly more capital and time, vs. a planned mix of funds and syndications.</p>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0;"><strong style="font-weight: 600; color: #003349;">Many investors have a Venture Plan with AV</strong> (see the <strong style="font-weight: 600; color: #003349;">"Planning" tab</strong> above), and dedicate approximately 50%–75% of their annual venture allocation to one or more AV funds, then supplement with selected syndication offerings. <strong style="font-weight: 600; color: #003349;">Submitted plans are not legally binding.</strong> Investors who submit plans unlock more personalized service.</p>
+  </div>
+</div>
+
+<!-- ── Final Look: Last Week's Deals ── -->
+<div style="background: #003349; margin-top: 56px;">
+  <div style="max-width: 980px; margin: 0 auto; padding: 44px 40px 52px;">
+
+    <!-- Section header -->
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; gap: 20px; flex-wrap: wrap;">
+      <div>
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #CFB72E; margin-bottom: 8px;">July 9 Syndications</div>
+        <h2 style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #ffffff; line-height: 1.1; letter-spacing: -0.015em; margin: 0;">One Last Look: <span style="color: #A78EC8;">Last Week's Open Deals</span></h2>
+      </div>
+      <div style="font-size: 12px; color: rgba(255,255,255,0.45); text-align: right; line-height: 1.5; flex-shrink: 0;">Deadline passed · Still available<br>on a first-come, first-served basis</div>
+    </div>
+
+    <!-- Three-column deal cards -->
+    <div class="final-look-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+
+      <!-- Tera AI -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">Tera AI</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Series A</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">Defense · GPS-Denied Autonomy</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">A Caltech / Google X / DeepMind team building a military-grade AI "world model" that lets any vehicle navigate with just a camera when GPS is jammed — already earning revenue on a Firestorm production contract, down-selected by the DoD, and building with Anduril. Led by defense specialist Tamarack Global, alongside Felicis and Inovia.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">$20M Series A · $100M post-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="REPLACE-TERA-URL" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Assort Health -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">Assort Health</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Series C</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">Healthcare AI · Patient Access</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">AI agents for the healthcare "front door" — automating scheduling, referrals, intake, and follow-up inside providers' existing EHR systems. Scaled to ~$27M contracted ARR across 144 customers and 10,000 providers at 98% post-pilot retention. $100M+ Series C led by Menlo Ventures at a $1.2B valuation, with Lightspeed and Felicis returning super pro rata.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">$100M+ Series C · $1.2B post-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="REPLACE-ASSORT-URL" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Lightfield -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">Lightfield</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Series B</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">Enterprise AI · AI-Native CRM</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">The AI-native CRM — a living system of record that records calls, reads email, and updates accounts automatically, then runs the go-to-market work teams spread across 8+ tools. Built by the team behind Tome (25M+ users); ARR up ~15x in six months to ~$1.5M at 251% net dollar retention. Led by Maverick Ventures, with Tome's backers Lightspeed and Greylock following on.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">$30M Series B · $140M post-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="REPLACE-LIGHTFIELD-URL" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer note -->
+    <p style="font-size: 11.5px; color: rgba(255,255,255,0.35); margin: 20px 0 0; font-style: italic; text-align: center;">These syndications are still accepting reservations on a first-come, first-served basis — allocations are limited and not guaranteed.</p>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="page-footer-inner" style="max-width: 980px; margin: 0 auto; padding: 20px 40px 48px; border-top: 1px solid #EBECE8; display: flex; justify-content: space-between; align-items: center;">
+  <span style="font-size: 11.5px; color: #9A9A96; font-style: italic;">All investments for accredited investors only. Allocations are limited and not guaranteed.</span>
+  <span style="font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; color: #003349; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.3;">Alumni Ventures</span>
+</footer>
+
+</body>
+</html>

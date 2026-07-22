@@ -22,7 +22,7 @@
   .final-look-card { transition: box-shadow 0.18s ease, transform 0.18s ease; }
   .final-look-link:hover { color: #5B3589 !important; }
 
-  /* ── Deal tags — per AV Deal Tag System v1.0 (tiered pills) ── */
+  /* ── Deal tags — per AV Deal Tag System v1.1 (tiered pills) ── */
   .tag { display:inline-flex; align-items:center; gap:4px; font-family:'Inter',sans-serif; font-size:10.5px; font-weight:600; letter-spacing:0.01em; line-height:1.35; padding:4px 11px; border-radius:100px; white-space:nowrap; box-sizing:border-box; }
   a.tag { text-decoration:none; cursor:pointer; }
   .tag-lead        { background:#127C57; color:#ffffff; border:1px solid #127C57; }      /* Lead Investor (Signal) */
@@ -93,10 +93,10 @@
       <div style="background: #DDE9EF; padding: 28px 24px 24px;">
         <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Saturn Dynamics</div>
         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
-          <span class="tag tag-lead">NVIDIA Ventures Backed</span>
-          <span class="tag tag-traction">200+ Robots in Production</span>
-          <span class="tag tag-slate">Physics PhD Founders</span>
-          <span class="tag tag-slate">Repeat Founders</span>
+          <span class="tag tag-slate">Serial Founder</span>
+          <span class="tag tag-slate">PhD Founder</span>
+          <span class="tag tag-context">AI Native</span>
+          <span class="tag tag-context">Early Bet</span>
         </div>
       </div>
       <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
@@ -163,9 +163,8 @@
   </article>
 
   <!-- ══════════════════════════════════════════════════════════════
-       DEAL 2 — Tiny Health  (ranked #2 — provisional, pending diligence)
+       DEAL 2 — Tiny Health  (ranked #2)
        DEAL ROOM URL: opens in new tab
-       NOTE: Card content awaiting the four Tiny Health DD documents.
   ═══════════════════════════════════════════════════════════════ -->
   <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
 
@@ -173,7 +172,10 @@
       <div style="background: #DDE9EF; padding: 28px 24px 24px;">
         <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Tiny Health</div>
         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
-          <span class="tag tag-context">Diligence Docs Pending</span>
+          <span class="tag tag-lead">Top 50 VC Lead</span>
+          <span class="tag tag-slate">Serial Founder</span>
+          <span class="tag tag-context">Scaling Now</span>
+          <span class="tag tag-context">Deep Science</span>
         </div>
       </div>
       <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
@@ -190,11 +192,50 @@
       </div>
     </div>
 
-    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column; justify-content: center;">
-      <div style="background: #FDF6EF; border: 1px dashed #EDD5B8; border-radius: 4px; padding: 26px 24px; text-align: center;">
-        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 8px;">Card Content Pending</div>
-        <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 8px;"><strong style="font-weight: 600; color: #003349;">Tiny Health</strong> is confirmed as this week's second deal, and its deal room is live at the link on the left. The elevator pitch, founders, AV's access, investment rationale, key issues, and deal stats will be populated verbatim from Tiny Health's four due diligence documents once they are received.</p>
-        <p style="font-size: 12px; line-height: 1.55; color: #9A9A96; margin: 0; font-style: italic;">Reservation deadline and deal room URL are already set; only the diligence-sourced content remains.</p>
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column;">
+      <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #EBECE8;"><strong style="font-weight: 600; color: #003349;">Elevator Pitch:</strong> Tiny Health creates microbiome testing kits and personalized plans for the 75% of Americans that suffer from chronic conditions — many of which trace back to the gut. It pairs an in-house patented AI analysis with the world&rsquo;s largest consumer microbiome database of 120,000+ sequences and 110,000 longitudinal profiles. Paid partnerships span Mayo Clinic, Kaiser, Function Health, and Whoop. 2025 revenue doubled to $12M (103% year-over-year) across three streams — D2C ($399/yr membership), healthcare providers (6,800+ practitioners), and partnerships (37 partners) — and the company is poised to surpass $28M in 2026 revenue ($53M if pilot partnerships convert). It is now raising a $30M Series B led by B Capital ($20M check) at a $150M pre-money valuation, with Series A lead Spero Ventures participating pro-rata.</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; line-height: 1.5;">
+        <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; min-width: 62px; padding-top: 2px; flex-shrink: 0;">Founders</span>
+        <span style="color: #404040;"><strong style="font-weight: 600;">Cheryl Sew Hoy</strong>, CEO (Cornell B.S./M.S. Engineering) — a second-time founder who built and sold Reclip.It, a personalized shopping and digital coupon platform, to Walmart Labs in 2013, then served as founding CEO of MaGIC, a $21.4M government-backed innovation hub she scaled from zero to 75 employees, launched by President Obama and the Malaysian Prime Minister in 2014. She founded Tiny Health in 2021, motivated by her own child&rsquo;s struggle with eczema, food sensitivities, and sleep challenges. <strong style="font-weight: 600;">Donald Koo</strong>, Co-Founder &amp; Chief Growth Officer — joined through the OnDeck co-founder matching program, bringing product engineering expertise from his prior bootstrapped ed-tech company Daily Product Prep (acquired by Exponent in 2022); leads engineering, growth, finance, and legal. CMO Dr. Elisa Song MD (integrative pediatrician) and CSO Dr. Kimberley Sukhum PhD (former WashU faculty) anchor the clinical and scientific platform.</span>
+      </div>
+
+      <div style="background: #E3F3F3; border-left: 3px solid #1B9390; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #096E6B; margin-bottom: 3px;">Lead Investor &amp; Round</div>
+        <div style="font-size: 12.5px; line-height: 1.55; color: #404040;">The $30M Series B (oversubscribed from an initial $25M target) is led by B Capital Group — a $12B AUM firm founded in 2015 by Eduardo Saverin (Facebook co-founder), Howard Morgan, and Raj Ganguly, with a dedicated $500M Healthcare Fund — anchoring $20M, among the largest consumer healthcare checks the firm has written. B Capital conducted in-person diligence in Silicon Valley, with the full investment team personally purchasing Tiny Health kits for themselves and family members during the process; Nick Whitehead will join the board post-close. Spero Ventures (Series A lead, $35M post-money) is participating pro-rata, and multiple competing term sheets drove the round from the original $25M target to $30M.</div>
+      </div>
+
+      <div style="background: #FDFBEF; border: 1px solid #EDE8C0; border-left: 3px solid #CFB72E; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #82731D; margin-bottom: 7px;">Why Invest in Tiny Health</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">The world&rsquo;s largest consumer microbiome database:</strong> Tiny Health has built the largest paired consumer gut microbiome dataset in the world — 120,000+ fully sequenced profiles with 110,000 matched long-term health records. Johnson &amp; Johnson has expressed willingness to pay $70+ per data point, putting that latent pharmaceutical asset above $8M before any formal commercialization exists. The long-term playbook mirrors Tempus AI: consumer testing builds the dataset, pharma pays for access — and the database compounds with every new test.</li>
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">A three-channel flywheel with enterprises as zero-CAC distribution:</strong> Tiny Health runs three channels that reinforce each other — direct-to-consumer (67% of 2025 revenue), healthcare providers (6,800+ practitioners, CAC declining from $101 to $44), and enterprise (33% of 2025 revenue, 377% year-over-year growth) that provides essentially zero-cost distribution at scale. All 37 current partnerships were closed inbound; outbound enterprise sales did not start until mid-2026.</li>
+          <li><strong style="font-weight: 600; color: #003349;">Peer-reviewed clinical evidence no competitor can claim:</strong> A September 2025 peer-reviewed clinical trial showed an 83% reduction in the odds of allergic conditions like eczema in C-section infants who followed the Tiny Health protocol. This published evidence required the same scientific rigor as a drug trial, and funds the deal&rsquo;s most important optionality — insurance reimbursement, which is not in the current revenue model but pure upside on a business that reaches profitability without a dollar of insurance coverage.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FDF6EF; border: 1px solid #EDD5B8; border-left: 3px solid #C4803A; padding: 9px 12px; margin-bottom: 16px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 5px;">Key Issues</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Enterprise revenue concentration:</strong> Rupa Health accounts for approximately 40% of 2025 enterprise revenue (~$800K of roughly $1.9M enterprise) — single-partner concentration that creates downside if the relationship changes. The $53M 2026 run-rate projection is partially contingent on converting several large enterprise partners from pilot or contract negotiation to active contracts, and near-term variance in the projections is elevated.</li>
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Subscription retention — month-12 cliff to manage:</strong> The Tiny+ annual membership (34% of direct-to-consumer revenue in 2025) shows a 46.3% year-1 renewal rate — meaningful for a $399 discretionary health subscription, but below the approximately 70% that defines sticky subscription businesses. The membership launched March 2024, limiting cohort history, and the month-12 renewal cliff is the primary lever the team is working to improve.</li>
+          <li><strong style="font-weight: 600;">Regulatory and reimbursement uncertainty:</strong> Tiny Health operates under standard clinical laboratory certification, sufficient for current operations but not a direct path to insurance reimbursement. It is moving voluntarily toward FDA-aligned quality systems, and an insurance billing code analysis identified viable coverage pathways but has not produced a filed application. This is a multi-year process with uncertain outcomes, and unit economics currently rest almost entirely on cash-pay revenue.</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #EBECE8; margin-top: auto; padding-top: 14px;">
+        <div class="stat-col" style="padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Round</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$30M Series B</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px; padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Valuation</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$150M pre-money</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Key Investors</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">B Capital, Spero Ventures</div>
+        </div>
       </div>
     </div>
 

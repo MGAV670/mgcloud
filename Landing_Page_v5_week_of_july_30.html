@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Active Syndications — Week of July 23, 2026 · Alumni Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.35; transform: scale(0.75); }
+  }
+  .pulse-dot { animation: pulse 1.8s ease-in-out infinite; }
+
+  .deal-card-grid { display: grid; grid-template-columns: 248px 1fr; }
+
+  .deal-card-grid:hover { box-shadow: 0 4px 24px rgba(0,51,73,0.10); }
+  .cta-btn:hover        { background: #4A2870 !important; box-shadow: 0 6px 24px rgba(91,53,137,0.55) !important; }
+  .modal-cta:hover      { background: #104866 !important; }
+
+  .final-look-card:hover { box-shadow: 0 2px 16px rgba(0,51,73,0.12); transform: translateY(-1px); }
+  .final-look-card { transition: box-shadow 0.18s ease, transform 0.18s ease; }
+  .final-look-link:hover { color: #5B3589 !important; }
+
+  /* ── Deal tags — per AV Deal Tag System v1.0 (tiered pills) ── */
+  .tag { display:inline-flex; align-items:center; gap:4px; font-family:'Inter',sans-serif; font-size:10.5px; font-weight:600; letter-spacing:0.01em; line-height:1.35; padding:4px 11px; border-radius:100px; white-space:nowrap; box-sizing:border-box; }
+  a.tag { text-decoration:none; cursor:pointer; }
+  .tag-lead        { background:#127C57; color:#ffffff; border:1px solid #127C57; }      /* Lead Investor (Signal) */
+  a.tag-lead:hover { background:#0D6144; border-color:#0D6144; }
+  .tag-traction    { background:#127C57; color:#ffffff; border:1px solid #127C57; }      /* Traction — headline metric */
+  .tag-traction-o  { background:transparent; color:#127C57; border:1px solid #127C57; }  /* Traction — supporting */
+  .tag-stanford    { background:#8C1515; color:#ffffff; border:1px solid #8C1515; }      /* Founder Pedigree — school (cardinal) */
+  .tag-berkeley    { background:#003262; color:#ffffff; border:1px solid #003262; }      /* Founder Pedigree — Berkeley */
+  .tag-ex          { background:transparent; color:#003349; border:1px solid #7E96A6; }  /* Founder Pedigree — ex-employer */
+  .tag-slate       { background:#3C5080; color:#ffffff; border:1px solid #3C5080; }      /* Founder Pedigree — Serial / PhD */
+  .tag-exit        { background:#B0851E; color:#ffffff; border:1px solid #B0851E; }      /* Founder Pedigree — prior exit */
+  .tag-recognition { background:#FBF4DE; color:#82731D; border:1px solid #E2D08A; }      /* Recognition (✦) */
+  .tag-context     { background:transparent; color:#3F5A86; border:1px solid #A9BDD6; font-style:italic; } /* Stage / Sector */
+  .tag-avposition  { background:#5B3589; color:#ffffff; border:1px solid #5B3589; }      /* AV Position — Investing Again */
+  .tag-name        { background:#141414; color:#F3D77E; border:1px solid #141414; font-weight:700; letter-spacing:0.02em; } /* Marquee individual investor */
+
+  .fund-card:hover { box-shadow: 0 4px 24px rgba(0,51,73,0.12); }
+  .fund-card { transition: box-shadow 0.18s ease; }
+
+  @media (max-width: 700px) {
+    .deal-card-grid     { grid-template-columns: 1fr; }
+    .card-left          { border-right: none !important; border-bottom: 1px solid #C8E8E7; }
+    .stats-grid         { grid-template-columns: 1fr 1fr !important; gap: 12px !important; border-top: none !important; padding-top: 0 !important; }
+    .stat-col           { border-right: none !important; padding: 0 !important; }
+    .page-header-inner  { flex-direction: column !important; align-items: flex-start !important; }
+    .page-meta          { text-align: left !important; }
+    .meta-note          { justify-content: flex-start !important; }
+    .masthead           { padding: 0 20px !important; }
+    .page-header-inner,
+    .deal-stack-inner,
+    .page-footer-inner  { padding-left: 20px !important; padding-right: 20px !important; }
+    .page-footer-inner  { flex-direction: column !important; gap: 8px !important; text-align: center !important; }
+    .final-look-grid    { grid-template-columns: 1fr !important; }
+    .fund-hero        { flex-direction: column !important; align-items: flex-start !important; gap: 22px !important; padding: 24px 22px !important; }
+    .fund-body        { grid-template-columns: 1fr !important; }
+    .fund-body-left   { border-right: none !important; border-bottom: 1px solid #EBECE8; }
+    .fund-mission     { padding: 24px 22px !important; }
+    .fund-accolades   { grid-template-columns: 1fr !important; }
+    .fund-manifesto   { font-size: 15px !important; }
+    .fund-section-h2  { font-size: 23px !important; }
+  }
+</style>
+</head>
+<body style="font-family: 'Inter', sans-serif; background: #ffffff; color: #404040; min-height: 100vh; -webkit-font-smoothing: antialiased; margin: 0; padding: 0;">
+
+<!-- ── Page header ── -->
+<div class="page-header-inner" style="max-width: 980px; margin: 0 auto; padding: 44px 40px 32px; border-bottom: 2px solid #003349; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;">
+  <div>
+    <div style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #82731D; margin-bottom: 10px;">Active Syndications</div>
+    <h1 style="font-family: 'Archivo', sans-serif; font-size: 38px; font-weight: 700; color: #003349; line-height: 1.08; letter-spacing: -0.02em; margin: 0;">This Week's <span style="color: #7B569B;">Open Deals</span></h1>
+  </div>
+  <div class="page-meta" style="text-align: right; flex-shrink: 0;">
+    <div style="font-size: 13.5px; color: #404040; margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Deals launched:</strong> Thursday July 23</div>
+    <div style="font-size: 13.5px; color: #404040;"><strong style="font-weight: 600; color: #003349;">Reservation deadline:</strong> Thursday July 30</div>
+  </div>
+</div>
+
+<!-- ── Deal stack ── -->
+<div class="deal-stack-inner" style="max-width: 980px; margin: 0 auto; padding: 32px 40px 64px; display: flex; flex-direction: column; gap: 16px;">
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 1 — Saturn Dynamics  (ranked #1)
+       DEAL ROOM URL: opens in new tab
+  ═══════════════════════════════════════════════════════════════ -->
+  <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
+
+    <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
+      <div style="background: #DDE9EF; padding: 28px 24px 24px;">
+        <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Saturn Dynamics</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+          <span class="tag tag-lead">NVIDIA Ventures Backed</span>
+          <span class="tag tag-traction">200+ Robots in Production</span>
+          <span class="tag tag-slate">Physics PhD Founders</span>
+          <span class="tag tag-slate">Repeat Founders</span>
+        </div>
+      </div>
+      <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+            <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #CFB72E; display: inline-block; flex-shrink: 0;"></span>
+            Reservation Deadline
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #003349; line-height: 1.3;">Thu July 30 · 12:00pm ET</div>
+        </div>
+        <a class="cta-btn" href="https://app.av.vc/fund/login/synsadyn" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 56px 16px; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; text-decoration: none; cursor: pointer; border-radius: 2px; box-shadow: 0 4px 20px rgba(91,53,137,0.35); box-sizing: border-box;">
+          <span style="font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em; display: flex; align-items: center; gap: 9px;">Full Deal Room <span style="font-size: 22px; line-height: 1;">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column;">
+      <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #EBECE8;"><strong style="font-weight: 600; color: #003349;">Elevator Pitch:</strong> Saturn Dynamics is building the world model layer for physical AI: the simulation infrastructure that lets robots, drones, and autonomous systems safely rehearse how to act in the real world before they actually do it, the way a flight simulator trains a pilot before they ever fly a plane. Its core product, Atlas, is a sub-2B parameter world model that outperforms models 7 to 10 times its size from Nvidia, Alibaba, and other leading labs on key benchmarks, while running 30 to 150 times faster and at a fraction of the cost per simulation rollout. Atlas is deployed across 200+ robots with 12 design partners — including Stellantis, Pirelli, and Accenture's Global Robotics Division — with $1M in committed revenue today, on a burn rate of under $150K per month with a team of five. Saturn is raising an $18M seed round (SAFE) at a $120M post-money cap, with $14M+ already committed and NVIDIA Ventures participating.</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; line-height: 1.5;">
+        <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; min-width: 62px; padding-top: 2px; flex-shrink: 0;">Founders</span>
+        <span style="color: #404040;"><strong style="font-weight: 600;">Elisa Seghetti</strong>, Co-Founder &amp; CEO — a repeat founder who started her first AI company, AiGot, at 20 and scaled it from 4 to 35+ people over three years, securing enterprise customers including NASDAQ-listed Incyte Bioscience (~$14B pharma); she separately executed a board-appointed turnaround as Acting Managing Director of Sans Tabù, halving burn and reaching a profitable exit via share buyback. A Sigma Squared Society Fellow. <strong style="font-weight: 600;">Simone Totaro</strong>, Co-Founder &amp; CTO — a PhD candidate in reinforcement learning at Mila, the Quebec AI institute founded by Yoshua Bengio, with published work at AISTATS 2022 and a research internship at Meta Reality Labs, then three years as a Research Scientist at EquiLibre Technologies. <strong style="font-weight: 600;">Cesc Cunillera</strong>, Co-Founder &amp; CSO — a String Theory PhD from the University of Nottingham (Springer PhD thesis prize) with a research fellowship at the Max Planck Institute for Physics; leads the core ML innovations behind Atlas's efficiency advantage.</span>
+      </div>
+
+      <div style="background: #E3F3F3; border-left: 3px solid #1B9390; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #096E6B; margin-bottom: 3px;">AV's Access</div>
+        <div style="font-size: 12.5px; line-height: 1.55; color: #404040;">The current round is Saturn’s first institutional seed round: an $18M SAFE at a $120M post-money cap, with $14M+ already committed. Existing pre-seed investors are following on alongside new participants — NVIDIA Ventures ($5M), Partech ($2M), Coral Capital, Mana Ventures, Sequel, and a group of technical angels — indicating strong insider conviction alongside new investor interest. The founder has been explicit that a core objective of this round is using the current investor syndicate (NVIDIA Ventures, Partech, and others) to build relationships with US funds ahead of Saturn’s next raise, which is expected to be a priced round at a materially higher valuation.</div>
+      </div>
+
+      <div style="background: #FDFBEF; border: 1px solid #EDE8C0; border-left: 3px solid #CFB72E; padding: 9px 12px; margin-bottom: 10px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #82731D; margin-bottom: 7px;">Why Invest in Saturn Dynamics</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">Category-defining efficiency backed by real production traction:</strong> While competitors like Nvidia Cosmos, Alibaba Wan, and DeepMind Genie require 10B to 15B parameter models running on multi-GPU H100 clusters, Saturn’s Atlas achieves the same or better benchmark performance at under 2B parameters, running 30 to 150 times faster and at a fraction of the cost per rollout ($0.005 versus $0.037 for Cosmos and $1.10 for Alibaba Wan). Saturn has 200+ robots live in production across 12 design partners — including Stellantis, Pirelli, and Accenture’s Global Robotics Division — with $1M in committed revenue today, all on a burn rate of under $150K per month with a team of five.</li>
+          <li style="margin-bottom: 5px;"><strong style="font-weight: 600; color: #003349;">An attractive entry point relative to category comparables:</strong> Saturn is raising at a $120M post-money cap while direct or adjacent category peers are being priced dramatically higher with less commercial validation — AMI Labs (Yann LeCun) at a $3.5B valuation, World Labs (Fei-Fei Li) at $1B+, Odyssey at a $1.45B valuation, and General Intuition at a $2B pre-money valuation against roughly $2M ARR. NVIDIA Ventures’ participation reflects both technical conviction and a hardware-alignment incentive, as Atlas runs on Nvidia edge silicon.</li>
+          <li><strong style="font-weight: 600; color: #003349;">European origination with a deliberate bridge to US capital:</strong> Saturn is a UK-based company built by a European technical team (including alumni of Yoshua Bengio’s lab), at a moment when Europe is emerging as a genuine hub for physical AI and world models. The founder has been explicit that this round’s priority is building relationships with US investors ahead of the company’s next raise — a rare, discounted entry point into a European deep-tech team before the valuation catches up to its US peers.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FDF6EF; border: 1px solid #EDD5B8; border-left: 3px solid #C4803A; padding: 9px 12px; margin-bottom: 16px; border-radius: 0 2px 2px 0;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 5px;">Key Issues</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.55; color: #404040;">
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Competitive crowding from dramatically funded labs:</strong> The world model category has exploded with capital in 2026 — AMI Labs (Yann LeCun) raised $1.03B, World Labs (Fei-Fei Li) raised $1B, Odyssey raised $310M at a $1.45B valuation, and Prometheus reportedly closed a $12B Series B. Saturn’s efficiency thesis is a genuine technical edge today, but it is not a structural moat that prevents well-capitalized competitors from closing the gap.</li>
+          <li style="margin-bottom: 2px;"><strong style="font-weight: 600;">Small team executing against a broad roadmap:</strong> The company is five people (three founders, one ops/finance hire, one research fellow) executing against a wide scope — three model lines, a developer SDK/API platform, and two distinct go-to-market motions. Hiring execution post-raise will be critical to avoid stretching thin.</li>
+          <li><strong style="font-weight: 600;">Regulatory uncertainty in core European markets:</strong> The EU Machinery Regulation’s “substantial modification” concept could classify certain model updates as safety-relevant, potentially triggering new conformity assessments and making the deploying entity liable as a manufacturer. Given Saturn’s customer base is concentrated in European industrial and automotive OEMs (Stellantis, Pirelli, Iveco, Leonardo), this is a live regulatory risk.</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #EBECE8; margin-top: auto; padding-top: 14px;">
+        <div class="stat-col" style="padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Round</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$18M Seed (SAFE)</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px; padding-right: 20px; border-right: 1px solid #EBECE8;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Valuation</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">$120M post-money cap</div>
+        </div>
+        <div class="stat-col" style="padding-left: 20px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 4px;">Key Investors</div>
+          <div style="font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 700; color: #003349; line-height: 1.2;">NVIDIA Ventures, Partech</div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       DEAL 2 — Tiny Health  (ranked #2 — provisional, pending diligence)
+       DEAL ROOM URL: opens in new tab
+       NOTE: Card content awaiting the four Tiny Health DD documents.
+  ═══════════════════════════════════════════════════════════════ -->
+  <article class="deal-card-grid" style="border: 1px solid #EBECE8; border-left: 4px solid #003349; background: #ffffff;">
+
+    <div class="card-left" style="display: flex; flex-direction: column; border-right: 1px solid #C8E8E7;">
+      <div style="background: #DDE9EF; padding: 28px 24px 24px;">
+        <div style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;">Tiny Health</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+          <span class="tag tag-context">Diligence Docs Pending</span>
+        </div>
+      </div>
+      <div style="background: #EDE0F8; padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+            <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #CFB72E; display: inline-block; flex-shrink: 0;"></span>
+            Reservation Deadline
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #003349; line-height: 1.3;">Thu July 30 · 12:00pm ET</div>
+        </div>
+        <a class="cta-btn" href="https://app.av.vc/fund/login/syntiny" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 56px 16px; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; text-decoration: none; cursor: pointer; border-radius: 2px; box-shadow: 0 4px 20px rgba(91,53,137,0.35); box-sizing: border-box;">
+          <span style="font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em; display: flex; align-items: center; gap: 9px;">Full Deal Room <span style="font-size: 22px; line-height: 1;">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px 20px; display: flex; flex-direction: column; justify-content: center;">
+      <div style="background: #FDF6EF; border: 1px dashed #EDD5B8; border-radius: 4px; padding: 26px 24px; text-align: center;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B5A2B; margin-bottom: 8px;">Card Content Pending</div>
+        <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 8px;"><strong style="font-weight: 600; color: #003349;">Tiny Health</strong> is confirmed as this week's second deal, and its deal room is live at the link on the left. The elevator pitch, founders, AV's access, investment rationale, key issues, and deal stats will be populated verbatim from Tiny Health's four due diligence documents once they are received.</p>
+        <p style="font-size: 12px; line-height: 1.55; color: #9A9A96; margin: 0; font-style: italic;">Reservation deadline and deal room URL are already set; only the diligence-sourced content remains.</p>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       OPTION 3 — U.S. Strategic Tech Fund  (a fund, not a single company)
+       FUND PAGE URL: opens in new tab
+  ═══════════════════════════════════════════════════════════════ -->
+  <div style="margin: 22px 0 -2px;">
+    <div style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #82731D; margin-bottom: 11px;">The Fund Option</div>
+    <h2 class="fund-section-h2" style="font-family: 'Archivo', sans-serif; font-size: 30px; font-weight: 700; color: #003349; line-height: 1.15; letter-spacing: -0.02em; margin: 0;">Maybe you're too busy to pick and choose every deal?<br><span style="color: #7B569B;">AV Funds are the most efficient way to a blue-chip venture portfolio.</span></h2>
+  </div>
+
+  <article class="fund-card" style="border: 1px solid #E4D8A6; border-left: 4px solid #CFB72E; background: #ffffff;">
+
+    <!-- Hero band -->
+    <div class="fund-hero" style="display: flex; flex-direction: column; gap: 22px; background: linear-gradient(135deg, #003349 0%, #024C64 100%); padding: 26px 32px;">
+      <div class="fund-hero-top" style="display: flex; align-items: center; justify-content: space-between; gap: 34px;">
+      <div style="flex: 1.3;">
+        <h2 style="font-family: 'Archivo', sans-serif; font-size: 27px; font-weight: 700; color: #ffffff; line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 9px;">U.S. Strategic Tech Fund</h2>
+        <p style="font-size: 15.5px; font-weight: 600; color: #F3D77E; line-height: 1.4; margin: 0 0 7px;">One investment. A portfolio of 20–30 companies.</p>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.74); line-height: 1.55; margin: 0; max-width: 450px;">The simplest way to build a diversified strategic-tech portfolio: one check gets you into 20–30 vetted deals — and provides a strong foundation for your overall venture portfolio.</p>
+      </div>
+
+      <!-- one-check → many-companies visual -->
+      <div class="fund-viz" style="display: flex; align-items: center; gap: 17px; flex-shrink: 0;">
+        <div style="text-align: center;">
+          <div style="width: 58px; height: 58px; border-radius: 50%; background: #CFB72E; display: flex; align-items: center; justify-content: center; font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #003349; margin: 0 auto 8px; box-shadow: 0 0 0 4px rgba(207,183,46,0.22);">1</div>
+          <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.72);">One check</div>
+        </div>
+        <div style="font-size: 27px; color: #CFB72E; line-height: 1;">&rarr;</div>
+        <div style="text-align: center;">
+          <div style="display: grid; grid-template-columns: repeat(5, 12px); gap: 4px; margin: 0 auto 9px;">
+            <span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#CFB72E;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#A78EC8;display:block;"></span><span style="width:12px;height:12px;border-radius:3px;background:#8FB7D9;display:block;"></span>
+          </div>
+          <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.72);">20–30 companies</div>
+        </div>
+      </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(207,183,46,0.28); padding-top: 20px;">
+        <div class="fund-accolades" style="display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: 15px; align-items: stretch;">
+          <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(207,183,46,0.35); border-radius: 6px; padding: 13px 15px;">
+            <svg width="30" height="37" viewBox="0 0 30 37" fill="none" style="flex-shrink: 0;" aria-hidden="true"><path d="M10 15 L6 34 L11 29 L15 35 L19 29 L24 34 L20 15 Z" fill="#CFB72E" opacity="0.5"></path><circle cx="15" cy="12" r="11" fill="#003349" stroke="#CFB72E" stroke-width="1.6"></circle><path d="M15 5.5 l1.9 3.9 4.3 .5 -3.2 2.9 .9 4.2 -3.9 -2.2 -3.9 2.2 .9 -4.2 -3.2 -2.9 4.3 -.5 Z" fill="#CFB72E"></path></svg>
+            <div>
+              <div style="font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #E9CE5B; margin-bottom: 2px;">Silicon Valley Defense Group</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13.5px; font-weight: 700; color: #ffffff; line-height: 1.2;">Top 3 NatSec100 Investor</div>
+              <div style="font-size: 10.5px; color: rgba(255,255,255,0.55); margin-top: 2px;">2026</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(207,183,46,0.35); border-radius: 6px; padding: 13px 15px;">
+            <svg width="30" height="37" viewBox="0 0 30 37" fill="none" style="flex-shrink: 0;" aria-hidden="true"><path d="M10 15 L6 34 L11 29 L15 35 L19 29 L24 34 L20 15 Z" fill="#CFB72E" opacity="0.5"></path><circle cx="15" cy="12" r="11" fill="#003349" stroke="#CFB72E" stroke-width="1.6"></circle><path d="M15 5.5 l1.9 3.9 4.3 .5 -3.2 2.9 .9 4.2 -3.9 -2.2 -3.9 2.2 .9 -4.2 -3.2 -2.9 4.3 -.5 Z" fill="#CFB72E"></path></svg>
+            <div>
+              <div style="font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #E9CE5B; margin-bottom: 2px;">PitchBook</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13.5px; font-weight: 700; color: #ffffff; line-height: 1.2;">Top 3 Most Active Defense Investor</div>
+              <div style="font-size: 10.5px; color: rgba(255,255,255,0.55); margin-top: 2px;">2025</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; font-size: 12.5px; line-height: 1.55; color: rgba(255,255,255,0.82);"><div>Alumni Ventures has invested in <strong style="color: #ffffff; font-weight: 600;">25 of Silicon Valley Defense Group's list of 100 top national-security startups.</strong></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="fund-body" style="display: grid; grid-template-columns: 1.5fr 1fr;">
+
+      <!-- Left: why + sectors + prior investments -->
+      <div class="fund-body-left" style="padding: 22px 26px 22px; border-right: 1px solid #EBECE8;">
+        <p style="font-size: 13.5px; line-height: 1.65; color: #404040; margin: 0 0 16px;"><strong style="font-weight: 600; color: #003349;">Why a fund:</strong> Smart venture portfolios need scale and diversification to work — and building that one deal at a time takes far more capital, time, and deal access than most investors have. This fund does it in a single step: our award-winning team assembles a diversified portfolio of 20–30 companies across the sectors defining America's next century, co-investing alongside top-tier VCs.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px;">
+          <div style="display: flex; gap: 11px; align-items: flex-start;">
+            <span style="width: 11px; height: 11px; border-radius: 3px; background: #8FB7D9; margin-top: 3px; flex-shrink: 0;"></span>
+            <div style="font-size: 12.5px; line-height: 1.5; color: #404040;"><strong style="font-weight: 600; color: #003349;">Defense</strong> — aerospace, space &amp; autonomous systems redefining how America projects power.</div>
+          </div>
+          <div style="display: flex; gap: 11px; align-items: flex-start;">
+            <span style="width: 11px; height: 11px; border-radius: 3px; background: #CFB72E; margin-top: 3px; flex-shrink: 0;"></span>
+            <div style="font-size: 12.5px; line-height: 1.5; color: #404040;"><strong style="font-weight: 600; color: #003349;">Resilience</strong> — next-gen nuclear, advanced manufacturing &amp; the industrial base powering the country.</div>
+          </div>
+          <div style="display: flex; gap: 11px; align-items: flex-start;">
+            <span style="width: 11px; height: 11px; border-radius: 3px; background: #A78EC8; margin-top: 3px; flex-shrink: 0;"></span>
+            <div style="font-size: 12.5px; line-height: 1.5; color: #404040;"><strong style="font-weight: 600; color: #003349;">Intelligence</strong> — frontier AI &amp; intelligent systems: the foundational layer of decisions at scale.</div>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid #EBECE8; padding-top: 15px;">
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 11px;">Real Investments in Prior US Strategic Tech Funds</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; max-width: 460px;">
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Astro Mechanica</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">General Intuition</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Picogrid</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Impulse</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Aalo</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Axiom Space</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Radiant</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Galvanick</span>
+            <span style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349; letter-spacing: -0.01em; background: #F6FAFB; border: 1px solid #D7E3E8; border-radius: 5px; padding: 7px 13px; white-space: nowrap;">Firestorm</span>
+          </div>
+          <div style="font-size: 10px; color: #9A9A96; font-style: italic; line-height: 1.5; margin-top: 10px;">Fund I &amp; II investments, shown for illustrative purposes only. Not available to new fund investors except potentially via follow-on, and not indicative of future holdings or results.</div>
+        </div>
+      </div>
+
+      <!-- Right: stats + credibility + CTA -->
+      <div style="background: #F6FAFB; padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; flex-direction: column; gap: 13px;">
+          <div>
+            <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 3px;">Target Portfolio</div>
+            <div style="font-family: 'Archivo', sans-serif; font-size: 16px; font-weight: 700; color: #003349; line-height: 1.2;">20–30 companies</div>
+          </div>
+          <div>
+            <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 3px;">Minimum Investment</div>
+            <div style="font-family: 'Archivo', sans-serif; font-size: 16px; font-weight: 700; color: #003349; line-height: 1.2;">$10K</div>
+          </div>
+          <div>
+            <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 3px;">Sectors</div>
+            <div style="font-family: 'Archivo', sans-serif; font-size: 14.5px; font-weight: 700; color: #003349; line-height: 1.3;">Defense · Resilience · Intelligence</div>
+          </div>
+          <div>
+            <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 3px;">Stage</div>
+            <div style="font-family: 'Archivo', sans-serif; font-size: 14.5px; font-weight: 700; color: #003349; line-height: 1.3;">Seed through Late-Stage Venture</div>
+          </div>
+          <div>
+            <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9A9A96; margin-bottom: 3px;">Structure</div>
+            <div style="font-size: 12.5px; font-weight: 500; color: #404040; line-height: 1.45;">One capital call · no follow-on calls · 10-year term</div>
+          </div>
+        </div>
+
+        <a class="cta-btn" href="https://app.av.vc/fund/ffus3" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 44px 16px; margin-top: auto; background: #5B3589; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 700; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; box-shadow: 0 6px 24px rgba(91,53,137,0.45);">US Strategic Tech Fund <span style="font-size: 23px; line-height: 1;">&rarr;</span></a>
+      </div>
+    </div>
+
+    <!-- Mission bookend band -->
+    <div class="fund-mission" style="background: linear-gradient(135deg, #002A3D 0%, #023A4E 100%); padding: 26px 32px;">
+      <p class="fund-manifesto" style="font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 16.5px; line-height: 1.62; color: rgba(255,255,255,0.9); margin: 0 auto; max-width: 720px; text-align: center;"><span style="color: #E9CE5B;">Believing in America</span> today means betting on the builders — those who forge the factories, power the grids, and defend the future. In an era of global volatility, opportunity is here at home, where technology, talent, and resilience <span style="color: #E9CE5B;">converge to redefine what it means to lead.</span></p>
+    </div>
+
+  </article>
+
+</div>
+
+<!-- ── Portfolio strategy note ── -->
+<div style="max-width: 980px; margin: 0 auto; padding: 0 40px 8px;">
+  <div style="background: #FDFAF2; border: 1px solid #E8DFA8; border-left: 4px solid #CFB72E; padding: 18px 22px; border-radius: 0 2px 2px 0;">
+    <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #82731D; margin-bottom: 8px;">A Note on Portfolio Strategy</div>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0 0 10px;"><strong style="font-weight: 600; color: #003349;">Smart venture portfolios are built deliberately over years,</strong> with enough scale and diversification to give the asset class room to work.</p>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0 0 10px;">Building a venture allocation solely through single-deal investments often requires significantly more capital and time, vs. a planned mix of funds and syndications.</p>
+    <p style="font-size: 13px; line-height: 1.72; color: #404040; margin: 0;"><strong style="font-weight: 600; color: #003349;">Many investors have a Venture Plan with AV</strong> (see the <strong style="font-weight: 600; color: #003349;">"Planning" tab</strong> above), and dedicate approximately 50%–75% of their annual venture allocation to one or more AV funds, then supplement with selected syndication offerings. <strong style="font-weight: 600; color: #003349;">Submitted plans are not legally binding.</strong> Investors who submit plans unlock more personalized service.</p>
+  </div>
+</div>
+
+<!-- ── Final Look: Last Week's Deals ── -->
+<div style="background: #003349; margin-top: 56px;">
+  <div style="max-width: 980px; margin: 0 auto; padding: 44px 40px 52px;">
+
+    <!-- Section header -->
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; gap: 20px; flex-wrap: wrap;">
+      <div>
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #CFB72E; margin-bottom: 8px;">July 16 Syndications</div>
+        <h2 style="font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 700; color: #ffffff; line-height: 1.1; letter-spacing: -0.015em; margin: 0;">One Last Look: <span style="color: #A78EC8;">Last Week's Open Deals</span></h2>
+      </div>
+      <div style="font-size: 12px; color: rgba(255,255,255,0.45); text-align: right; line-height: 1.5; flex-shrink: 0;">Deadline passed · Still available<br>on a first-come, first-served basis</div>
+    </div>
+
+    <!-- Two-column deal cards (last week) -->
+    <div class="final-look-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+
+      <!-- Schemata -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">Schemata</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Series A</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">Defense · Spatial AI Training</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">Proprietary spatial AI that turns ordinary video and technical manuals into interactive 3D training — an AI instructor for operating, maintaining, and repairing military equipment. ~$5.2M in contracts across the Air Force, Navy, and Army, with revenue up ~6x to $1.7M in FY25. $15M Series A co-led by Shield Capital and Wellington Management; AV first invested at the seed and is doubling down.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">$15M Series A · $75M post-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="https://app.av.vc/fund/login/synsche" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Spiko -->
+      <div class="final-look-card" style="background: #ffffff; border-top: 3px solid #7B569B; border-radius: 2px; display: flex; flex-direction: column;">
+        <div style="padding: 18px 20px 14px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <div style="font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 700; color: #003349; line-height: 1.1; letter-spacing: -0.01em;">Spiko</div>
+            <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.01em; padding: 3px 10px; background: transparent; color: #3F5A86; border: 1px solid #A9BDD6; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-style: italic;">Series B</span>
+          </div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9A9A96; margin-bottom: 5px;">Fintech · Tokenized Treasury Yield</div>
+          <p style="font-size: 12.5px; line-height: 1.6; color: #404040; margin: 0 0 12px;">Lets European businesses earn a daily yield on idle cash held in low-risk government debt, with same-day withdrawals — built on its own regulatory license and tokenized settlement rails. AUM grew from €130M to €1.5B (~$1.7B) in 16 months across 3,500 business users in 25+ countries. NEA is pre-empting and leading its Series B at a €366M pre-money valuation; the round is 3x oversubscribed.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9A9A96; margin-bottom: 2px;">Round</div>
+              <div style="font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: #003349;">€75M–€85M Series B · €366M pre-money</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 20px 18px; margin-top: auto;">
+          <a class="final-look-link" href="https://app.av.vc/fund/login/synspiko" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px 16px; background: #003349; color: #ffffff; font-size: 12.5px; font-weight: 600; text-decoration: none; border-radius: 2px; box-sizing: border-box; letter-spacing: 0.01em; transition: background 0.15s ease;">
+            View Deal Room <span style="font-size: 16px; line-height: 1;">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer note -->
+    <p style="font-size: 11.5px; color: rgba(255,255,255,0.35); margin: 20px 0 0; font-style: italic; text-align: center;">These syndications are still accepting reservations on a first-come, first-served basis — allocations are limited and not guaranteed.</p>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="page-footer-inner" style="max-width: 980px; margin: 0 auto; padding: 20px 40px 48px; border-top: 1px solid #EBECE8; display: flex; justify-content: space-between; align-items: center;">
+  <span style="font-size: 11.5px; color: #9A9A96; font-style: italic;">All investments for accredited investors only. Allocations are limited and not guaranteed.</span>
+  <span style="font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; color: #003349; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.3;">Alumni Ventures</span>
+</footer>
+
+</body>
+</html>

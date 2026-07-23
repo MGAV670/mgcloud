@@ -68,8 +68,9 @@
 </head>
 <body style="font-family: 'Inter', sans-serif; background: #ffffff; color: #404040; min-height: 100vh; -webkit-font-smoothing: antialiased; margin: 0; padding: 0;">
 
-<!-- ── Confidential watermark (click-through, repeats across page) ── -->
-<div id="confidential-watermark" aria-hidden="true" style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 980px; height: 100%; z-index: 2147483000; pointer-events: none; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczNjAnIGhlaWdodD0nMjQwJz48ZyB0cmFuc2Zvcm09J3JvdGF0ZSgtMjggMTgwIDEyMCknIGZpbGw9JyMwMDMzNDknIGZpbGwtb3BhY2l0eT0nMC4wNicgZm9udC1mYW1pbHk9J0FyY2hpdm8sIEFyaWFsLCBzYW5zLXNlcmlmJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz48dGV4dCB4PScxODAnIHk9JzExNCcgZm9udC1zaXplPSczMCcgZm9udC13ZWlnaHQ9JzcwMCcgbGV0dGVyLXNwYWNpbmc9JzInPkNPTkZJREVOVElBTDwvdGV4dD48dGV4dCB4PScxODAnIHk9JzE0MCcgZm9udC1zaXplPScxNScgZm9udC13ZWlnaHQ9JzYwMCcgbGV0dGVyLXNwYWNpbmc9JzEnPkp1bHkgMjMsIDIwMjY8L3RleHQ+PC9nPjwvc3ZnPg=='); background-repeat: repeat;"></div>
+<!-- ── Confidential watermark — margins only (center column clear), click-through ── -->
+<div class="wm-margin" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: calc(50% - 490px); height: 100%; z-index: 2147483000; pointer-events: none; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczNjAnIGhlaWdodD0nMjQwJz48ZyB0cmFuc2Zvcm09J3JvdGF0ZSgtMjggMTgwIDEyMCknIGZpbGw9JyMwMDMzNDknIGZpbGwtb3BhY2l0eT0nMC4wNicgZm9udC1mYW1pbHk9J0FyY2hpdm8sIEFyaWFsLCBzYW5zLXNlcmlmJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz48dGV4dCB4PScxODAnIHk9JzExNCcgZm9udC1zaXplPSczMCcgZm9udC13ZWlnaHQ9JzcwMCcgbGV0dGVyLXNwYWNpbmc9JzInPkNPTkZJREVOVElBTDwvdGV4dD48dGV4dCB4PScxODAnIHk9JzE0MCcgZm9udC1zaXplPScxNScgZm9udC13ZWlnaHQ9JzYwMCcgbGV0dGVyLXNwYWNpbmc9JzEnPkp1bHkgMjMsIDIwMjY8L3RleHQ+PC9nPjwvc3ZnPg=='); background-repeat: repeat;"></div>
+<div class="wm-margin" aria-hidden="true" style="position: fixed; top: 0; right: 0; width: calc(50% - 490px); height: 100%; z-index: 2147483000; pointer-events: none; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczNjAnIGhlaWdodD0nMjQwJz48ZyB0cmFuc2Zvcm09J3JvdGF0ZSgtMjggMTgwIDEyMCknIGZpbGw9JyMwMDMzNDknIGZpbGwtb3BhY2l0eT0nMC4wNicgZm9udC1mYW1pbHk9J0FyY2hpdm8sIEFyaWFsLCBzYW5zLXNlcmlmJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz48dGV4dCB4PScxODAnIHk9JzExNCcgZm9udC1zaXplPSczMCcgZm9udC13ZWlnaHQ9JzcwMCcgbGV0dGVyLXNwYWNpbmc9JzInPkNPTkZJREVOVElBTDwvdGV4dD48dGV4dCB4PScxODAnIHk9JzE0MCcgZm9udC1zaXplPScxNScgZm9udC13ZWlnaHQ9JzYwMCcgbGV0dGVyLXNwYWNpbmc9JzEnPkp1bHkgMjMsIDIwMjY8L3RleHQ+PC9nPjwvc3ZnPg=='); background-repeat: repeat;"></div>
 
 <!-- ── Page header ── -->
 <div class="page-header-inner" style="max-width: 980px; margin: 0 auto; padding: 44px 40px 32px; border-bottom: 2px solid #003349; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;">
@@ -467,8 +468,8 @@
     + "<text x='180' y='114' font-size='30' font-weight='700' letter-spacing='2'>CONFIDENTIAL</text>"
     + "<text x='180' y='140' font-size='15' font-weight='600' letter-spacing='1'>" + stamp + "</text>"
     + "</g></svg>";
-  var el = document.getElementById("confidential-watermark");
-  if (el) el.style.backgroundImage = "url(\"data:image/svg+xml," + encodeURIComponent(svg) + "\")";
+  var els = document.querySelectorAll(".wm-margin");
+  for (var i = 0; i < els.length; i++) { els[i].style.backgroundImage = "url(\"data:image/svg+xml," + encodeURIComponent(svg) + "\")"; }
 })();
 </script>
 </body>
